@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Splash</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_internet">You don\'t seem to have active internet connection</string>
+
+    <!--Used for cache name-->
+    <string name="local_cache">Local Cache</string>
+    <string name="is_user_logged_in">is_user_logged_in</string>
+    <string name="is_response_cache_avail">is_response_cache_avail</string>
+</resources>
