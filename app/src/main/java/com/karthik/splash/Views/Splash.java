@@ -65,7 +65,7 @@ public class Splash extends AppCompatActivity implements SplashContract.SplashVi
 
     @Override
     public void showDashBoardScreen(boolean shouldShowCache) {
-        startActivity(DashBoard.getIntent(this,shouldShowCache));
+        startActivity(Feeds.getIntent(this,shouldShowCache));
     }
 
     @Override

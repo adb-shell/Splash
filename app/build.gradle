@@ -11,7 +11,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug{
+        debug {
             buildConfigField "String", "SPLASH_BASE_URL", '"https://api.unsplash.com/"'
         }
 
@@ -36,6 +36,7 @@ dependencies {
     implementation "com.android.support:design:${SUPPORT_TOOL_VERSION}"
 
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
+    implementation "com.android.support:design:${SUPPORT_TOOL_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VER}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_CONV_VER}"
