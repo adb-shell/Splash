@@ -9,6 +9,7 @@ public interface FeedsContract {
         void inflateHome();
         void inflateLikes();
         void inflateSettings();
+        int getSelectedItem();
     }
     interface Presenter{
         void onNavigationItemSelected(int id);

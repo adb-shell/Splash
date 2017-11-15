@@ -1,10 +1,13 @@
 package com.karthik.splash.Views;
 
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -26,12 +29,9 @@ public class Feeds extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,FeedsContract.View{
 
 
-    private final static String IS_FROM_CACHE = "IS_FROM_CACHE";
+    public final static String IS_FROM_CACHE = "IS_FROM_CACHE";
     private FeedsScreenComponent feedsScreenComponent;
 
-
-    @BindView(R.id.container)
-    FrameLayout container;
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     @Inject
@@ -46,6 +46,7 @@ public class Feeds extends AppCompatActivity implements
                 .plus(new FeedsScreenModule(this));
         feedsScreenComponent.inject(this);
         navigation.setOnNavigationItemSelectedListener(this);
+        inflateHome();
     }
 
     @Override
@@ -68,7 +69,10 @@ public class Feeds extends AppCompatActivity implements
 
     @Override
     public void inflateHome() {
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container,FeedsHome.
+                getInstance(getIntent().getBooleanExtra(IS_FROM_CACHE,false)));
+        transaction.commit();
     }
 
     @Override
@@ -79,5 +83,10 @@ public class Feeds extends AppCompatActivity implements
     @Override
     public void inflateSettings() {
 
+    }
+
+    @Override
+    public int getSelectedItem() {
+        return navigation.getSelectedItemId();
     }
 }

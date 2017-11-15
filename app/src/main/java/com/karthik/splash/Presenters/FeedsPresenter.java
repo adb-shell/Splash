@@ -19,6 +19,9 @@ public class FeedsPresenter implements FeedsContract.Presenter{
 
     @Override
     public void onNavigationItemSelected(int id) {
+        if(feedsView.getSelectedItem()==id)
+            return;
+
         switch (id){
             case R.id.navigation_home:
                 feedsView.inflateHome();

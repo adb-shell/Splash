@@ -1,5 +1,6 @@
 package com.karthik.splash.DI;
 
+import com.karthik.splash.Modules.FeedsHomeModule;
 import com.karthik.splash.Modules.FeedsScreenModule;
 import com.karthik.splash.Modules.SplashApiModule;
 import com.karthik.splash.Modules.SplashAppModule;
@@ -16,4 +17,5 @@ public interface SplashAppComponent {
     void inject(SplashApp splashApp);
     SplashScreenComponent plus(SplashScreenModule splashScreenModule);
     FeedsScreenComponent  plus(FeedsScreenModule feedsScreenModule);
+    FeedsHomeComponent plus(FeedsHomeModule feedsHomeModule);
 }
