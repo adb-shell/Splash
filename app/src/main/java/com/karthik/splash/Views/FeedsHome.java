@@ -59,15 +59,29 @@ public class FeedsHome extends Fragment implements FeedsHomeContract.view{
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        feedsHomeComponent = null;
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewPager.setAdapter(new FeedViewPagerAdapter(
-                getChildFragmentManager(),presenter.getPageTitles()));
-        tabLayout.setupWithViewPager(viewPager);
+        intializeTab();
     }
 
     @Override
     public Context getFeedsHomeContext() {
         return getActivity();
+    }
+
+
+    private void intializeTab() {
+        viewPager.setAdapter(new FeedViewPagerAdapter(
+                getChildFragmentManager(),
+                presenter.getPageTitles(),
+                getArguments().getBoolean(Feeds.IS_FROM_CACHE)));
+        viewPager.setOffscreenPageLimit(3);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

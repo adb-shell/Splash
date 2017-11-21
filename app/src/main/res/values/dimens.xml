@@ -2,8 +2,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="splash_screen_padding">32dp</dimen>
     <dimen name="splash_icon_size">160dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tab_home_padding_left">32dp</dimen>
+    <dimen name="feeds_row_height">200dp</dimen>
 </resources>

@@ -13,10 +13,12 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "SPLASH_BASE_URL", '"https://api.unsplash.com/"'
+            buildConfigField "String", "SPLASH_KEY", '""'
         }
 
         release {
             buildConfigField "String", "SPLASH_BASE_URL", '"https://api.unsplash.com/"'
+            buildConfigField "String", "SPLASH_KEY", '""'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -46,10 +48,12 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     implementation "io.reactivex.rxjava2:rxjava:${RX_JAVA_VER}"
     implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VER}"
+    implementation "com.squareup.picasso:picasso:${PICASSO_VER}"
+    implementation "com.github.florent37:materialimageloading:${PICASSO_MATERIAL}"
+
+
+
     debugCompile "com.readystatesoftware.chuck:library:${CHUCK_VER}"
-
-
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

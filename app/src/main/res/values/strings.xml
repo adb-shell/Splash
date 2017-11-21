@@ -9,6 +9,7 @@
     <string name="frag_title_1">New</string>
     <string name="frag_title_2">Trending</string>
     <string name="frag_title_3">Featured</string>
+    <string name="error_connecting">oops!! error connecting the server</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>
