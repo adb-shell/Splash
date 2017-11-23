@@ -23,6 +23,7 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
     private HomeFeedsTabContract.View view;
     private FeedsNetworkLayer networkLayer;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final int MAX_LIMIT =3;
 
     @Inject
     public HomeFeedsTabPresenter(HomeFeedsTabContract.View view,
@@ -32,44 +33,25 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
     }
 
     @Override
-    public void getFeeds(int mode,boolean isCacheAvailable) {
+    public void getFeeds(int mode,boolean isCacheAvailable,int pageSize) {
         switch (mode){
             case 0:
-                getNewFeeds(isCacheAvailable);
+                getNewFeeds(isCacheAvailable,pageSize);
                 break;
             case 1:
-                getTrendingFeeds(isCacheAvailable);
+                getTrendingFeeds(isCacheAvailable,pageSize);
                 break;
             case 2:
-                getFeaturedFeeds(isCacheAvailable);
+                getFeaturedFeeds(isCacheAvailable,pageSize);
                 break;
             default:
-                getNewFeeds(isCacheAvailable);
+                getNewFeeds(isCacheAvailable,pageSize);
         }
     }
 
-    private void getFeaturedFeeds(boolean isCacheAvailable) {
-        if(isCacheAvailable){
-            compositeDisposable.add(getFeaturedFeedsFromCacheFirst());
-            return;
-        }
-        compositeDisposable.add(getFeaturedFeedsFromNetworkFirst());
-    }
-
-    private void getTrendingFeeds(boolean isCacheAvailable) {
-        if(isCacheAvailable){
-            compositeDisposable.add(getTrendingFeedsFromCacheFirst());
-            return;
-        }
-        compositeDisposable.add(getTrendingFeedsFromNetworkFirst());
-    }
-
-    private void getNewFeeds(boolean isCacheAvailable) {
-        if(isCacheAvailable){
-            compositeDisposable.add(getNewFeedsFromCacheFirst());
-            return;
-        }
-        compositeDisposable.add(getNewFeedsFromNetworkFirst());
+    @Override
+    public void getPaginatedFeeds(int mode, int pageSize) {
+        getFeeds(mode,false,pageSize);
     }
 
     @Override
@@ -100,7 +82,43 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
     }
 
     @Override
-    public Disposable getNewFeedsFromCacheFirst() {
+    public boolean isPaginatedItems() {
+        return view.isFeedListVisible();
+    }
+
+    @Override
+    public int getPageMaxLimit() {
+        return MAX_LIMIT;
+    }
+
+
+    private void getFeaturedFeeds(boolean isCacheAvailable,int pageNo) {
+        if(isCacheAvailable){
+            compositeDisposable.add(getFeaturedFeedsFromCacheFirst());
+            return;
+        }
+        compositeDisposable.add(getFeaturedFeedsFromNetworkFirst(pageNo));
+    }
+
+    private void getTrendingFeeds(boolean isCacheAvailable,int pageNo) {
+        if(isCacheAvailable){
+            compositeDisposable.add(getTrendingFeedsFromCacheFirst());
+            return;
+        }
+        compositeDisposable.add(getTrendingFeedsFromNetworkFirst(pageNo));
+    }
+
+    private void getNewFeeds(boolean isCacheAvailable,int pageNo) {
+        if(isCacheAvailable){
+            compositeDisposable.add(getNewFeedsFromCacheFirst());
+            return;
+        }
+        compositeDisposable.add(getNewFeedsFromNetworkFirst(pageNo));
+    }
+
+
+
+    private Disposable getNewFeedsFromCacheFirst() {
         return networkLayer.getNewFeedsFromCacheAndNetwork()
                 .subscribeWith(new DisposableSubscriber<List<Photos>>() {
                     @Override
@@ -120,24 +138,7 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
                 });
     }
 
-    @Override
-    public Disposable getNewFeedsFromNetworkFirst() {
-        return networkLayer.getNewFeeds()
-                .subscribeWith(new DisposableSingleObserver<List<Photos>>() {
-                    @Override
-                    public void onSuccess(List<Photos> photos) {
-                        managePhotos(photos);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        manageErrors(e);
-                    }
-                });
-    }
-
-    @Override
-    public Disposable getTrendingFeedsFromCacheFirst() {
+    private Disposable getTrendingFeedsFromCacheFirst() {
         return networkLayer.getTrendingFeedsFromCacheAndNetwork()
                 .subscribeWith(new DisposableSubscriber<List<Photos>>() {
                     @Override
@@ -157,24 +158,7 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
                 });
     }
 
-    @Override
-    public Disposable getTrendingFeedsFromNetworkFirst() {
-        return networkLayer.getTrendingFeeds().subscribeWith(
-                new DisposableSingleObserver<List<Photos>>() {
-            @Override
-            public void onSuccess(List<Photos> photos) {
-                managePhotos(photos);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                manageErrors(e);
-            }
-        });
-    }
-
-    @Override
-    public Disposable getFeaturedFeedsFromCacheFirst() {
+    private Disposable getFeaturedFeedsFromCacheFirst() {
         return networkLayer.getFeaturedFeedsFromCacheAndNetwork()
                 .subscribeWith(new DisposableSubscriber<List<Photos>>() {
                     @Override
@@ -194,9 +178,40 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
                 });
     }
 
-    @Override
-    public Disposable getFeaturedFeedsFromNetworkFirst() {
-        return networkLayer.getFeaturedFeeds().subscribeWith(
+
+
+    private Disposable getNewFeedsFromNetworkFirst(int pageNo) {
+        return networkLayer.getNewFeeds(pageNo)
+                .subscribeWith(new DisposableSingleObserver<List<Photos>>() {
+                    @Override
+                    public void onSuccess(List<Photos> photos) {
+                        managePhotos(photos);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        manageErrors(e);
+                    }
+                });
+    }
+
+    private Disposable getTrendingFeedsFromNetworkFirst(int pageNo) {
+        return networkLayer.getTrendingFeeds(pageNo).subscribeWith(
+                new DisposableSingleObserver<List<Photos>>() {
+            @Override
+            public void onSuccess(List<Photos> photos) {
+                managePhotos(photos);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                manageErrors(e);
+            }
+        });
+    }
+
+    private Disposable getFeaturedFeedsFromNetworkFirst(int pageNo) {
+        return networkLayer.getFeaturedFeeds(pageNo).subscribeWith(
                 new DisposableSingleObserver<List<Photos>>() {
             @Override
             public void onSuccess(List<Photos> photos) {

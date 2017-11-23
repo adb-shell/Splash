@@ -42,26 +42,26 @@ public class FeedsNetworkLayer {
 
 
     public Flowable<List<Photos>> getNewFeedsFromCacheAndNetwork(){
-        return Single.concat(getNewFeeds(), getNewFeedsCache())
+        return Single.concat(getNewFeeds(1), getNewFeedsCache())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Flowable<List<Photos>> getTrendingFeedsFromCacheAndNetwork(){
-        return Single.concat(getTrendingFeeds(),getTrendingFeedsCache())
+        return Single.concat(getTrendingFeeds(1),getTrendingFeedsCache())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Flowable<List<Photos>> getFeaturedFeedsFromCacheAndNetwork(){
-        return Single.concat(getFeaturedFeeds(),getFeaturedFeedsCache())
+        return Single.concat(getFeaturedFeeds(1),getFeaturedFeedsCache())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
 
-    public Single<List<Photos>> getNewFeeds(){
-        return feedsNetworkService.getNewPhotos("latest")
+    public Single<List<Photos>> getNewFeeds(int pageNo){
+        return feedsNetworkService.getPhotos("latest",pageNo)
                 .subscribeOn(Schedulers.io())
                 .map(photos -> {
                     localCache.setCacheAvail();
@@ -73,8 +73,8 @@ public class FeedsNetworkLayer {
 
     }
 
-    public Single<List<Photos>> getTrendingFeeds(){
-        return feedsNetworkService.getNewPhotos("popular")
+    public Single<List<Photos>> getTrendingFeeds(int pageNo){
+        return feedsNetworkService.getPhotos("popular",pageNo)
                 .subscribeOn(Schedulers.io())
                 .map(photos -> {
                     localCache.setCacheAvail();
@@ -86,8 +86,8 @@ public class FeedsNetworkLayer {
 
     }
 
-    public Single<List<Photos>> getFeaturedFeeds(){
-        return feedsNetworkService.getNewPhotos("oldest")
+    public Single<List<Photos>> getFeaturedFeeds(int pageNo){
+        return feedsNetworkService.getPhotos("oldest",pageNo)
                 .subscribeOn(Schedulers.io())
                 .map(photos -> {
                     localCache.setCacheAvail();

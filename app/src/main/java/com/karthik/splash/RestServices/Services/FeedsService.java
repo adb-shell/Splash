@@ -18,5 +18,5 @@ import retrofit2.http.Query;
 public interface FeedsService {
 
     @GET("photos")
-    Single<List<Photos>> getNewPhotos(@Query("order_by")String order_by);
+    Single<List<Photos>> getPhotos(@Query("order_by")String order_by, @Query("page") int pageNo);
 }

@@ -6,4 +6,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tab_home_padding_left">32dp</dimen>
     <dimen name="feeds_row_height">200dp</dimen>
+    <dimen name="progress_bar_size">32dp</dimen>
+    <dimen name="progress_row_dimen">100dp</dimen>
 </resources>

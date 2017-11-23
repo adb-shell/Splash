@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.github.florent37.materialimageloading.MaterialImageLoading;
 import com.karthik.splash.Models.Photos;
 import com.karthik.splash.R;
+import com.karthik.splash.Views.PaginatedView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -23,48 +24,52 @@ import butterknife.ButterKnife;
  * Created by karthikrk on 19/11/17.
  */
 
-public class FeedsRecyclerAdapter extends RecyclerView.Adapter<FeedsRecyclerAdapter.FeedsViewHolder> {
+public class FeedsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private List<Photos> photosList;
+    private int currentPage = 1;
+    private final int NORMAL_VIEW=0,PROGRESS_VIEW=1;
+    private PaginatedView paginatedView;
+    private boolean isPageLoading;
 
 
-    public FeedsRecyclerAdapter(List<Photos> photosList){
+    public FeedsRecyclerAdapter(List<Photos> photosList, PaginatedView view){
         this.photosList = photosList;
+        this.paginatedView = view;
+    }
+
+
+    public void addPaginatedItems(List<Photos> paginatedPhotos){
+        int oldSize = photosList.size();
+        photosList.addAll(paginatedPhotos);
+        isPageLoading = false;
+        notifyItemRangeChanged(oldSize,paginatedPhotos.size());
     }
 
     @Override
-    public FeedsRecyclerAdapter.FeedsViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                   int viewType) {
-        View row  = LayoutInflater.from(parent.getContext()).inflate(R.layout.feeds_row,parent,false);
-        return new FeedsViewHolder(row);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                      int viewType) {
+        View row;
+        if(viewType==NORMAL_VIEW){
+            row = LayoutInflater.from(parent.getContext()).inflate(R.layout.feeds_row,
+                    parent,false);
+            return new FeedsViewHolder(row);
+        }
+        row = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_row,
+                parent,false);
+        return new ProgressViewHolder(row);
     }
 
     @Override
-    public void onBindViewHolder(FeedsRecyclerAdapter.FeedsViewHolder holder,
+    public void onBindViewHolder(RecyclerView.ViewHolder holder,
                                  int position) {
-        Context context = holder.itemView.getContext();
-
-        if(position%2==0)
-            holder.itemView.setBackgroundColor(
-                    ContextCompat.getColor(context,R.color.colorPrimary));
-        else
-            holder.itemView.setBackgroundColor(
-                    ContextCompat.getColor(context,R.color.colorPrimaryDark));
-
-        Picasso.with(context)
-                .load(photosList.get(position).urls.regular)
-                .into(holder.feedsImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        MaterialImageLoading.animate(holder.feedsImage)
-                                .setDuration(2000)
-                                .start();
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-                });
+        if(holder instanceof FeedsRecyclerAdapter.FeedsViewHolder) {
+            bindNormalView(holder, position);
+        }
+        else if(isPageNotExceeded() && !isPageLoading) {
+            isPageLoading = true;
+            paginatedView.getPage(++currentPage);
+        }
     }
 
     @Override
@@ -72,18 +77,68 @@ public class FeedsRecyclerAdapter extends RecyclerView.Adapter<FeedsRecyclerAdap
         return photosList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if(position==photosList.size()-1 && isPageNotExceeded()){
+            return PROGRESS_VIEW;
+        }
+        return NORMAL_VIEW;
+    }
+
+    private boolean isPageNotExceeded() {
+        return currentPage<=paginatedView.getMaxPageLimit();
+    }
+
+    private void bindNormalView(RecyclerView.ViewHolder viewHolder, int position) {
+        FeedsRecyclerAdapter.FeedsViewHolder holder =
+                (FeedsRecyclerAdapter.FeedsViewHolder)viewHolder;
+
+        Context context = holder.itemView.getContext();
+        setAppropriateBackground(position, holder, context);
+        loadImage(position, holder, context);
+    }
+
+    private void loadImage(int position, FeedsViewHolder holder, Context context) {
+        Picasso.with(context)
+                .load(photosList.get(position).urls.regular)
+                .into(holder.feedsImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        MaterialImageLoading.animate(holder.feedsImage)
+                                .setDuration(1200)
+                                .start();
+                    }
+                    @Override
+                    public void onError() {}
+                });
+    }
+
+    private void setAppropriateBackground(int position, FeedsViewHolder holder, Context context) {
+        if(position%2==0)
+            holder.itemView.setBackgroundColor(
+                    ContextCompat.getColor(context, R.color.primary_light));
+        else
+            holder.itemView.setBackgroundColor(
+                    ContextCompat.getColor(context,R.color.divider));
+    }
+
+
     class FeedsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.feedImage)
         ImageView feedsImage;
-
         public FeedsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
-
         @Override
         public void onClick(View view) {
+            //Todo:implement to take it to the detail
+        }
+    }
 
+    class ProgressViewHolder extends RecyclerView.ViewHolder{
+        public ProgressViewHolder(View itemView) {
+            super(itemView);
         }
     }
 }

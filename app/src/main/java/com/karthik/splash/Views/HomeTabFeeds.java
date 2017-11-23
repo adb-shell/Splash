@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.karthik.splash.Adapters.FeedsRecyclerAdapter;
 import com.karthik.splash.Contracts.HomeFeedsTabContract;
@@ -32,11 +33,12 @@ import butterknife.ButterKnife;
  * Created by karthikrk on 15/11/17.
  */
 
-public class HomeTabFeeds extends Fragment implements HomeFeedsTabContract.View{
+public class HomeTabFeeds extends Fragment implements HomeFeedsTabContract.View,PaginatedView{
 
     private static final String Mode = "Mode";
     private static final String Cache = "cache";
     private HomeTabFeedsComponent homeTabFeedsComponent;
+    private FeedsRecyclerAdapter feedsAdapter;
 
     @BindView(R.id.FeedsList)
     RecyclerView feedsList;
@@ -64,19 +66,19 @@ public class HomeTabFeeds extends Fragment implements HomeFeedsTabContract.View{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.fragment_new,container,false);
-       ButterKnife.bind(this,rootView);
-       homeTabFeedsComponent = ((SplashApp)getActivity().getApplication())
+        View rootView = inflater.inflate(R.layout.fragment_new,container,false);
+        ButterKnife.bind(this,rootView);
+        homeTabFeedsComponent = ((SplashApp)getActivity().getApplication())
                 .getComponent()
                 .plus(new HomeTabFeedsModule(this,getContext()));
-       homeTabFeedsComponent.inject(this);
-       return rootView;
+        homeTabFeedsComponent.inject(this);
+        return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter.getFeeds(getArguments().getInt(Mode),getArguments().getBoolean(Cache));
+        presenter.getFeeds(getArguments().getInt(Mode),getArguments().getBoolean(Cache),1);
     }
 
     @Override
@@ -93,14 +95,14 @@ public class HomeTabFeeds extends Fragment implements HomeFeedsTabContract.View{
 
     @Override
     public void showPhotosList(List<Photos> photos) {
-        feedsList.setVisibility(View.VISIBLE);
-        feedsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        feedsList.setAdapter(new FeedsRecyclerAdapter(photos));
-    }
-
-    @Override
-    public void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
+        if(!presenter.isPaginatedItems()){
+            feedsList.setVisibility(View.VISIBLE);
+            feedsList.setLayoutManager(new LinearLayoutManager(getContext()));
+            feedsAdapter = new FeedsRecyclerAdapter(photos,this);
+            feedsList.setAdapter(feedsAdapter);
+            return;
+        }
+        feedsAdapter.addPaginatedItems(photos);
     }
 
     @Override
@@ -115,5 +117,20 @@ public class HomeTabFeeds extends Fragment implements HomeFeedsTabContract.View{
         feedsList.setVisibility(View.GONE);
         noInternetImage.setVisibility(View.VISIBLE);
         noInternetText.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public boolean isFeedListVisible() {
+        return feedsList.getVisibility()==View.VISIBLE;
+    }
+
+    @Override
+    public void getPage(int pageNo) {
+        presenter.getPaginatedFeeds(getArguments().getInt(Mode),pageNo);
+    }
+
+    @Override
+    public int getMaxPageLimit() {
+        return presenter.getPageMaxLimit();
     }
 }
