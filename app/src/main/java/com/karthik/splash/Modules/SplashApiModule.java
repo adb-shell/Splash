@@ -3,8 +3,9 @@ package com.karthik.splash.Modules;
 import android.content.Context;
 
 import com.karthik.splash.BuildConfig;
-import com.karthik.splash.RestServices.Interceptors.APIKeyInterceptor;
+import com.karthik.splash.RestServices.Interceptors.AuthorizationKeyInterceptor;
 import com.karthik.splash.RestServices.Interceptors.UserOfflineInterceptor;
+import com.karthik.splash.Storage.Cache;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -36,7 +37,7 @@ public class SplashApiModule {
 
     @Singleton
     @Provides
-    public OkHttpClient providesOkhttpClient(Context context){
+    public OkHttpClient providesOkhttpClient(Context context,Cache cache){
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         if(BuildConfig.DEBUG)
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -46,7 +47,7 @@ public class SplashApiModule {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS);
         builder.addInterceptor(new UserOfflineInterceptor(context));
-        builder.addInterceptor(new APIKeyInterceptor());
+        builder.addInterceptor(new AuthorizationKeyInterceptor(cache));
         builder.addInterceptor(httpLoggingInterceptor);
         if(BuildConfig.DEBUG){
             builder.addInterceptor(new ChuckInterceptor(context));

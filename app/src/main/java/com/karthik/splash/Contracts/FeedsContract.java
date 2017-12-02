@@ -10,8 +10,11 @@ public interface FeedsContract {
         void inflateLikes();
         void inflateSettings();
         int getSelectedItem();
+        void displayUnableToLogin();
     }
     interface Presenter{
         void onNavigationItemSelected(int id);
+        void getUserDetail(String code);
+        void clearResource();
     }
 }

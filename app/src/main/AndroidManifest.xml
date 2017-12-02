@@ -25,7 +25,17 @@
         <activity
                 android:name=".Views.Feeds"
                 android:label="@string/title_activity_feeds"
-                android:theme="@style/AppTheme.NoActionBar"/>
+                android:theme="@style/AppTheme.NoActionBar"
+                android:launchMode="singleInstance">
+            <intent-filter>
+                <data
+                    android:scheme="splash"
+                    android:host="splash-auth-callback" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

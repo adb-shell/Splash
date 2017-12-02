@@ -1,4 +1,4 @@
-package com.karthik.splash.Models;
+package com.karthik.splash.Models.PhotosLists;
 
 /**
  * Created by karthikrk on 20/12/15.

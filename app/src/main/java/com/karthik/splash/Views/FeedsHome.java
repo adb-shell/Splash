@@ -44,6 +44,7 @@ public class FeedsHome extends Fragment implements FeedsHomeContract.view{
         Bundle bundle = new Bundle();
         bundle.putBoolean(Feeds.IS_FROM_CACHE,isCached);
         FeedsHome home = new FeedsHome();
+        home.setRetainInstance(true);
         home.setArguments(bundle);
         return home;
     }

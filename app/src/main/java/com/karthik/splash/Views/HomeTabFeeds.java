@@ -11,17 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.karthik.splash.Adapters.FeedsRecyclerAdapter;
+import com.karthik.splash.Adapters.FeedsPhotoAdapter;
 import com.karthik.splash.Contracts.HomeFeedsTabContract;
 import com.karthik.splash.DI.HomeTabFeedsComponent;
-import com.karthik.splash.Models.Photos;
+import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.Modules.HomeTabFeedsModule;
 import com.karthik.splash.R;
 import com.karthik.splash.SplashApp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -38,7 +36,7 @@ public class HomeTabFeeds extends Fragment implements HomeFeedsTabContract.View,
     private static final String Mode = "Mode";
     private static final String Cache = "cache";
     private HomeTabFeedsComponent homeTabFeedsComponent;
-    private FeedsRecyclerAdapter feedsAdapter;
+    private FeedsPhotoAdapter feedsAdapter;
 
     @BindView(R.id.FeedsList)
     RecyclerView feedsList;
@@ -98,7 +96,7 @@ public class HomeTabFeeds extends Fragment implements HomeFeedsTabContract.View,
         if(!presenter.isPaginatedItems()){
             feedsList.setVisibility(View.VISIBLE);
             feedsList.setLayoutManager(new LinearLayoutManager(getContext()));
-            feedsAdapter = new FeedsRecyclerAdapter(photos,this);
+            feedsAdapter = new FeedsPhotoAdapter(photos,this);
             feedsList.setAdapter(feedsAdapter);
             return;
         }

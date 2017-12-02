@@ -1,5 +1,6 @@
-package com.karthik.splash.Models;
+package com.karthik.splash.Models.PhotosLists;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -14,4 +15,7 @@ public class Links {
     public String photos;
     @SerializedName("likes")
     public String likes;
+    @SerializedName("portfolio")
+    @Expose
+    public String portfolio;
 }

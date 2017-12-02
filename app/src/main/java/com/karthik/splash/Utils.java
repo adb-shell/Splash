@@ -8,12 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
 
-import com.karthik.splash.Models.Photos;
+import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.RestServices.UserOfflineException;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

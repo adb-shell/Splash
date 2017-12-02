@@ -1,9 +1,8 @@
 package com.karthik.splash.Presenters;
 
 import com.karthik.splash.Contracts.HomeFeedsTabContract;
-import com.karthik.splash.Models.Photos;
+import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.RestServices.NetworkLayer.FeedsNetworkLayer;
-import com.karthik.splash.RestServices.UserOfflineException;
 import com.karthik.splash.Utils;
 
 import java.util.List;

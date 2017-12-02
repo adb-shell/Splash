@@ -10,9 +10,17 @@
     <string name="frag_title_2">Trending</string>
     <string name="frag_title_3">Featured</string>
     <string name="error_connecting">oops!! error connecting the server</string>
+    <string name="login">Login</string>
+    <string name="username_error">username cannot be empty</string>
+    <string name="password_error">password cannot be empty</string>
+    <string name="welcome_back">Welcome back.</string>
+    <string name="zero_likes">You haven\'t liked any post yet</string>
+    <string name="unable_to_login">oops!! unable to log you in</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>
     <string name="is_user_logged_in">is_user_logged_in</string>
     <string name="is_response_cache_avail">is_response_cache_avail</string>
+    <string name="auth_code">auth_code</string>
+    <string name="user_name">user_name</string>
 </resources>

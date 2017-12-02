@@ -1,4 +1,4 @@
-package com.karthik.splash.Models;
+package com.karthik.splash.Models.PhotosLists;
 
 import com.google.gson.annotations.SerializedName;
 

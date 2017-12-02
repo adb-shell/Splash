@@ -44,4 +44,24 @@ public class Cache {
                 .commit();
 
     }
+
+    public void setAuthCode(String code){
+        preferences.edit()
+                .putString(context.getString(R.string.auth_code),code)
+                .commit();
+    }
+
+    public String getAuthCode(){
+        return preferences.getString(context.getString(R.string.auth_code),null);
+    }
+
+    public void setUserName(String userName){
+        preferences.edit()
+                .putString(context.getString(R.string.user_name),userName)
+                .commit();
+    }
+
+    public String getUserName(){
+        return preferences.getString(context.getString(R.string.user_name),null);
+    }
 }

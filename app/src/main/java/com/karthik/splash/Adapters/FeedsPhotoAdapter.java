@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.github.florent37.materialimageloading.MaterialImageLoading;
-import com.karthik.splash.Models.Photos;
+import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.R;
 import com.karthik.splash.Views.PaginatedView;
 import com.squareup.picasso.Callback;
@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by karthikrk on 19/11/17.
  */
 
-public class FeedsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FeedsPhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Photos> photosList;
     private int currentPage = 1;
@@ -33,7 +33,7 @@ public class FeedsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     private boolean isPageLoading;
 
 
-    public FeedsRecyclerAdapter(List<Photos> photosList, PaginatedView view){
+    public FeedsPhotoAdapter(List<Photos> photosList, PaginatedView view){
         this.photosList = photosList;
         this.paginatedView = view;
     }
@@ -63,13 +63,11 @@ public class FeedsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder,
                                  int position) {
-        if(holder instanceof FeedsRecyclerAdapter.FeedsViewHolder) {
+        if(holder instanceof FeedsPhotoAdapter.FeedsViewHolder)
             bindNormalView(holder, position);
-        }
-        else if(isPageNotExceeded() && !isPageLoading) {
-            isPageLoading = true;
-            paginatedView.getPage(++currentPage);
-        }
+
+        else if(isPageNotExceeded() && !isPageLoading)
+            bindProgressView();
     }
 
     @Override
@@ -79,19 +77,20 @@ public class FeedsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
-        if(position==photosList.size()-1 && isPageNotExceeded()){
+        if(paginatedView!=null && position==photosList.size()-1 && isPageNotExceeded()){
             return PROGRESS_VIEW;
         }
         return NORMAL_VIEW;
     }
+
 
     private boolean isPageNotExceeded() {
         return currentPage<=paginatedView.getMaxPageLimit();
     }
 
     private void bindNormalView(RecyclerView.ViewHolder viewHolder, int position) {
-        FeedsRecyclerAdapter.FeedsViewHolder holder =
-                (FeedsRecyclerAdapter.FeedsViewHolder)viewHolder;
+        FeedsPhotoAdapter.FeedsViewHolder holder =
+                (FeedsPhotoAdapter.FeedsViewHolder)viewHolder;
 
         Context context = holder.itemView.getContext();
         setAppropriateBackground(position, holder, context);
@@ -113,6 +112,11 @@ public class FeedsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
                 });
     }
 
+    private void bindProgressView() {
+        isPageLoading = true;
+        paginatedView.getPage(++currentPage);
+    }
+
     private void setAppropriateBackground(int position, FeedsViewHolder holder, Context context) {
         if(position%2==0)
             holder.itemView.setBackgroundColor(
@@ -129,6 +133,7 @@ public class FeedsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         public FeedsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            itemView.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {

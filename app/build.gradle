@@ -14,11 +14,21 @@ android {
         debug {
             buildConfigField "String", "SPLASH_BASE_URL", '"https://api.unsplash.com/"'
             buildConfigField "String", "SPLASH_KEY", '""'
+            buildConfigField "String", "SPLASH_KEY_SECRET", '""'
+            buildConfigField "String", "SPLASH_LOGIN_URL", '"https://unsplash.com/oauth/authorize"'
+            buildConfigField "String", "SPLASH_LOGIN_CALLBACK", '"splash://splash-auth-callback"'
+            buildConfigField "String", "SPLASH_CALLBACK", '"splash-auth-callback"'
+            buildConfigField "String", "SPLASH_TOKEN_URL", '"https://unsplash.com/oauth/token"'
         }
 
         release {
             buildConfigField "String", "SPLASH_BASE_URL", '"https://api.unsplash.com/"'
             buildConfigField "String", "SPLASH_KEY", '""'
+            buildConfigField "String", "SPLASH_KEY_SECRET", '""'
+            buildConfigField "String", "SPLASH_LOGIN_URL", '"https://unsplash.com/oauth/authorize"'
+            buildConfigField "String", "SPLASH_LOGIN_CALLBACK", '"splash://splash-auth-callback"'
+            buildConfigField "String", "SPLASH_CALLBACK", '"splash-auth-callback"'
+            buildConfigField "String", "SPLASH_TOKEN_URL", '"https://unsplash.com/oauth/token"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -50,6 +60,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VER}"
     implementation "com.squareup.picasso:picasso:${PICASSO_VER}"
     implementation "com.github.florent37:materialimageloading:${PICASSO_MATERIAL}"
+    implementation "com.android.support:customtabs:${SUPPORT_TOOL_VERSION}"
+
 
 
 

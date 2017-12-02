@@ -10,13 +10,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.karthik.splash.BuildConfig;
 import com.karthik.splash.Contracts.FeedsContract;
 import com.karthik.splash.DI.FeedsScreenComponent;
 import com.karthik.splash.Modules.FeedsScreenModule;
-import com.karthik.splash.Presenters.FeedsPresenter;
 import com.karthik.splash.R;
 import com.karthik.splash.SplashApp;
 
@@ -30,12 +29,13 @@ public class Feeds extends AppCompatActivity implements
 
 
     public final static String IS_FROM_CACHE = "IS_FROM_CACHE";
+    private final String code = "code";
     private FeedsScreenComponent feedsScreenComponent;
 
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
     @Inject
-    FeedsPresenter feedsPresenter;
+    FeedsContract.Presenter feedsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,18 @@ public class Feeds extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        feedsPresenter.clearResource();
         feedsScreenComponent = null;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(intent!=null && intent.getData()!=null
+                && !intent.getData().getAuthority().isEmpty()
+                && BuildConfig.SPLASH_CALLBACK.equals(intent.getData().getAuthority())){
+            feedsPresenter.getUserDetail(intent.getData().getQueryParameter(code));
+        }
     }
 
     public static Intent getIntent(Context context, boolean isCache){
@@ -77,7 +88,10 @@ public class Feeds extends AppCompatActivity implements
 
     @Override
     public void inflateLikes() {
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container,FeedsLike
+                .getInstance());
+        transaction.commit();
     }
 
     @Override
@@ -88,5 +102,11 @@ public class Feeds extends AppCompatActivity implements
     @Override
     public int getSelectedItem() {
         return navigation.getSelectedItemId();
+    }
+
+    @Override
+    public void displayUnableToLogin() {
+        Toast.makeText(this,getString(R.string.unable_to_login),
+                Toast.LENGTH_SHORT).show();
     }
 }

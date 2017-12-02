@@ -6,12 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.karthik.splash.Models.Photos;
+import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by karthikrk on 19/11/17.

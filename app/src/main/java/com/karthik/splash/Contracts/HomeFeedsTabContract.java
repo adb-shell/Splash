@@ -1,11 +1,8 @@
 package com.karthik.splash.Contracts;
 
-import com.karthik.splash.Models.Photos;
+import com.karthik.splash.Models.PhotosLists.Photos;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.disposables.Disposable;
 
 /**
  * Created by karthikrk on 16/11/17.

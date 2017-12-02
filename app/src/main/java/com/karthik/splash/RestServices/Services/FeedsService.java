@@ -3,7 +3,7 @@ package com.karthik.splash.RestServices.Services;
 
 
 
-import com.karthik.splash.Models.Photos;
+import com.karthik.splash.Models.PhotosLists.Photos;
 
 import java.util.List;
 
