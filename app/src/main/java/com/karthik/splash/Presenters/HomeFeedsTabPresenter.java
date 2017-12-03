@@ -93,7 +93,7 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
 
     private void getFeaturedFeeds(boolean isCacheAvailable,int pageNo) {
         if(isCacheAvailable){
-            compositeDisposable.add(getFeaturedFeedsFromCacheFirst());
+            compositeDisposable.add(getFeaturedFeedsFromCache());
             return;
         }
         compositeDisposable.add(getFeaturedFeedsFromNetworkFirst(pageNo));
@@ -101,7 +101,7 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
 
     private void getTrendingFeeds(boolean isCacheAvailable,int pageNo) {
         if(isCacheAvailable){
-            compositeDisposable.add(getTrendingFeedsFromCacheFirst());
+            compositeDisposable.add(getTrendingFeedsFromCache());
             return;
         }
         compositeDisposable.add(getTrendingFeedsFromNetworkFirst(pageNo));
@@ -109,7 +109,7 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
 
     private void getNewFeeds(boolean isCacheAvailable,int pageNo) {
         if(isCacheAvailable){
-            compositeDisposable.add(getNewFeedsFromCacheFirst());
+            compositeDisposable.add(getNewFeedsFromCache());
             return;
         }
         compositeDisposable.add(getNewFeedsFromNetworkFirst(pageNo));
@@ -117,62 +117,47 @@ public class HomeFeedsTabPresenter implements HomeFeedsTabContract.Presenter{
 
 
 
-    private Disposable getNewFeedsFromCacheFirst() {
-        return networkLayer.getNewFeedsFromCacheAndNetwork()
-                .subscribeWith(new DisposableSubscriber<List<Photos>>() {
+    private Disposable getNewFeedsFromCache() {
+        return networkLayer.getNewFeedsCache()
+                .subscribeWith(new DisposableSingleObserver<List<Photos>>() {
                     @Override
-                    public void onNext(List<Photos> photos) {
+                    public void onSuccess(List<Photos> photos) {
                         managePhotos(photos);
                     }
 
                     @Override
-                    public void onError(Throwable error) {
-                        manageErrors(error);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void onError(Throwable e) {
+                        manageErrors(e);
                     }
                 });
     }
 
-    private Disposable getTrendingFeedsFromCacheFirst() {
-        return networkLayer.getTrendingFeedsFromCacheAndNetwork()
-                .subscribeWith(new DisposableSubscriber<List<Photos>>() {
+    private Disposable getTrendingFeedsFromCache() {
+        return networkLayer.getTrendingFeedsCache()
+                .subscribeWith(new DisposableSingleObserver<List<Photos>>() {
                     @Override
-                    public void onNext(List<Photos> photos) {
+                    public void onSuccess(List<Photos> photos) {
                         managePhotos(photos);
                     }
 
                     @Override
-                    public void onError(Throwable error) {
-                        manageErrors(error);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void onError(Throwable e) {
+                        manageErrors(e);
                     }
                 });
     }
 
-    private Disposable getFeaturedFeedsFromCacheFirst() {
-        return networkLayer.getFeaturedFeedsFromCacheAndNetwork()
-                .subscribeWith(new DisposableSubscriber<List<Photos>>() {
+    private Disposable getFeaturedFeedsFromCache() {
+        return networkLayer.getFeaturedFeedsCache()
+                .subscribeWith(new DisposableSingleObserver<List<Photos>>() {
                     @Override
-                    public void onNext(List<Photos> photos) {
+                    public void onSuccess(List<Photos> photos) {
                         managePhotos(photos);
                     }
 
                     @Override
-                    public void onError(Throwable error) {
-                        manageErrors(error);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void onError(Throwable e) {
+                        manageErrors(e);
                     }
                 });
     }

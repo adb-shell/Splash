@@ -40,23 +40,16 @@ public class FeedsNetworkLayer {
         this.dbHandler = dbHandler;
     }
 
-
-    public Flowable<List<Photos>> getNewFeedsFromCacheAndNetwork(){
-        return Single.concat(getNewFeeds(1), getNewFeedsCache())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public Single<List<Photos>> getNewFeedsCache(){
+        return Single.just(dbHandler.getCachedHomeNewResponse());
     }
 
-    public Flowable<List<Photos>> getTrendingFeedsFromCacheAndNetwork(){
-        return Single.concat(getTrendingFeeds(1),getTrendingFeedsCache())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public Single<List<Photos>> getTrendingFeedsCache(){
+        return Single.just(dbHandler.getTrendingHomeNewResponse());
     }
 
-    public Flowable<List<Photos>> getFeaturedFeedsFromCacheAndNetwork(){
-        return Single.concat(getFeaturedFeeds(1),getFeaturedFeedsCache())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public Single<List<Photos>> getFeaturedFeedsCache(){
+        return Single.just(dbHandler.getFeaturedHomeNewResponse());
     }
 
 
@@ -97,17 +90,5 @@ public class FeedsNetworkLayer {
                 })
                 .observeOn(AndroidSchedulers.mainThread());
 
-    }
-
-    private Single<List<Photos>> getNewFeedsCache(){
-        return Single.just(dbHandler.getCachedHomeNewResponse());
-    }
-
-    private Single<List<Photos>> getTrendingFeedsCache(){
-        return Single.just(dbHandler.getTrendingHomeNewResponse());
-    }
-
-    private Single<List<Photos>> getFeaturedFeedsCache(){
-        return Single.just(dbHandler.getFeaturedHomeNewResponse());
     }
 }
