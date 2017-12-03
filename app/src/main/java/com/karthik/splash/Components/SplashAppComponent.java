@@ -1,9 +1,10 @@
-package com.karthik.splash.DI;
+package com.karthik.splash.Components;
 
 import com.karthik.splash.Modules.FeedsHomeModule;
 import com.karthik.splash.Modules.FeedsScreenModule;
 import com.karthik.splash.Modules.HomeTabFeedsModule;
 import com.karthik.splash.Modules.LikeTabFeedsModule;
+import com.karthik.splash.Modules.SettingsTabFeedsModule;
 import com.karthik.splash.Modules.SplashApiModule;
 import com.karthik.splash.Modules.SplashAppModule;
 import com.karthik.splash.Modules.SplashScreenModule;
@@ -25,4 +26,5 @@ public interface SplashAppComponent {
     FeedsHomeComponent plus(FeedsHomeModule feedsHomeModule);
     HomeTabFeedsComponent plus(HomeTabFeedsModule homeTabFeedsModule);
     LikeTabFeedsComponent plus(LikeTabFeedsModule likeTabFeedsModule);
+    SettingsTabFeedsComponent plus(SettingsTabFeedsModule settingsTabFeedsModule);
 }

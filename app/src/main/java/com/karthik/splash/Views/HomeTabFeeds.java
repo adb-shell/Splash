@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.karthik.splash.Adapters.FeedsPhotoAdapter;
 import com.karthik.splash.Contracts.HomeFeedsTabContract;
-import com.karthik.splash.DI.HomeTabFeedsComponent;
+import com.karthik.splash.Components.HomeTabFeedsComponent;
 import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.Modules.HomeTabFeedsModule;
 import com.karthik.splash.R;

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.karthik.splash.BuildConfig;
 import com.karthik.splash.Contracts.FeedsContract;
-import com.karthik.splash.DI.FeedsScreenComponent;
+import com.karthik.splash.Components.FeedsScreenComponent;
 import com.karthik.splash.Modules.FeedsScreenModule;
 import com.karthik.splash.R;
 import com.karthik.splash.SplashApp;
@@ -96,7 +96,9 @@ public class Feeds extends AppCompatActivity implements
 
     @Override
     public void inflateSettings() {
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container,FeedsSettings.getInstance());
+        transaction.commit();
     }
 
     @Override

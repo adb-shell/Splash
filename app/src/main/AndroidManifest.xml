@@ -29,13 +29,17 @@
                 android:launchMode="singleInstance">
             <intent-filter>
                 <data
-                    android:scheme="splash"
-                    android:host="splash-auth-callback" />
+                        android:scheme="splash"
+                        android:host="splash-auth-callback" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
+        <activity android:name=".Views.About"
+                  android:launchMode="singleInstance"
+                  android:label="@string/about"
+                  android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

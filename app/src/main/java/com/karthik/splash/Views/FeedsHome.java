@@ -7,14 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.karthik.splash.Adapters.FeedViewPagerAdapter;
 import com.karthik.splash.Contracts.FeedsHomeContract;
-import com.karthik.splash.DI.FeedsHomeComponent;
+import com.karthik.splash.Components.FeedsHomeComponent;
 import com.karthik.splash.Modules.FeedsHomeModule;
 import com.karthik.splash.R;
 import com.karthik.splash.SplashApp;

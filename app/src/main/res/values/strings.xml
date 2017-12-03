@@ -16,6 +16,13 @@
     <string name="welcome_back">Welcome back.</string>
     <string name="zero_likes">You haven\'t liked any post yet</string>
     <string name="unable_to_login">oops!! unable to log you in</string>
+    <string name="logout">Logout</string>
+    <string name="about">About</string>
+    <string name="downloads">Downloads</string>
+    <string name="logged_in_as">Logged in as %s</string>
+    <string name="unsplash_intro_text">Beautiful, free photos.\nGifted by the world\'s most generous\ncommunity of photographers</string>
+    <string name="libraries">Libraries</string>
+    <string name="unsplash_powered">Powered by Unsplash.com</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>

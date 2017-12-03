@@ -1,4 +1,4 @@
-package com.karthik.splash.DI;
+package com.karthik.splash.Components;
 
 import com.karthik.splash.Modules.SplashScreenModule;
 import com.karthik.splash.Views.Splash;

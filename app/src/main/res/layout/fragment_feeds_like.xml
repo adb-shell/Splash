@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:titleTextAppearance="?android:textAppearanceMedium"
+                app:titleTextColor="@color/tab_selected_color"
+                android:background="@color/icons"
+                android:paddingLeft="@dimen/tab_home_padding_left"
+                app:layout_scrollFlags="scroll|snap"/>
+    </android.support.design.widget.AppBarLayout>
 
     <include
             android:id="@+id/login_wrapper"
@@ -46,4 +57,4 @@
             android:layout_height="@dimen/progress_bar_size"
             android:layout_gravity="center"/>
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

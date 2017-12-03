@@ -1,3 +1,5 @@
+
+
 apply plugin: 'com.android.application'
 
 android {
@@ -19,6 +21,7 @@ android {
             buildConfigField "String", "SPLASH_LOGIN_CALLBACK", '"splash://splash-auth-callback"'
             buildConfigField "String", "SPLASH_CALLBACK", '"splash-auth-callback"'
             buildConfigField "String", "SPLASH_TOKEN_URL", '"https://unsplash.com/oauth/token"'
+            resValue "string", "version","version "+defaultConfig.versionName
         }
 
         release {
@@ -29,6 +32,7 @@ android {
             buildConfigField "String", "SPLASH_LOGIN_CALLBACK", '"splash://splash-auth-callback"'
             buildConfigField "String", "SPLASH_CALLBACK", '"splash-auth-callback"'
             buildConfigField "String", "SPLASH_TOKEN_URL", '"https://unsplash.com/oauth/token"'
+            resValue "string", "version","version "+defaultConfig.versionName
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -46,9 +50,10 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:support-v4:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:design:${SUPPORT_TOOL_VERSION}"
+    implementation "com.android.support:customtabs:${SUPPORT_TOOL_VERSION}"
+    implementation "com.android.support:recyclerview-v7:${SUPPORT_TOOL_VERSION}"
 
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
-    implementation "com.android.support:design:${SUPPORT_TOOL_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VER}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_CONV_VER}"
@@ -60,9 +65,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VER}"
     implementation "com.squareup.picasso:picasso:${PICASSO_VER}"
     implementation "com.github.florent37:materialimageloading:${PICASSO_MATERIAL}"
-    implementation "com.android.support:customtabs:${SUPPORT_TOOL_VERSION}"
-
-
 
 
     debugCompile "com.readystatesoftware.chuck:library:${CHUCK_VER}"

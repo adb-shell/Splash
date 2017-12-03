@@ -2,8 +2,8 @@ package com.karthik.splash;
 
 import android.app.Application;
 
-import com.karthik.splash.DI.DaggerSplashAppComponent;
-import com.karthik.splash.DI.SplashAppComponent;
+import com.karthik.splash.Components.DaggerSplashAppComponent;
+import com.karthik.splash.Components.SplashAppComponent;
 import com.karthik.splash.Modules.SplashAppModule;
 
 /**

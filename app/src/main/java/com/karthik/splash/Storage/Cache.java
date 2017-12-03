@@ -64,4 +64,8 @@ public class Cache {
     public String getUserName(){
         return preferences.getString(context.getString(R.string.user_name),null);
     }
+
+    public void logOutUser(){
+        preferences.edit().clear().commit();
+    }
 }

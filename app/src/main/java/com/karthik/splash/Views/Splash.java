@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.karthik.splash.Contracts.SplashContract;
-import com.karthik.splash.DI.SplashScreenComponent;
+import com.karthik.splash.Components.SplashScreenComponent;
 import com.karthik.splash.Modules.SplashScreenModule;
 import com.karthik.splash.R;
 import com.karthik.splash.SplashApp;

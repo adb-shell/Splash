@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import android.widget.ProgressBar;
 
 import com.karthik.splash.Adapters.FeedsPhotoAdapter;
 import com.karthik.splash.Contracts.FeedsLikesContract;
-import com.karthik.splash.DI.LikeTabFeedsComponent;
+import com.karthik.splash.Components.LikeTabFeedsComponent;
 import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.Modules.LikeTabFeedsModule;
 import com.karthik.splash.R;
@@ -31,7 +32,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by karthikrk on 25/11/17.
@@ -51,6 +51,8 @@ public class FeedsLike extends Fragment implements FeedsLikesContract.view{
     ProgressBar progressBar;
     @BindView(R.id.likesList)
     RecyclerView likesList;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Inject
     FeedsLikesContract.presenter presenter;
@@ -91,6 +93,7 @@ public class FeedsLike extends Fragment implements FeedsLikesContract.view{
         loginWrapper.setVisibility(View.VISIBLE);
         likesList.setVisibility(View.GONE);
         emptyWrapper.setVisibility(View.GONE);
+        toolbar.setTitle(getString(R.string.login));
     }
 
     @Override
@@ -98,6 +101,7 @@ public class FeedsLike extends Fragment implements FeedsLikesContract.view{
         loginWrapper.setVisibility(View.GONE);
         likesList.setVisibility(View.VISIBLE);
         emptyWrapper.setVisibility(View.GONE);
+        toolbar.setTitle(getString(R.string.title_likes));
         likesList.setLayoutManager(new LinearLayoutManager(getContext()));
         likesList.setAdapter(new FeedsPhotoAdapter(photos,null));
     }
