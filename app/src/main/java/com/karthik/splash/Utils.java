@@ -12,7 +12,10 @@ import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.RestServices.UserOfflineException;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -22,6 +25,8 @@ import java.util.List;
 public class Utils {
     public enum NetworkErrorType {OFFLINE,IOEXCEPTION}
     public enum ResponseType {NEW,TRENDING,FEATURED,LIKES}
+    public static final String Photo="photo";
+    private static final String UnsplashDateFormat = "yyyy-MM-dd'T'HH:mm:ss";
     public static boolean isInternetAvailable(Context context){
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -49,4 +54,15 @@ public class Utils {
         return Utils.NetworkErrorType.IOEXCEPTION;
     }
 
+    public static String parseDate(String receivedDate){
+        SimpleDateFormat formatter = new SimpleDateFormat(UnsplashDateFormat);
+        try {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(formatter.parse(receivedDate));
+            return cal.get(Calendar.DAY_OF_MONTH)+"/"+cal.get(Calendar.MONTH)+"/"+cal.get(Calendar.YEAR);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

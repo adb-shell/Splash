@@ -23,6 +23,13 @@
     <string name="unsplash_intro_text">Beautiful, free photos.\nGifted by the world\'s most generous\ncommunity of photographers</string>
     <string name="libraries">Libraries</string>
     <string name="unsplash_powered">Powered by Unsplash.com</string>
+    <string name="photo_detail">Photo Detail</string>
+    <string name="photo_detail_like">Like</string>
+    <string name="photo_detail_download">Download</string>
+    <string name="By">By</string>
+    <string name="On">On</string>
+    <string name="Collections">Collections</string>
+    <string name="Photos">Photos</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>
@@ -30,4 +37,7 @@
     <string name="is_response_cache_avail">is_response_cache_avail</string>
     <string name="auth_code">auth_code</string>
     <string name="user_name">user_name</string>
+
+    <!--Shared photo transition-->
+    <string name="shared_photo_transition">shared photo transition</string>
 </resources>

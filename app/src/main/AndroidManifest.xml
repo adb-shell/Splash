@@ -40,6 +40,10 @@
                   android:launchMode="singleInstance"
                   android:label="@string/about"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Views.PhotoDetail"
+                  android:launchMode="singleInstance"
+                  android:label="@string/photo_detail"
+                  android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
