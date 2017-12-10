@@ -37,6 +37,10 @@
     <string name="like_error_1">Sorry, unable to like the photo make sure you have active internet connection</string>
     <string name="like_photo_success">Awesome, glad you liked the photo</string>
     <string name="share_photo">Share image using</string>
+    <string name="error_downloading">Sorry, error downloading make sure you have an internet connection.</string>
+    <string name="success_downloading">Awesome, your file is located here %s</string>
+    <string name="error_permission">Splash requires write storage permission to save the image.</string>
+    <string name="downloaded_imgs">Downloaded images</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>

@@ -26,6 +26,7 @@ public class Utils {
     public enum NetworkErrorType {OFFLINE,IOEXCEPTION}
     public enum ResponseType {NEW,TRENDING,FEATURED,LIKES}
     public static final String Photo="photo";
+    public static final String PhotoMimeType="image/*";
     private static final String UnsplashDateFormat = "yyyy-MM-dd'T'HH:mm:ss";
     public static boolean isInternetAvailable(Context context){
         ConnectivityManager connectivityManager

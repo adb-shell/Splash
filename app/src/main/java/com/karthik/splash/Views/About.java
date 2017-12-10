@@ -67,6 +67,7 @@ public class About extends AppCompatActivity implements AppBarLayout.OnOffsetCha
         libraries.add(new Library("Rx java 2","2.1.6"));
         libraries.add(new Library("Picasso","2.5.2"));
         libraries.add(new Library("Material image loading","1.0.2"));
+        libraries.add(new Library("RxDownloader","1.0.1"));
         libraries.add(new Library("Chuck interceptor","1.1.0"));
         libraries.add(new Library("JUnit","4.1.2"));
         libraries.add(new Library("Test runner","1.0.1"));

@@ -33,4 +33,13 @@ public class FeedsSettingsPresenter implements FeedsSettingsContract.FeedsSettin
         cache.logOutUser();
         decideScreen();
     }
+
+    @Override
+    public void showDownloadedImages() {
+        if(view.isReadPermissionGranted()){
+           view.openFolder();
+           return;
+        }
+        view.askReadPermission();
+    }
 }

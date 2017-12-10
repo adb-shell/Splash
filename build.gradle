@@ -15,6 +15,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -32,4 +33,5 @@ ext{
     RX_ANDROID_VER='2.0.1'
     CHUCK_VER='1.1.0'
     PICASSO_MATERIAL='1.0.2'
+    RX_DOWNLOADER='1.0.1'
 }
