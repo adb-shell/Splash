@@ -38,21 +38,18 @@ android {
         }
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:support-v4:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:design:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:customtabs:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:recyclerview-v7:${SUPPORT_TOOL_VERSION}"
-
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VER}"
@@ -65,8 +62,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VER}"
     implementation "com.squareup.picasso:picasso:${PICASSO_VER}"
     implementation "com.github.florent37:materialimageloading:${PICASSO_MATERIAL}"
-
-
     debugCompile "com.readystatesoftware.chuck:library:${CHUCK_VER}"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
