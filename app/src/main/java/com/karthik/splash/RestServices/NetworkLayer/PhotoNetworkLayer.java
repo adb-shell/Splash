@@ -1,5 +1,6 @@
 package com.karthik.splash.RestServices.NetworkLayer;
 
+import com.karthik.splash.Models.LikePhoto.LikeResponse;
 import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo;
 import com.karthik.splash.RestServices.Services.PhotoService;
 
@@ -24,6 +25,12 @@ public class PhotoNetworkLayer {
 
     public Single<PhotoDetailInfo> getPhotoInfo(String id){
        return photoService.getPhotoInfo(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Single<LikeResponse> likePhoto(String id){
+        return photoService.likePhoto(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

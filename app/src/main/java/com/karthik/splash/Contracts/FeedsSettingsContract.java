@@ -6,7 +6,7 @@ package com.karthik.splash.Contracts;
 
 public interface FeedsSettingsContract {
     interface FeedsSettingsView{
-        void showLoggedInView();
+        void showLoggedInView(String username);
         void showNonLoggedInView();
     }
     interface FeedsSettingsPresenter{

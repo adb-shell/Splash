@@ -82,12 +82,13 @@ public class FeedsSettings extends Fragment implements
 
     @OnClick(R.id.downloads)
     public void downloads(){
-        //TODO:open downloaded photos thumbnails.
+
     }
 
     @Override
-    public void showLoggedInView() {
+    public void showLoggedInView(String username) {
         logout.setVisibility(View.VISIBLE);
+        this.username.setText(String.format(getString(R.string.logged_in_as),username));
     }
 
     @Override

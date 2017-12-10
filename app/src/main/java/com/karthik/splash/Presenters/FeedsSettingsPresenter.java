@@ -23,7 +23,7 @@ public class FeedsSettingsPresenter implements FeedsSettingsContract.FeedsSettin
     @Override
     public void decideScreen() {
         if(cache.isUserLoggedIn())
-            view.showLoggedInView();
+            view.showLoggedInView(cache.getUserName());
         else
             view.showNonLoggedInView();
     }

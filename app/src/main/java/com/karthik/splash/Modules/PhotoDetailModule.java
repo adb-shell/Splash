@@ -3,6 +3,7 @@ package com.karthik.splash.Modules;
 import com.karthik.splash.Contracts.PhotoDetailContract;
 import com.karthik.splash.Presenters.PhotoDetailPresenter;
 import com.karthik.splash.RestServices.NetworkLayer.PhotoNetworkLayer;
+import com.karthik.splash.Storage.Cache;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,7 +33,8 @@ public class PhotoDetailModule {
 
     @Provides
     PhotoDetailContract.PhotoDetailPresenter providesPhotoDetailPresenter(PhotoDetailContract.PhotoDetailView view,
-                                                                          PhotoNetworkLayer networkLayer){
-        return new PhotoDetailPresenter(view,networkLayer);
+                                                                          PhotoNetworkLayer networkLayer,
+                                                                          Cache cache){
+        return new PhotoDetailPresenter(view,networkLayer,cache);
     }
 }

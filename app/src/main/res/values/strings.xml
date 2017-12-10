@@ -33,6 +33,10 @@
     <string name="Photos">Photos</string>
     <string name="Version">version:</string>
     <string name="unknown">unknown</string>
+    <string name="like_error">Sorry, you need to login in order to like the photo</string>
+    <string name="like_error_1">Sorry, unable to like the photo make sure you have active internet connection</string>
+    <string name="like_photo_success">Awesome, glad you liked the photo</string>
+    <string name="share_photo">Share image using</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>

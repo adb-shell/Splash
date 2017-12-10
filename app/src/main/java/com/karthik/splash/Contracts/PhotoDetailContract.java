@@ -12,6 +12,9 @@ public interface PhotoDetailContract {
         void showDefaultView();
         void showLoading();
         void hideLoading();
+        void showLoginRequired();
+        void errorLikingPhoto();
+        void successLikingPhoto();
     }
 
     interface PhotoDetailPresenter{

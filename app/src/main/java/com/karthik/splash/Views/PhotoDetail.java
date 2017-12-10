@@ -1,14 +1,18 @@
 package com.karthik.splash.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.karthik.splash.Adapters.CircularTransform;
 import com.karthik.splash.Components.PhotoDetailComponent;
 import com.karthik.splash.Contracts.PhotoDetailContract;
 import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo;
@@ -86,7 +90,10 @@ public class PhotoDetail extends AppCompatActivity implements
 
     @Override
     public void showPhotoDetails(PhotoDetailInfo photoDetailInfo) {
-        Picasso.with(this).load(photoDetailInfo.user.profileImage.medium).into(userImg);
+        Picasso.with(this)
+                .load(photoDetailInfo.user.profileImage.medium)
+                .transform(new CircularTransform())
+                .into(userImg);
         noViews.setText(String.valueOf(photoDetailInfo.user.totalCollections));
         noLikes.setText(String.valueOf(photoDetailInfo.likes));
         userLoc.setText(photoDetailInfo.location==null?getString(R.string.unknown):photoDetailInfo.location.country);
@@ -111,6 +118,24 @@ public class PhotoDetail extends AppCompatActivity implements
         loader.setVisibility(View.GONE);
     }
 
+    @Override
+    public void showLoginRequired() {
+        Toast.makeText(this,getString(R.string.like_error),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void errorLikingPhoto() {
+        Toast.makeText(this,getString(R.string.like_error_1),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void successLikingPhoto() {
+        Toast.makeText(this,getString(R.string.like_photo_success),
+                Toast.LENGTH_SHORT).show();
+    }
+
     @OnClick(R.id.like)
     public void likePhoto(){
         presenter.likeThePhoto(photo.id);
@@ -119,5 +144,13 @@ public class PhotoDetail extends AppCompatActivity implements
     @OnClick(R.id.download)
     public void downLoadClick(){
         presenter.downloadPhoto(photo.urls.full);
+    }
+
+    @OnClick(R.id.share)
+    public void shareImage(){
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/html");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,photo.urls.regular);
+        startActivity(Intent.createChooser(sharingIntent,getString(R.string.share_photo)));
     }
 }
