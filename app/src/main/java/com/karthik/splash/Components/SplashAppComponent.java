@@ -4,11 +4,13 @@ import com.karthik.splash.Modules.FeedsHomeModule;
 import com.karthik.splash.Modules.FeedsScreenModule;
 import com.karthik.splash.Modules.HomeTabFeedsModule;
 import com.karthik.splash.Modules.LikeTabFeedsModule;
+import com.karthik.splash.Modules.PhotoDetailModule;
 import com.karthik.splash.Modules.SettingsTabFeedsModule;
 import com.karthik.splash.Modules.SplashApiModule;
 import com.karthik.splash.Modules.SplashAppModule;
 import com.karthik.splash.Modules.SplashScreenModule;
 import com.karthik.splash.SplashApp;
+import com.karthik.splash.Views.PhotoDetail;
 
 import javax.inject.Singleton;
 
@@ -27,4 +29,5 @@ public interface SplashAppComponent {
     HomeTabFeedsComponent plus(HomeTabFeedsModule homeTabFeedsModule);
     LikeTabFeedsComponent plus(LikeTabFeedsModule likeTabFeedsModule);
     SettingsTabFeedsComponent plus(SettingsTabFeedsModule settingsTabFeedsModule);
+    PhotoDetailComponent plus(PhotoDetailModule photoDetailModule);
 }

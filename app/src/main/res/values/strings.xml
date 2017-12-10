@@ -26,10 +26,13 @@
     <string name="photo_detail">Photo Detail</string>
     <string name="photo_detail_like">Like</string>
     <string name="photo_detail_download">Download</string>
+    <string name="photo_detail_share">Share</string>
     <string name="By">By</string>
     <string name="On">On</string>
     <string name="Collections">Collections</string>
     <string name="Photos">Photos</string>
+    <string name="Version">version:</string>
+    <string name="unknown">unknown</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>

@@ -1,11 +1,11 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="500dp"
-        android:height="500dp"
+        android:width="@dimen/bottom_nav_icon"
+        android:height="@dimen/bottom_nav_icon"
         android:viewportWidth="500"
         android:viewportHeight="500">
 
     <path
-            android:fillColor="#010101"
+            android:fillColor="@color/icons"
             android:fillType="evenOdd"
             android:pathData="M31.949,403.452c0,35.164,28.435,63.599,63.599,63.599
 c17.529,0,33.891-6.637,45.426-18.172l115.93-116.018l31.072,31.071c-4.182,15.265-0.181,32.345,11.905,44.518l45.063,45.063

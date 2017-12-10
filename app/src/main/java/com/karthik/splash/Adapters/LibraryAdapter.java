@@ -1,5 +1,6 @@
 package com.karthik.splash.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,9 +35,10 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryH
 
     @Override
     public void onBindViewHolder(LibraryAdapter.LibraryHolder holder, int position) {
+        Context context = holder.libTitle.getContext();
         Library library = libraries.get(position);
         holder.libTitle.setText(library.libName);
-        holder.libVersion.setText(library.version);
+        holder.libVersion.setText(context.getString(R.string.Version)+" "+library.version);
     }
 
     @Override

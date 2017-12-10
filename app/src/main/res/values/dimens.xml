@@ -16,6 +16,12 @@
     <dimen name="lib_row_height">80dp</dimen>
     <dimen name="photo_detail_username">24sp</dimen>
     <dimen name="photo_detail_margin_top">8dp</dimen>
-    <dimen name="photo_detail_icon_size">42dp</dimen>
+    <dimen name="photo_detail_icon_size">32dp</dimen>
     <dimen name="photo_detail_image_height">350dp</dimen>
+    <dimen name="photo_detail_line_spacing_extra">4dp</dimen>
+    <dimen name="photo_detail_user_img">52dp</dimen>
+    <dimen name="photo_detail_second_row_margin">24dp</dimen>
+
+    <dimen name="bottom_nav_icon">24dp</dimen>
+    <dimen name="app_icon_size">32dp</dimen>
 </resources>
