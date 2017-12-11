@@ -8,7 +8,7 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 ```
 MIT License
 
-Copyright (c) 2017 Arun Sasidharan
+Copyright (c) 2017 Karthik
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
