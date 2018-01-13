@@ -7,6 +7,21 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 
 <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-1.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-2.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-3.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-4.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-5.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-6.png" width="200">
 
+## Todo in 2018.<br/>
+
+**Implementation in current branch**<br/>
+1.Implement app shortcuts.<br/>
+2.Add multiwindow support.<br/>
+3.Use room db<br/>
+4.Downloadable fonts for image "quotes!!"<br/>
+5.Implement google play billing for the above.<br/>
+6.Implement firebase perf.<br/> 
+7.Implement firebase A/B for few feature.<br/>
+
+**Implementing other two in another branch**<br/>
+8.Implement everything in kotlin.<br/>
+9.Use architecture components when implementing the above.<br/>
+
 ## License
 ```
 MIT License
