@@ -7,13 +7,10 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 
 <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-1.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-2.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-3.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-4.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-5.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-6.png" width="200">
 
-## Todo in 2018.<br/>
+## Todo in 2019.<br/>
 1.Rewrite in kotlin.<br/>
-2.Room DB.<br/>
-3.Achitecture components.<br/>
-4.Autovalue + extensions.<br/>
-5.Integrate with CI, with lint and other static code analysis tool.<br/>
-6.firebase perf.
+2.Achitecture components.<br/>
+3.Make the UI with material components.<br/>
 
 ## License
 ```
