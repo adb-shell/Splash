@@ -11,6 +11,7 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 1.Rewrite in kotlin.<br/>
 2.Achitecture components.<br/>
 3.Make the UI with material components.<br/>
+4.Klint integration with basic CI.<br/>
 
 ## License
 ```
