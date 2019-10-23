@@ -7,11 +7,32 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 
 <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-1.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-2.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-3.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-4.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-5.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-6.png" width="200">
 
-## Todo in 2019.<br/>
+## Todo:<br/>
 1.Rewrite in kotlin.<br/>
-2.Achitecture components.<br/>
-3.Make the UI with material components.<br/>
-4.Klint integration with basic CI.<br/>
+2.Use following achitecture components:.<br/>
+   &nbsp;&nbsp;&nbsp;(2a)Lifecycles.<br/>
+   &nbsp;&nbsp;&nbsp;(2b)LiveData<br/>
+   &nbsp;&nbsp;&nbsp;(2c)Paging<br/>
+   &nbsp;&nbsp;&nbsp;(2d)Room<br/>
+   &nbsp;&nbsp;&nbsp;(2e)ViewModel<br/>
+   &nbsp;&nbsp;&nbsp;(2f)Navigation<br/>
+3.Use Android KTX extensively.<br/>
+4.Write Junit/Espresso tests.<br/>
+5.Android Wear OS Support.<br/>
+6.Android TV Support.<br/>
+7.DownloadManager for downloading images.<br/>
+8.Image Loading using Coil<br/>
+9.Explore/Integrate Few libs during dev: Leak Canary, Chuck, Scalpel, debug drawer, Flipper, bug reporting<br/>
+10.Use material components for the UI<br/>
+11.Klint integration with basic CI.<br/>
+
+## Technologies used so far:<br/>
+1.Rxjava<br/>
+2.RxDownloader<br/>
+3.RxAndroid<br/>
+4.Chuck for logging api calls.<br/>
+5.Standard Square libs (okhttp,dagger,picasso)<br/>
+
 
 ## License
 ```
