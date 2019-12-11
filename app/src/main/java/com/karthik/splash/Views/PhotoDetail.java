@@ -3,7 +3,6 @@ package com.karthik.splash.Views;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -24,11 +23,9 @@ import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo;
 import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.Modules.PhotoDetailModule;
 import com.karthik.splash.R;
-import com.karthik.splash.SplashApp;
+import com.karthik.splash.root.SplashApp;
 import com.karthik.splash.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 import javax.inject.Inject;
 

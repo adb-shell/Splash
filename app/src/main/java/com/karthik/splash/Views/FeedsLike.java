@@ -23,7 +23,7 @@ import com.karthik.splash.Components.LikeTabFeedsComponent;
 import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.Modules.LikeTabFeedsModule;
 import com.karthik.splash.R;
-import com.karthik.splash.SplashApp;
+import com.karthik.splash.root.SplashApp;
 
 import java.util.List;
 

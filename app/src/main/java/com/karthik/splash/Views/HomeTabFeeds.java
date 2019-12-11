@@ -18,7 +18,7 @@ import com.karthik.splash.Components.HomeTabFeedsComponent;
 import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.Modules.HomeTabFeedsModule;
 import com.karthik.splash.R;
-import com.karthik.splash.SplashApp;
+import com.karthik.splash.root.SplashApp;
 
 import java.util.List;
 

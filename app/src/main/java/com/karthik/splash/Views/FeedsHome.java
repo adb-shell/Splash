@@ -16,7 +16,7 @@ import com.karthik.splash.Contracts.FeedsHomeContract;
 import com.karthik.splash.Components.FeedsHomeComponent;
 import com.karthik.splash.Modules.FeedsHomeModule;
 import com.karthik.splash.R;
-import com.karthik.splash.SplashApp;
+import com.karthik.splash.root.SplashApp;
 
 import javax.inject.Inject;
 

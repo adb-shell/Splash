@@ -30,7 +30,7 @@ public class Cache {
     public void setUserLoggedIn(){
         preferences.edit()
                 .putBoolean(context.getString(R.string.is_user_logged_in),true)
-                .commit();
+                .apply();
     }
 
     public boolean isCacheAvail(){
@@ -41,14 +41,14 @@ public class Cache {
     public void setCacheAvail(){
         preferences.edit()
                 .putBoolean(context.getString(R.string.is_response_cache_avail),true)
-                .commit();
+                .apply();
 
     }
 
     public void setAuthCode(String code){
         preferences.edit()
                 .putString(context.getString(R.string.auth_code),code)
-                .commit();
+                .apply();
     }
 
     public String getAuthCode(){
@@ -58,7 +58,7 @@ public class Cache {
     public void setUserName(String userName){
         preferences.edit()
                 .putString(context.getString(R.string.user_name),userName)
-                .commit();
+                .apply();
     }
 
     public String getUserName(){
@@ -66,6 +66,6 @@ public class Cache {
     }
 
     public void logOutUser(){
-        preferences.edit().clear().commit();
+        preferences.edit().clear().apply();
     }
 }

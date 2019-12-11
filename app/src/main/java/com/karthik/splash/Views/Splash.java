@@ -13,7 +13,8 @@ import com.karthik.splash.Contracts.SplashContract;
 import com.karthik.splash.Components.SplashScreenComponent;
 import com.karthik.splash.Modules.SplashScreenModule;
 import com.karthik.splash.R;
-import com.karthik.splash.SplashApp;
+import com.karthik.splash.root.SplashApp;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
