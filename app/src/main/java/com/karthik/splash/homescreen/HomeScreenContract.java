@@ -1,10 +1,10 @@
-package com.karthik.splash.Contracts;
+package com.karthik.splash.homescreen;
 
 /**
  * Created by karthikrk on 14/11/17.
  */
 
-public interface FeedsContract {
+public interface HomeScreenContract {
     interface View{
         void inflateHome();
         void inflateLikes();

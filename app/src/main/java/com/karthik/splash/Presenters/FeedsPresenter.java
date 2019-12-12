@@ -1,6 +1,6 @@
 package com.karthik.splash.Presenters;
 
-import com.karthik.splash.Contracts.FeedsContract;
+import com.karthik.splash.homescreen.HomeScreenContract;
 import com.karthik.splash.Models.Oauth.OAuthBody;
 import com.karthik.splash.Models.Oauth.UserAuth;
 import com.karthik.splash.R;
@@ -16,15 +16,15 @@ import io.reactivex.observers.DisposableSingleObserver;
  * Created by karthikrk on 14/11/17.
  */
 
-public class FeedsPresenter implements FeedsContract.Presenter{
+public class FeedsPresenter implements HomeScreenContract.Presenter{
 
-    private FeedsContract.View feedsView;
+    private HomeScreenContract.View feedsView;
     private Cache cache;
     private OAuthNetworkLayer oAuthNetworkLayer;
     private CompositeDisposable disposable = new CompositeDisposable();
 
     @Inject
-    public  FeedsPresenter(FeedsContract.View feedsView, Cache cache, OAuthNetworkLayer oAuthNetworkLayer){
+    public  FeedsPresenter(HomeScreenContract.View feedsView, Cache cache, OAuthNetworkLayer oAuthNetworkLayer){
         this.feedsView = feedsView;
         this.cache = cache;
         this.oAuthNetworkLayer = oAuthNetworkLayer;

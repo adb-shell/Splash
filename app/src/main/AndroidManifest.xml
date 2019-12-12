@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".Views.Feeds"
+                android:name=".homescreen.HomeScreen"
                 android:label="@string/title_activity_feeds"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:launchMode="singleInstance">

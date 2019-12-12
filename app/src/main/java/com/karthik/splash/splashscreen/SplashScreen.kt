@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import com.karthik.splash.R
-import com.karthik.splash.Views.Feeds
+import com.karthik.splash.homescreen.HomeScreen
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
@@ -35,7 +35,7 @@ class SplashScreen: AppCompatActivity(), SplashScreenContract.SplashView {
     }
 
     override fun showDashBoardScreen(shouldShowCache: Boolean) =
-            startActivity(Feeds.getIntent(this, shouldShowCache))
+            startActivity(HomeScreen.getIntent(this, shouldShowCache))
 
     override fun closeScreen() = finish()
 

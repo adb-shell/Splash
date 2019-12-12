@@ -16,6 +16,7 @@ import com.karthik.splash.Contracts.FeedsHomeContract;
 import com.karthik.splash.Components.FeedsHomeComponent;
 import com.karthik.splash.Modules.FeedsHomeModule;
 import com.karthik.splash.R;
+import com.karthik.splash.homescreen.HomeScreen;
 import com.karthik.splash.root.SplashApp;
 
 import javax.inject.Inject;
@@ -41,7 +42,7 @@ public class FeedsHome extends Fragment implements FeedsHomeContract.view{
 
     public static FeedsHome getInstance(boolean isCached){
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Feeds.IS_FROM_CACHE,isCached);
+        bundle.putBoolean(HomeScreen.IS_FROM_CACHE,isCached);
         FeedsHome home = new FeedsHome();
         home.setRetainInstance(true);
         home.setArguments(bundle);
@@ -80,7 +81,7 @@ public class FeedsHome extends Fragment implements FeedsHomeContract.view{
         viewPager.setAdapter(new FeedViewPagerAdapter(
                 getChildFragmentManager(),
                 presenter.getPageTitles(),
-                getArguments().getBoolean(Feeds.IS_FROM_CACHE)));
+                getArguments().getBoolean(HomeScreen.IS_FROM_CACHE)));
         viewPager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(viewPager);
     }
