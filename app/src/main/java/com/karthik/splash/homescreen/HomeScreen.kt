@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
 import com.karthik.splash.R
-import com.karthik.splash.Views.FeedsHome
+import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabFragment
 import com.karthik.splash.Views.FeedsLike
 import com.karthik.splash.Views.FeedsSettings
 import com.karthik.splash.root.SplashApp
@@ -63,7 +63,8 @@ class HomeScreen: AppCompatActivity(),BottomNavigationView.OnNavigationItemSelec
 
     override fun inflateHome() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, FeedsHome.getInstance(intent.getBooleanExtra(IS_FROM_CACHE, false)))
+        transaction.replace(R.id.container, BottomHomeTabFragment.getInstance(
+                intent.getBooleanExtra(IS_FROM_CACHE, false)))
         transaction.commit()
     }
 
