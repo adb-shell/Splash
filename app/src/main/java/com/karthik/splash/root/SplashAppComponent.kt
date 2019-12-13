@@ -6,6 +6,8 @@ import com.karthik.splash.homescreen.HomeScreenComponent
 import com.karthik.splash.homescreen.HomeScreenModule
 import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabComponent
 import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabModule
+import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabComponent
+import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabModule
 import com.karthik.splash.splashscreen.SplashScreenComponent
 import com.karthik.splash.splashscreen.SplashScreenModule
 
@@ -20,7 +22,7 @@ interface SplashAppComponent {
     fun plus(homeScreenModule: HomeScreenModule): HomeScreenComponent
     fun plus(bottomHomeTabModule: BottomHomeTabModule): BottomHomeTabComponent
     fun plus(homeTabFeedsModule: HomeTabFeedsModule):HomeTabFeedsComponent
-    fun plus(likeTabFeedsModule: LikeTabFeedsModule):LikeTabFeedsComponent
+    fun plus(likeTabFeedsModule: BottomLikeTabModule): BottomLikeTabComponent
     fun plus(settingsTabFeedsModule: SettingsTabFeedsModule):SettingsTabFeedsComponent
     fun plus(photoDetailModule: PhotoDetailModule):PhotoDetailComponent
 }

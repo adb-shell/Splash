@@ -9,8 +9,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabFragment
-import com.karthik.splash.Views.FeedsLike
 import com.karthik.splash.Views.FeedsSettings
+import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabFragment
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
@@ -70,7 +70,7 @@ class HomeScreen: AppCompatActivity(),BottomNavigationView.OnNavigationItemSelec
 
     override fun inflateLikes() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, FeedsLike.getInstance())
+        transaction.replace(R.id.container,BottomLikeTabFragment.getInstance())
         transaction.commit()
     }
 
