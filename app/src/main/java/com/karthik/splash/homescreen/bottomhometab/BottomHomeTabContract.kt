@@ -1,6 +1,7 @@
 package com.karthik.splash.homescreen.bottomhometab
 
 import android.content.Context
+import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
 
 import java.util.ArrayList
 
@@ -14,6 +15,6 @@ interface BottomHomeTabContract {
     }
 
     interface presenter {
-        fun pageTitles(): ArrayList<String>
+        fun pageTitles(): ArrayList<BottomTabTypes>
     }
 }

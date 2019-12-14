@@ -1,6 +1,6 @@
 package com.karthik.splash.homescreen
 
-import com.karthik.splash.Presenters.FeedsPresenter
+
 import com.karthik.splash.RestServices.NetworkLayer.OAuthNetworkLayer
 import com.karthik.splash.Storage.Cache
 import dagger.Module
@@ -19,5 +19,5 @@ class HomeScreenModule(private val homescreenview: HomeScreenContract.View) {
 
     @Provides
     fun providesHomeScreenPresenter(cache: Cache,oAuthNetworkLayer: OAuthNetworkLayer)
-            : HomeScreenContract.Presenter = FeedsPresenter(homescreenview,cache,oAuthNetworkLayer)
+            : HomeScreenContract.Presenter = HomeScreenPresenter(homescreenview,cache,oAuthNetworkLayer)
 }

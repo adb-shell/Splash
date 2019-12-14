@@ -6,7 +6,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/FeedsList"
+            android:id="@+id/feedslist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -19,14 +19,14 @@
             android:layout_gravity="center"
             tools:visibility="gone"/>
     <ImageView
-            android:id="@+id/no_internet_image"
+            android:id="@+id/nointernetimage"
             android:layout_width="@dimen/splash_icon_size"
             android:layout_height="@dimen/splash_icon_size"
             app:srcCompat="@drawable/no_internet"
             android:visibility="gone"
             android:layout_gravity="center"/>
     <TextView
-            android:id="@+id/no_internet_text"
+            android:id="@+id/nointernettext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

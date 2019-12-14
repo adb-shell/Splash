@@ -1,0 +1,49 @@
+package com.karthik.splash.homescreen
+
+import com.karthik.splash.Models.Oauth.OAuthBody
+import com.karthik.splash.Models.Oauth.UserAuth
+import com.karthik.splash.R
+import com.karthik.splash.RestServices.NetworkLayer.OAuthNetworkLayer
+import com.karthik.splash.Storage.Cache
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+
+class HomeScreenPresenter(private val view: HomeScreenContract.View,
+                          private val cache: Cache,
+                          private val oAuthNetworkLayer: OAuthNetworkLayer):HomeScreenContract.Presenter {
+
+    private val disposable = CompositeDisposable()
+
+
+    override fun onNavigationItemSelected(id: Int) {
+        if(view.selectedItem==id)
+            return
+
+        when(id){
+            R.id.navigation_home-> view.inflateHome()
+            R.id.navigation_likes-> view.inflateLikes()
+            R.id.navigation_settings-> view.inflateSettings()
+        }
+    }
+
+    override fun getUserDetail(code: String?) {
+        disposable.add(oAuthNetworkLayer.postOAuth(OAuthBody(code)).subscribeWith(object:DisposableSingleObserver<UserAuth>(){
+            override fun onSuccess(userAuth: UserAuth) {
+                cache.setUserLoggedIn()
+                cache.authCode = userAuth.accessToken
+                view.inflateLikes()
+            }
+
+            override fun onError(e: Throwable) {
+                view.displayUnableToLogin()
+                view.inflateLikes()
+            }
+        }))
+    }
+
+    override fun clearResource() {
+        if(!disposable.isDisposed){
+            disposable.dispose()
+        }
+    }
+}
