@@ -7,7 +7,7 @@ import com.karthik.splash.Storage.Cache
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 
-class BottomTabLikePresenter(private val view: BottomLikeTabContract.view,
+class BottomLikeTabPresenter(private val view: BottomLikeTabContract.view,
                              private val cache: Cache,
                              private val userServiceNetworkLayer: UserServiceNetworkLayer):BottomLikeTabContract.presenter {
 

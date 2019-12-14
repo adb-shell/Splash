@@ -27,8 +27,8 @@
     <string name="photo_detail_like">Like</string>
     <string name="photo_detail_download">Download</string>
     <string name="photo_detail_share">Share</string>
-    <string name="By">By</string>
-    <string name="On">On</string>
+    <string name="By">By %s</string>
+    <string name="On">On %s</string>
     <string name="Collections">Collections</string>
     <string name="Photos">Photos</string>
     <string name="Version">version:</string>

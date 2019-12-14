@@ -19,5 +19,5 @@ class BottomLikeTabModule(private val view: BottomLikeTabContract.view) {
     @Provides
     fun providesBottomLikePresenter(cache: Cache,
                                     userServiceNetworkLayer:UserServiceNetworkLayer)
-            :BottomLikeTabContract.presenter = BottomTabLikePresenter(view,cache,userServiceNetworkLayer)
+            :BottomLikeTabContract.presenter = BottomLikeTabPresenter(view,cache,userServiceNetworkLayer)
 }

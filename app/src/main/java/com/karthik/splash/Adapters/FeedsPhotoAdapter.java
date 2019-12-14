@@ -1,12 +1,8 @@
 package com.karthik.splash.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -19,7 +15,7 @@ import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.R;
 import com.karthik.splash.Utils;
 import com.karthik.splash.Views.PaginatedView;
-import com.karthik.splash.Views.PhotoDetail;
+import com.karthik.splash.photodetailscreen.PhotoDetailScreen;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -146,7 +142,7 @@ public class FeedsPhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
-            Intent intent = new Intent(context,PhotoDetail.class);
+            Intent intent = new Intent(context, PhotoDetailScreen.class);
             intent.putExtra(Utils.Photo,photosList.get(getAdapterPosition()));
             context.startActivity(intent);
         }

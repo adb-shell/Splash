@@ -9,8 +9,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabFragment
-import com.karthik.splash.Views.FeedsSettings
 import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabFragment
+import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsTabFragment
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
@@ -76,7 +76,7 @@ class HomeScreen: AppCompatActivity(),BottomNavigationView.OnNavigationItemSelec
 
     override fun inflateSettings() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, FeedsSettings.getInstance())
+        transaction.replace(R.id.container, BottomSettingsTabFragment.getInstance())
         transaction.commit()
     }
 
