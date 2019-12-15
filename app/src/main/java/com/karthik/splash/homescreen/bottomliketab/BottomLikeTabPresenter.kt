@@ -1,7 +1,7 @@
 package com.karthik.splash.homescreen.bottomliketab
 
 import com.karthik.splash.BuildConfig
-import com.karthik.splash.Models.PhotosLists.Photos
+import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.RestServices.NetworkLayer.UserServiceNetworkLayer
 import com.karthik.splash.Storage.Cache
 import io.reactivex.disposables.CompositeDisposable

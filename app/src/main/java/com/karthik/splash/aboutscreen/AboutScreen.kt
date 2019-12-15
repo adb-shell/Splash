@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.karthik.splash.Models.Library.Library
+import com.karthik.splash.models.library.Library
 import com.karthik.splash.R
 import kotlinx.android.synthetic.main.activity_about.*
 import java.util.ArrayList

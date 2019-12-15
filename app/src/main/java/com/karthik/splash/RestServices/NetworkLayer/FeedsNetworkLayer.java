@@ -1,6 +1,6 @@
 package com.karthik.splash.RestServices.NetworkLayer;
 
-import com.karthik.splash.Models.PhotosLists.Photos;
+import com.karthik.splash.models.PhotosLists.Photos;
 import com.karthik.splash.RestServices.Services.FeedsService;
 import com.karthik.splash.Storage.Cache;
 import com.karthik.splash.Storage.SqlLiteDbHandler;

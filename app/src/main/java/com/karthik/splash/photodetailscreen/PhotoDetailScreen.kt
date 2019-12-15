@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.karthik.splash.misc.CircularTransform
-import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo
-import com.karthik.splash.Models.PhotosLists.Photos
+import com.karthik.splash.models.photodetail.PhotoDetailInfo
+import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.R
 import com.karthik.splash.misc.Utils
 import com.karthik.splash.root.SplashApp
@@ -35,9 +35,9 @@ class PhotoDetailScreen:AppCompatActivity(), PhotoDetailScreenContract.view,View
         photoDetailScreenComponent = (application as SplashApp).getComponent()
                 .plus(PhotoDetailScreenModule(this))
         photoDetailScreenComponent?.inject(this)
-        username.text = getString(R.string.By,photo.user.name)
+        username.text = getString(R.string.By,photo.user?.name)
         createdtime.text = getString(R.string.On, Utils.parseDate(photo.createdTime))
-        Picasso.with(this).load(photo.urls.regular).into(feeddetailimage)
+        Picasso.with(this).load(photo.urls?.regular).into(feeddetailimage)
         likewrapper.setOnClickListener(this)
         donwloadwrapper.setOnClickListener(this)
         sharewrapper.setOnClickListener(this)
@@ -117,21 +117,21 @@ class PhotoDetailScreen:AppCompatActivity(), PhotoDetailScreenContract.view,View
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.likewrapper-> presenter.likeThePhoto(photo.id)
-            R.id.donwloadwrapper-> presenter.downloadPhoto(this, photo.id, photo.urls.full)
+            R.id.donwloadwrapper-> presenter.downloadPhoto(this, photo.id, photo.urls?.full)
             R.id.sharewrapper->{
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/html"
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, photo.urls.regular)
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, photo.urls?.regular)
                 startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_photo)))
             }
         }
     }
 
     private fun getUserLocation(photoDetailInfo: PhotoDetailInfo?): String {
-        return if (photoDetailInfo?.location == null || photoDetailInfo.location.country == null) {
+        return if (photoDetailInfo?.location == null || photoDetailInfo.location?.country == null) {
             getString(R.string.unknown)
         } else {
-            photoDetailInfo.location.country
+            photoDetailInfo.location?.country!!
         }
     }
 }

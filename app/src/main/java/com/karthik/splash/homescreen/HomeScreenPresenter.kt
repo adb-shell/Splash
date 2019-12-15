@@ -1,7 +1,7 @@
 package com.karthik.splash.homescreen
 
-import com.karthik.splash.Models.Oauth.OAuthBody
-import com.karthik.splash.Models.Oauth.UserAuth
+import com.karthik.splash.models.oauth.OAuthBody
+import com.karthik.splash.models.oauth.UserAuth
 import com.karthik.splash.R
 import com.karthik.splash.RestServices.NetworkLayer.OAuthNetworkLayer
 import com.karthik.splash.Storage.Cache

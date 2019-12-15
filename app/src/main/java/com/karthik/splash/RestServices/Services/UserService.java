@@ -1,10 +1,9 @@
 package com.karthik.splash.RestServices.Services;
 
-import com.karthik.splash.Models.PhotosLists.Photos;
-import com.karthik.splash.Models.UserProfile.Profile;
+import com.karthik.splash.models.PhotosLists.Photos;
+import com.karthik.splash.models.UserProfile.Profile;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

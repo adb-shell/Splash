@@ -1,6 +1,6 @@
 package com.karthik.splash.homescreen.bottomtab
 
-import com.karthik.splash.Models.PhotosLists.Photos
+import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.RestServices.NetworkLayer.FeedsNetworkLayer
 import com.karthik.splash.misc.Utils
 import io.reactivex.disposables.CompositeDisposable

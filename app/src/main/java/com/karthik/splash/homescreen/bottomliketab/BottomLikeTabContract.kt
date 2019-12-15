@@ -1,6 +1,6 @@
 package com.karthik.splash.homescreen.bottomliketab
 
-import com.karthik.splash.Models.PhotosLists.Photos
+import com.karthik.splash.models.PhotosLists.Photos
 
 /**
  * Created by karthikrk on 25/11/17.

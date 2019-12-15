@@ -3,10 +3,9 @@ package com.karthik.splash.RestServices.Services;
 
 
 
-import com.karthik.splash.Models.PhotosLists.Photos;
+import com.karthik.splash.models.PhotosLists.Photos;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

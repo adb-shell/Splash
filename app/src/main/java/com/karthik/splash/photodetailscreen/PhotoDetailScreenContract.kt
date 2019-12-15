@@ -2,7 +2,7 @@ package com.karthik.splash.photodetailscreen
 
 import android.content.Context
 
-import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo
+import com.karthik.splash.models.photodetail.PhotoDetailInfo
 
 /**
  * Created by karthikrk on 09/12/17.
@@ -26,7 +26,7 @@ interface PhotoDetailScreenContract {
     interface presenter {
         fun getPhotoDetails(id: String)
         fun likeThePhoto(id: String)
-        fun downloadPhoto(context: Context, fileName: String, url: String)
+        fun downloadPhoto(context: Context, fileName: String, url: String?)
         fun clearResources()
     }
 }

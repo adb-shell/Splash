@@ -1,7 +1,7 @@
 package com.karthik.splash.RestServices.Services;
 
-import com.karthik.splash.Models.Oauth.OAuthBody;
-import com.karthik.splash.Models.Oauth.UserAuth;
+import com.karthik.splash.models.oauth.OAuthBody;
+import com.karthik.splash.models.oauth.UserAuth;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;

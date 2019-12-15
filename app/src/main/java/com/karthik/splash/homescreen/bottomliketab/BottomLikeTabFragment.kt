@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.karthik.splash.Models.PhotosLists.Photos
+import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomtab.BottomTabAdapter
 import com.karthik.splash.root.SplashApp

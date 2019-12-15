@@ -1,14 +1,10 @@
 package com.karthik.splash.RestServices.NetworkLayer;
 
-import com.karthik.splash.Models.PhotosLists.Photos;
-import com.karthik.splash.Models.UserProfile.Profile;
-import com.karthik.splash.RestServices.Services.FeedsService;
+import com.karthik.splash.models.PhotosLists.Photos;
 import com.karthik.splash.RestServices.Services.UserService;
 import com.karthik.splash.Storage.Cache;
-import com.karthik.splash.Storage.SqlLiteDbHandler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -50,8 +46,8 @@ public class UserServiceNetworkLayer {
        return userService.getUserProfile()
                 .subscribeOn(Schedulers.io())
                 .flatMap(profile -> {
-                    localCache.setUserName(profile.username);
-                    return getPhotos(profile.username);
+                    localCache.setUserName(profile.getUsername());
+                    return getPhotos(profile.getUsername());
                 })
                 .observeOn(AndroidSchedulers.mainThread());
     }

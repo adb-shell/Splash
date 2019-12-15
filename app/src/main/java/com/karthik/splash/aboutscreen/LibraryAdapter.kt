@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.karthik.splash.Models.Library.Library
+import com.karthik.splash.models.library.Library
 import com.karthik.splash.R
 
 import java.util.ArrayList

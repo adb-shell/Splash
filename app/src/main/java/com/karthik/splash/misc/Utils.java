@@ -8,7 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
 
-import com.karthik.splash.Models.PhotosLists.Photos;
+import com.karthik.splash.models.PhotosLists.Photos;
 import com.karthik.splash.RestServices.UserOfflineException;
 
 import java.lang.reflect.Type;

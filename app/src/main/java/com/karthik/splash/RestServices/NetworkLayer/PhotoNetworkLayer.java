@@ -1,7 +1,7 @@
 package com.karthik.splash.RestServices.NetworkLayer;
 
-import com.karthik.splash.Models.LikePhoto.LikeResponse;
-import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo;
+import com.karthik.splash.models.likephoto.LikeResponse;
+import com.karthik.splash.models.photodetail.PhotoDetailInfo;
 import com.karthik.splash.RestServices.Services.PhotoService;
 
 import javax.inject.Inject;

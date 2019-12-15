@@ -2,8 +2,8 @@ package com.karthik.splash.photodetailscreen
 
 import android.content.Context
 import com.esafirm.rxdownloader.RxDownloader
-import com.karthik.splash.Models.LikePhoto.LikeResponse
-import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo
+import com.karthik.splash.models.likephoto.LikeResponse
+import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.RestServices.NetworkLayer.PhotoNetworkLayer
 import com.karthik.splash.Storage.Cache
 import com.karthik.splash.misc.Utils
@@ -51,7 +51,7 @@ class PhotoDetailScreenPresenter(private val view:PhotoDetailScreenContract.view
         view.showLoginRequired()
     }
 
-    override fun downloadPhoto(context: Context, fileName: String, url: String) {
+    override fun downloadPhoto(context: Context, fileName: String, url: String?) {
         if(view.isPermissionGranted()){
             RxDownloader.getInstance(context)
                     .download(url, fileName, Utils.PhotoMimeType)

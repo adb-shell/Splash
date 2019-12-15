@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.github.florent37.materialimageloading.MaterialImageLoading
-import com.karthik.splash.Models.PhotosLists.Photos
+import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.R
 import com.karthik.splash.misc.Utils
 import com.karthik.splash.photodetailscreen.PhotoDetailScreen
@@ -82,7 +82,7 @@ class BottomTabAdapter(private val photolist:ArrayList<Photos>,
 
     private fun loadImage(position:Int,holder:BottomViewHolder,context: Context){
         Picasso.with(context)
-                .load(photolist.get(position).urls.regular)
+                .load(photolist[position].urls?.regular)
                 .into(holder.feedimage, object : Callback {
                     override fun onSuccess() {
                         MaterialImageLoading.animate(holder.feedimage)
