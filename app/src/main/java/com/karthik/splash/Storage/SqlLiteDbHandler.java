@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.karthik.splash.Models.PhotosLists.Photos;
-import com.karthik.splash.Utils;
+import com.karthik.splash.misc.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;

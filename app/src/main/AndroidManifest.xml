@@ -38,7 +38,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".Views.About"
+        <activity android:name=".aboutscreen.AboutScreen"
                   android:launchMode="singleInstance"
                   android:label="@string/about"
                   android:theme="@style/AppTheme.NoActionBar"/>

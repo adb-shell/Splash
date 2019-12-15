@@ -6,7 +6,7 @@ import com.karthik.splash.Models.LikePhoto.LikeResponse
 import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo
 import com.karthik.splash.RestServices.NetworkLayer.PhotoNetworkLayer
 import com.karthik.splash.Storage.Cache
-import com.karthik.splash.Utils
+import com.karthik.splash.misc.Utils
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 

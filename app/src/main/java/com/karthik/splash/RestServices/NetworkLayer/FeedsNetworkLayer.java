@@ -4,16 +4,14 @@ import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.RestServices.Services.FeedsService;
 import com.karthik.splash.Storage.Cache;
 import com.karthik.splash.Storage.SqlLiteDbHandler;
-import com.karthik.splash.Utils;
+import com.karthik.splash.misc.Utils;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 

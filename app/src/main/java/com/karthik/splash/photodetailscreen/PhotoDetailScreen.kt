@@ -9,11 +9,11 @@ import android.support.v4.content.PermissionChecker
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import com.karthik.splash.Adapters.CircularTransform
+import com.karthik.splash.misc.CircularTransform
 import com.karthik.splash.Models.PhotoDetail.PhotoDetailInfo
 import com.karthik.splash.Models.PhotosLists.Photos
 import com.karthik.splash.R
-import com.karthik.splash.Utils
+import com.karthik.splash.misc.Utils
 import com.karthik.splash.root.SplashApp
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_photo_detail.*
@@ -36,7 +36,7 @@ class PhotoDetailScreen:AppCompatActivity(), PhotoDetailScreenContract.view,View
                 .plus(PhotoDetailScreenModule(this))
         photoDetailScreenComponent?.inject(this)
         username.text = getString(R.string.By,photo.user.name)
-        createdtime.text = getString(R.string.On,Utils.parseDate(photo.createdTime))
+        createdtime.text = getString(R.string.On, Utils.parseDate(photo.createdTime))
         Picasso.with(this).load(photo.urls.regular).into(feeddetailimage)
         likewrapper.setOnClickListener(this)
         donwloadwrapper.setOnClickListener(this)

@@ -2,7 +2,7 @@ package com.karthik.splash.homescreen.bottomtab
 
 import com.karthik.splash.Models.PhotosLists.Photos
 import com.karthik.splash.RestServices.NetworkLayer.FeedsNetworkLayer
-import com.karthik.splash.Utils
+import com.karthik.splash.misc.Utils
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 
@@ -36,7 +36,7 @@ class BottomTabPresenter(private val view:BottomTabContract.View,
 
     override fun manageErrors(e: Throwable) {
         view.hideProgressBar()
-        if(Utils.getErrorType(e)==Utils.NetworkErrorType.OFFLINE){
+        if(Utils.getErrorType(e)== Utils.NetworkErrorType.OFFLINE){
             view.showNoInternetScreen()
             return
         }

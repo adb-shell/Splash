@@ -1,4 +1,4 @@
-package com.karthik.splash.Adapters;
+package com.karthik.splash.misc;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

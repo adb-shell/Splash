@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.karthik.splash.R
 import com.karthik.splash.R.layout.fragment_bottom_tab_settings
-import com.karthik.splash.Views.About
+import com.karthik.splash.aboutscreen.AboutScreen
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_bottom_tab_settings.*
 import javax.inject.Inject
@@ -79,7 +79,7 @@ class BottomSettingsTabFragment:Fragment(), BottomSettingsTabContract.view,View.
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.logout->presenter.logOutUser()
-            R.id.about-> context?.startActivity(Intent(context,About::class.java))
+            R.id.about-> context?.startActivity(Intent(context, AboutScreen::class.java))
             R.id.downloads->presenter.showDownloadedImages()
         }
     }

@@ -1,7 +1,7 @@
 package com.karthik.splash.splashscreen
 
 import com.karthik.splash.Storage.Cache
-import com.karthik.splash.Utils
+import com.karthik.splash.misc.Utils
 
 class SplashScreenPresenter(private val splashview:SplashScreenContract.SplashView,
                             private val cache: Cache):SplashScreenContract.SplashPresenter {

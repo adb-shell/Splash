@@ -11,7 +11,7 @@ import android.widget.ImageView
 import com.github.florent37.materialimageloading.MaterialImageLoading
 import com.karthik.splash.Models.PhotosLists.Photos
 import com.karthik.splash.R
-import com.karthik.splash.Utils
+import com.karthik.splash.misc.Utils
 import com.karthik.splash.photodetailscreen.PhotoDetailScreen
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso

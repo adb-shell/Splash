@@ -1,4 +1,4 @@
-package com.karthik.splash;
+package com.karthik.splash.misc;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

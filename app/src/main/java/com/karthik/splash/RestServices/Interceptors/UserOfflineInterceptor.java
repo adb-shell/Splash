@@ -3,7 +3,7 @@ package com.karthik.splash.RestServices.Interceptors;
 import android.content.Context;
 
 import com.karthik.splash.RestServices.UserOfflineException;
-import com.karthik.splash.Utils;
+import com.karthik.splash.misc.Utils;
 
 import java.io.IOException;
 
