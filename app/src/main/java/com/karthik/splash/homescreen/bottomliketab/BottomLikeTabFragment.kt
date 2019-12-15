@@ -9,9 +9,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.karthik.splash.Adapters.FeedsPhotoAdapter
 import com.karthik.splash.Models.PhotosLists.Photos
 import com.karthik.splash.R
+import com.karthik.splash.homescreen.bottomtab.BottomTabAdapter
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_bottom_tab_like.*
 import kotlinx.android.synthetic.main.login_view.*
@@ -57,13 +57,13 @@ class BottomLikeTabFragment: Fragment(),BottomLikeTabContract.view {
         toolbar.title = getString(R.string.login)
     }
 
-    override fun showLikesList(likedPhotos: List<Photos>) {
+    override fun showLikesList(likedPhotos:ArrayList<Photos>) {
         loginwrapper.visibility = View.GONE
         likesList.visibility = View.VISIBLE
         emptywrapper.visibility = View.GONE
         toolbar.title = getString(R.string.title_likes)
         likesList.layoutManager = LinearLayoutManager(context)
-        likesList.adapter = FeedsPhotoAdapter(likedPhotos,null)
+        likesList.adapter = BottomTabAdapter(likedPhotos,null)
     }
 
     override fun showProgress() {

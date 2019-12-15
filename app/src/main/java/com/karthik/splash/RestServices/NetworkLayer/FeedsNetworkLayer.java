@@ -7,7 +7,7 @@ import com.karthik.splash.Storage.SqlLiteDbHandler;
 import com.karthik.splash.Utils;
 
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,20 +40,20 @@ public class FeedsNetworkLayer {
         this.dbHandler = dbHandler;
     }
 
-    public Single<List<Photos>> getNewFeedsCache(){
+    public Single<ArrayList<Photos>> getNewFeedsCache(){
         return Single.just(dbHandler.getCachedHomeNewResponse());
     }
 
-    public Single<List<Photos>> getTrendingFeedsCache(){
+    public Single<ArrayList<Photos>> getTrendingFeedsCache(){
         return Single.just(dbHandler.getTrendingHomeNewResponse());
     }
 
-    public Single<List<Photos>> getFeaturedFeedsCache(){
+    public Single<ArrayList<Photos>> getFeaturedFeedsCache(){
         return Single.just(dbHandler.getFeaturedHomeNewResponse());
     }
 
 
-    public Single<List<Photos>> getNewFeeds(int pageNo){
+    public Single<ArrayList<Photos>> getNewFeeds(int pageNo){
         return feedsNetworkService.getPhotos("latest",pageNo)
                 .subscribeOn(Schedulers.io())
                 .map(photos -> {
@@ -66,7 +66,7 @@ public class FeedsNetworkLayer {
 
     }
 
-    public Single<List<Photos>> getTrendingFeeds(int pageNo){
+    public Single<ArrayList<Photos>> getTrendingFeeds(int pageNo){
         return feedsNetworkService.getPhotos("popular",pageNo)
                 .subscribeOn(Schedulers.io())
                 .map(photos -> {
@@ -79,7 +79,7 @@ public class FeedsNetworkLayer {
 
     }
 
-    public Single<List<Photos>> getFeaturedFeeds(int pageNo){
+    public Single<ArrayList<Photos>> getFeaturedFeeds(int pageNo){
         return feedsNetworkService.getPhotos("oldest",pageNo)
                 .subscribeOn(Schedulers.io())
                 .map(photos -> {

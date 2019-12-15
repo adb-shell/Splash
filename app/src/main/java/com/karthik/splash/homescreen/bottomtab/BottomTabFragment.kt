@@ -6,18 +6,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.karthik.splash.Adapters.FeedsPhotoAdapter
 import com.karthik.splash.Models.PhotosLists.Photos
 import com.karthik.splash.R
-import com.karthik.splash.Views.PaginatedView
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_new.*
 import javax.inject.Inject
 
-class BottomTabFragment:Fragment(), BottomTabContract.View,PaginatedView {
+class BottomTabFragment:Fragment(), BottomTabContract.View, PaginatedView {
 
     private var bottomTabComponent: BottomTabComponent?=null
-    private lateinit var feedsAdapter:FeedsPhotoAdapter
+    private lateinit var feedsAdapter:BottomTabAdapter
 
     @Inject
     lateinit var presenter:BottomTabContract.Presenter
@@ -62,11 +60,11 @@ class BottomTabFragment:Fragment(), BottomTabContract.View,PaginatedView {
         progress.visibility = View.GONE
     }
 
-    override fun showPhotosList(photos: List<Photos>) {
+    override fun showPhotosList(photos: ArrayList<Photos>) {
         if (!presenter.isPaginatedItems()) {
             feedslist.visibility = View.VISIBLE
             feedslist.layoutManager = LinearLayoutManager(context)
-            feedsAdapter = FeedsPhotoAdapter(photos, this)
+            feedsAdapter = BottomTabAdapter(photos, this)
             feedslist.adapter = feedsAdapter
             return
         }

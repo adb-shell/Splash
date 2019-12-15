@@ -10,7 +10,7 @@ interface BottomTabContract {
     interface View {
         fun isFeedListVisible(): Boolean
         fun hideProgressBar()
-        fun showPhotosList(photos: List<Photos>)
+        fun showPhotosList(photos: ArrayList<Photos>)
         fun showEmptyScreen()
         fun showNoInternetScreen()
     }
@@ -22,6 +22,6 @@ interface BottomTabContract {
         fun getPaginatedFeeds(mode: BottomTabTypes?, pageSize: Int)
         fun clearResources()
         fun manageErrors(e: Throwable)
-        fun managePhotos(photos: List<Photos>)
+        fun managePhotos(photos: ArrayList<Photos>)
     }
 }

@@ -6,6 +6,7 @@ import com.karthik.splash.RestServices.NetworkLayer.UserServiceNetworkLayer
 import com.karthik.splash.Storage.Cache
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
+import java.util.ArrayList
 
 class BottomLikeTabPresenter(private val view: BottomLikeTabContract.view,
                              private val cache: Cache,
@@ -36,8 +37,8 @@ class BottomLikeTabPresenter(private val view: BottomLikeTabContract.view,
     }
 
     private fun getUserLikeList(){
-        disposable.add(userServiceNetworkLayer.userLikedPhotos.subscribeWith(object: DisposableSingleObserver<List<Photos>>() {
-            override fun onSuccess(photos: List<Photos>) {
+        disposable.add(userServiceNetworkLayer.userLikedPhotos.subscribeWith(object: DisposableSingleObserver<ArrayList<Photos>>() {
+            override fun onSuccess(photos: ArrayList<Photos>) {
                 view.hideProgress()
                 view.showLikesList(photos)
             }

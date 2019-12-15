@@ -7,6 +7,7 @@ import com.karthik.splash.RestServices.Services.UserService;
 import com.karthik.splash.Storage.Cache;
 import com.karthik.splash.Storage.SqlLiteDbHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class UserServiceNetworkLayer {
         this.localCache = localCache;
     }
 
-    public Single<List<Photos>> getUserLikedPhotos(){
+    public Single<ArrayList<Photos>> getUserLikedPhotos(){
         if(localCache.getUserName()!=null){
             return getPhotos(localCache.getUserName());
         }else{
@@ -39,13 +40,13 @@ public class UserServiceNetworkLayer {
         }
     }
 
-    private Single<List<Photos>> getPhotos(String username){
+    private Single<ArrayList<Photos>> getPhotos(String username){
         return userService.getUserLikePhotos(username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    private Single<List<Photos>> getUserProfileAndLikedPhotos(){
+    private Single<ArrayList<Photos> > getUserProfileAndLikedPhotos(){
        return userService.getUserProfile()
                 .subscribeOn(Schedulers.io())
                 .flatMap(profile -> {

@@ -9,7 +9,7 @@ import com.karthik.splash.Models.PhotosLists.Photos
 interface BottomLikeTabContract {
     interface view {
         fun showLoginScreen()
-        fun showLikesList(likedPhotos: List<Photos>)
+        fun showLikesList(likedPhotos: ArrayList<Photos>)
         fun showProgress()
         fun hideProgress()
         fun showEmptyLikedScreen()

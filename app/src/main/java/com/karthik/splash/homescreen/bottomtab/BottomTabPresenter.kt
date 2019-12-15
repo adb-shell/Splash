@@ -43,7 +43,7 @@ class BottomTabPresenter(private val view:BottomTabContract.View,
         view.showEmptyScreen()
     }
 
-    override fun managePhotos(photos: List<Photos>) {
+    override fun managePhotos(photos: ArrayList<Photos>) {
         view.hideProgressBar()
         if(photos.isEmpty()){
             view.showEmptyScreen()
@@ -53,8 +53,8 @@ class BottomTabPresenter(private val view:BottomTabContract.View,
     }
 
     private fun getNewFeeds(isCacheAvailable: Boolean, pageSize: Int) {
-        val photoscallback = object:DisposableSingleObserver<List<Photos>>(){
-            override fun onSuccess(photos: List<Photos>) {
+        val photoscallback = object:DisposableSingleObserver<ArrayList<Photos>>(){
+            override fun onSuccess(photos: ArrayList<Photos>) {
                 managePhotos(photos)
             }
 
@@ -71,8 +71,8 @@ class BottomTabPresenter(private val view:BottomTabContract.View,
     }
 
     private fun getFeaturedFeeds(isCacheAvailable: Boolean, pageSize: Int) {
-        val photoscallback = object:DisposableSingleObserver<List<Photos>>(){
-            override fun onSuccess(photos: List<Photos>) {
+        val photoscallback = object:DisposableSingleObserver<ArrayList<Photos>>(){
+            override fun onSuccess(photos: ArrayList<Photos>) {
                 managePhotos(photos)
             }
 
@@ -84,12 +84,12 @@ class BottomTabPresenter(private val view:BottomTabContract.View,
             disposable.add(feedsNetworkLayer.featuredFeedsCache.subscribeWith(photoscallback))
             return
         }
-        disposable.add(feedsNetworkLayer.getNewFeeds(pageSize).subscribeWith(photoscallback))
+        disposable.add(feedsNetworkLayer.getFeaturedFeeds(pageSize).subscribeWith(photoscallback))
     }
 
     private fun getTrendingFeeds(isCacheAvailable: Boolean, pageSize: Int) {
-        val photoscallback = object:DisposableSingleObserver<List<Photos>>(){
-            override fun onSuccess(photos: List<Photos>) {
+        val photoscallback = object:DisposableSingleObserver<ArrayList<Photos>>(){
+            override fun onSuccess(photos: ArrayList<Photos>) {
                 managePhotos(photos)
             }
 

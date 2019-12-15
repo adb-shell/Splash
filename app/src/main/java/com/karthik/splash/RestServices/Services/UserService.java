@@ -3,6 +3,7 @@ package com.karthik.splash.RestServices.Services;
 import com.karthik.splash.Models.PhotosLists.Photos;
 import com.karthik.splash.Models.UserProfile.Profile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -19,5 +20,5 @@ public interface UserService {
     Single<Profile> getUserProfile();
 
     @GET("users/{username}/likes")
-    Single<List<Photos>> getUserLikePhotos(@Path("username")String username);
+    Single<ArrayList<Photos>> getUserLikePhotos(@Path("username")String username);
 }
