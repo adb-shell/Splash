@@ -2,9 +2,9 @@ package com.karthik.splash.root
 
 import android.content.Context
 import com.karthik.splash.BuildConfig
-import com.karthik.splash.RestServices.Interceptors.AuthorizationKeyInterceptor
-import com.karthik.splash.RestServices.Interceptors.UserOfflineInterceptor
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.restservices.interceptors.AuthorizationKeyInterceptor
+import com.karthik.splash.restservices.interceptors.UserOfflineInterceptor
+import com.karthik.splash.storage.Cache
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides

@@ -1,10 +1,10 @@
-package com.karthik.splash.RestServices.NetworkLayer;
+package com.karthik.splash.restservices.networklayer;
 
 import com.karthik.splash.models.PhotosLists.Photos;
-import com.karthik.splash.RestServices.Services.FeedsService;
-import com.karthik.splash.Storage.Cache;
-import com.karthik.splash.Storage.SqlLiteDbHandler;
+import com.karthik.splash.restservices.services.FeedsService;
+import com.karthik.splash.storage.Cache;
 import com.karthik.splash.misc.Utils;
+import com.karthik.splash.storage.SqlLiteDbHandler;
 
 
 import java.util.ArrayList;

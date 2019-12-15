@@ -1,7 +1,7 @@
 package com.karthik.splash.homescreen.bottomliketab
 
-import com.karthik.splash.RestServices.NetworkLayer.UserServiceNetworkLayer
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.restservices.networklayer.UserServiceNetworkLayer
+import com.karthik.splash.storage.Cache
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

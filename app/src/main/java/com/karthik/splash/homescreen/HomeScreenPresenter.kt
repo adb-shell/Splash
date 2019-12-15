@@ -3,8 +3,8 @@ package com.karthik.splash.homescreen
 import com.karthik.splash.models.oauth.OAuthBody
 import com.karthik.splash.models.oauth.UserAuth
 import com.karthik.splash.R
-import com.karthik.splash.RestServices.NetworkLayer.OAuthNetworkLayer
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.restservices.networklayer.OAuthNetworkLayer
+import com.karthik.splash.storage.Cache
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 
@@ -30,7 +30,7 @@ class HomeScreenPresenter(private val view: HomeScreenContract.View,
         disposable.add(oAuthNetworkLayer.postOAuth(OAuthBody(code)).subscribeWith(object:DisposableSingleObserver<UserAuth>(){
             override fun onSuccess(userAuth: UserAuth) {
                 cache.setUserLoggedIn()
-                cache.authCode = userAuth.accessToken
+                cache.setAuthCode(userAuth.accessToken)
                 view.inflateLikes()
             }
 

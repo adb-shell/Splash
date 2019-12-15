@@ -1,7 +1,7 @@
 package com.karthik.splash.homescreen.bottomsettingstab
 
 
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.storage.Cache
 import dagger.Module
 import dagger.Provides
 

@@ -1,4 +1,4 @@
-package com.karthik.splash.RestServices.Services;
+package com.karthik.splash.restservices.services;
 
 import com.karthik.splash.models.likephoto.LikeResponse;
 import com.karthik.splash.models.photodetail.PhotoDetailInfo;

@@ -1,8 +1,8 @@
-package com.karthik.splash.RestServices.NetworkLayer;
+package com.karthik.splash.restservices.networklayer;
 
 import com.karthik.splash.models.PhotosLists.Photos;
-import com.karthik.splash.RestServices.Services.UserService;
-import com.karthik.splash.Storage.Cache;
+import com.karthik.splash.restservices.services.UserService;
+import com.karthik.splash.storage.Cache;
 
 import java.util.ArrayList;
 

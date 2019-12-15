@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
 
 import com.karthik.splash.models.PhotosLists.Photos;
-import com.karthik.splash.RestServices.UserOfflineException;
+import com.karthik.splash.restservices.UserOfflineException;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;

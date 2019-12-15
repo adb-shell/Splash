@@ -1,12 +1,12 @@
 package com.karthik.splash.homescreen.bottomsettingstab
 
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.storage.Cache
 
 class BottomSettingsTabPresenter(private val view: BottomSettingsTabContract.view,
                                  private val cache: Cache):BottomSettingsTabContract.presenter {
     override fun decideScreen() {
-        if(cache.isUserLoggedIn){
-            view.showLoggedInView(cache.userName)
+        if(cache.isUserLoggedIn() && cache.getUserName()!=null){
+            view.showLoggedInView(cache.getUserName()!!)
             return
         }
         view.showNonLoggedInView()

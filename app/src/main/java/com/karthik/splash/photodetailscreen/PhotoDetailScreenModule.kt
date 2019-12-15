@@ -1,7 +1,7 @@
 package com.karthik.splash.photodetailscreen
 
-import com.karthik.splash.RestServices.NetworkLayer.PhotoNetworkLayer
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.restservices.networklayer.PhotoNetworkLayer
+import com.karthik.splash.storage.Cache
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

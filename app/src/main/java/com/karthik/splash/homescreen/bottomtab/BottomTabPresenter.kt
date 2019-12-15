@@ -1,7 +1,7 @@
 package com.karthik.splash.homescreen.bottomtab
 
 import com.karthik.splash.models.PhotosLists.Photos
-import com.karthik.splash.RestServices.NetworkLayer.FeedsNetworkLayer
+import com.karthik.splash.restservices.networklayer.FeedsNetworkLayer
 import com.karthik.splash.misc.Utils
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver

@@ -1,12 +1,12 @@
 package com.karthik.splash.splashscreen
 
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.storage.Cache
 import com.karthik.splash.misc.Utils
 
 class SplashScreenPresenter(private val splashview:SplashScreenContract.SplashView,
                             private val cache: Cache):SplashScreenContract.SplashPresenter {
     override fun decideScreens() {
-        if (!Utils.isInternetAvailable(splashview.getSplashScreenContext()) && !cache.isCacheAvail) {
+        if (!Utils.isInternetAvailable(splashview.getSplashScreenContext()) && !cache.isCacheAvail()) {
             splashview.showNoInternetScreen()
             return
         }
@@ -15,5 +15,5 @@ class SplashScreenPresenter(private val splashview:SplashScreenContract.SplashVi
     }
 
     override fun shouldShowCache(): Boolean =
-            !Utils.isInternetAvailable(splashview.getSplashScreenContext()) && cache.isCacheAvail
+            !Utils.isInternetAvailable(splashview.getSplashScreenContext()) && cache.isCacheAvail()
 }

@@ -1,8 +1,8 @@
 package com.karthik.splash.homescreen
 
 
-import com.karthik.splash.RestServices.NetworkLayer.OAuthNetworkLayer
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.restservices.networklayer.OAuthNetworkLayer
+import com.karthik.splash.storage.Cache
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

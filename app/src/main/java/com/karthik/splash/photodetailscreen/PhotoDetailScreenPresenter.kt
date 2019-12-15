@@ -4,8 +4,8 @@ import android.content.Context
 import com.esafirm.rxdownloader.RxDownloader
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.models.photodetail.PhotoDetailInfo
-import com.karthik.splash.RestServices.NetworkLayer.PhotoNetworkLayer
-import com.karthik.splash.Storage.Cache
+import com.karthik.splash.restservices.networklayer.PhotoNetworkLayer
+import com.karthik.splash.storage.Cache
 import com.karthik.splash.misc.Utils
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -33,7 +33,7 @@ class PhotoDetailScreenPresenter(private val view:PhotoDetailScreenContract.view
     }
 
     override fun likeThePhoto(id: String) {
-        if(cache.isUserLoggedIn){
+        if(cache.isUserLoggedIn()){
             view.showLoading()
             disposable.add(photoNetworkLayer.likePhoto(id).subscribeWith(object:DisposableSingleObserver<LikeResponse>(){
                 override fun onSuccess(t: LikeResponse) {

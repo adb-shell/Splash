@@ -1,9 +1,9 @@
-package com.karthik.splash.RestServices.NetworkLayer;
+package com.karthik.splash.restservices.networklayer;
 
 import com.karthik.splash.models.oauth.OAuthBody;
 import com.karthik.splash.models.oauth.UserAuth;
-import com.karthik.splash.RestServices.Services.OAuthService;
-import com.karthik.splash.Storage.Cache;
+import com.karthik.splash.restservices.services.OAuthService;
+import com.karthik.splash.storage.Cache;
 
 import javax.inject.Inject;
 

@@ -1,9 +1,9 @@
 package com.karthik.splash.homescreen.bottomtab
 
 import android.content.Context
-import com.karthik.splash.RestServices.NetworkLayer.FeedsNetworkLayer
-import com.karthik.splash.Storage.Cache
-import com.karthik.splash.Storage.SqlLiteDbHandler
+import com.karthik.splash.restservices.networklayer.FeedsNetworkLayer
+import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.SqlLiteDbHandler
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

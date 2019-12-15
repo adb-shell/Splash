@@ -1,4 +1,4 @@
-package com.karthik.splash.RestServices.Services;
+package com.karthik.splash.restservices.services;
 
 import com.karthik.splash.models.oauth.OAuthBody;
 import com.karthik.splash.models.oauth.UserAuth;
