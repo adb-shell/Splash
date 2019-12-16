@@ -8,7 +8,7 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-1.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-2.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-3.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-4.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-5.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-6.png" width="200">
 
 ## Todo:<br/>
-1.Rewrite in kotlin.<br/>
+~~1.Rewrite in kotlin.<br/>~~
 2.Use following achitecture components:.<br/>
    &nbsp;&nbsp;&nbsp;(2a)Lifecycles.<br/>
    &nbsp;&nbsp;&nbsp;(2b)LiveData<br/>
