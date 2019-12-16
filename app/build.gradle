@@ -1,6 +1,7 @@
-
-
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion COMPLILE_SDK_VERSION
@@ -11,6 +12,7 @@ android {
         versionCode 1
         versionName "0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         debug {
@@ -41,6 +43,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
@@ -51,13 +56,13 @@ dependencies {
     implementation "com.android.support:customtabs:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:recyclerview-v7:${SUPPORT_TOOL_VERSION}"
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
-    annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
+    kapt "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VER}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_CONV_VER}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VER}"
     implementation "com.squareup.okhttp3:logging-interceptor:${RETROFIT_LOGGER_VER}"
     implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    kapt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     implementation "io.reactivex.rxjava2:rxjava:${RX_JAVA_VER}"
     implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VER}"
     implementation "com.squareup.picasso:picasso:${PICASSO_VER}"
@@ -65,7 +70,7 @@ dependencies {
     implementation "com.github.esafirm:RxDownloader:${RX_DOWNLOADER}"
 
 
-    debugCompile "com.readystatesoftware.chuck:library:${CHUCK_VER}"
+    debugImplementation "com.readystatesoftware.chuck:library:${CHUCK_VER}"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

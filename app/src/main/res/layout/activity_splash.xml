@@ -8,7 +8,7 @@
              android:background="@color/primary_light">
 
     <ImageView
-            android:id="@+id/splash_image"
+            android:id="@+id/splashimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -16,7 +16,7 @@
             app:srcCompat="@drawable/cold_image"/>
 
     <TextView
-            android:id="@+id/splash_display_text"
+            android:id="@+id/splashdisplaytext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

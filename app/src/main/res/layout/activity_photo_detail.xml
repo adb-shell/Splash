@@ -28,7 +28,7 @@
                         app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                         app:title="@string/photo_detail">
                     <ImageView
-                            android:id="@+id/feed_detail_image"
+                            android:id="@+id/feeddetailimage"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/photo_detail_image_height"
                             android:scaleType="centerCrop"
@@ -48,7 +48,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/photo_detail_margin_top"/>
         <TextView
-                android:id="@+id/createdTime"
+                android:id="@+id/createdtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -69,6 +69,7 @@
                 android:layout_marginTop="@dimen/fab_margin"
                 android:weightSum="3">
             <LinearLayout
+                    android:id="@+id/likewrapper"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -88,6 +89,7 @@
                         android:textColor="@color/icons"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/sharewrapper"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -107,6 +109,7 @@
                         android:textColor="@color/icons"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/donwloadwrapper"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -143,7 +146,7 @@
                     android:layout_gravity="center"
                     />
             <LinearLayout
-                    android:id="@+id/additionalInfo"
+                    android:id="@+id/additionalinfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -178,7 +181,7 @@
                                 app:srcCompat="@drawable/eye"
                                 android:layout_weight="0.4"/>
                         <TextView
-                                android:id="@+id/no_views"
+                                android:id="@+id/noviews"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.6"
@@ -198,7 +201,7 @@
                                 app:srcCompat="@drawable/heart"
                                 android:layout_weight="0.4"/>
                         <TextView
-                                android:id="@+id/no_likes"
+                                android:id="@+id/nolikes"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.6"
@@ -225,7 +228,7 @@
                                 app:srcCompat="@drawable/location"
                                 android:layout_weight="0.4"/>
                         <TextView
-                                android:id="@+id/userLoc"
+                                android:id="@+id/userloc"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.6"
@@ -245,7 +248,7 @@
                                 app:srcCompat="@drawable/downloads"
                                 android:layout_weight="0.4"/>
                         <TextView
-                                android:id="@+id/no_downloads"
+                                android:id="@+id/nodownloads"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.6"

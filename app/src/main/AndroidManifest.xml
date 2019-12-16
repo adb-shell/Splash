@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-            android:name=".SplashApp"
+            android:name=".root.SplashApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -17,7 +17,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".Views.Splash"
+                android:name=".splashscreen.SplashScreen"
                 android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".Views.Feeds"
+                android:name=".homescreen.HomeScreen"
                 android:label="@string/title_activity_feeds"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:launchMode="singleInstance">
@@ -38,11 +38,11 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".Views.About"
+        <activity android:name=".aboutscreen.AboutScreen"
                   android:launchMode="singleInstance"
                   android:label="@string/about"
                   android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Views.PhotoDetail"
+        <activity android:name=".photodetailscreen.PhotoDetailScreen"
                   android:launchMode="singleInstance"
                   android:label="@string/photo_detail"
                   android:theme="@style/AppTheme.NoActionBar"/>

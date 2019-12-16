@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/primary_light">
+    <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:titleTextAppearance="?android:textAppearanceMedium"
+                app:titleTextColor="@color/tab_selected_color"
+                android:background="@color/icons"
+                android:paddingLeft="@dimen/tab_home_padding_left"
+                app:layout_scrollFlags="scroll|snap"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+            android:id="@+id/loginwrapper"
+            layout="@layout/login_view"
+            android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/likesList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+    <LinearLayout
+            android:id="@+id/emptywrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:visibility="gone">
+        <ImageView
+                android:layout_width="@dimen/splash_icon_size"
+                android:layout_height="@dimen/splash_icon_size"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/broken_heart"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/zero_likes"
+                android:layout_marginTop="@dimen/login_button_elevation"/>
+    </LinearLayout>
+
+    <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
+            android:layout_gravity="center"/>
+
+</android.support.design.widget.CoordinatorLayout>
