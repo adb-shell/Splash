@@ -1,6 +1,5 @@
 package com.karthik.splash.photodetailscreen
 
-import com.karthik.splash.restservices.networklayer.PhotoNetworkLayer
 import com.karthik.splash.storage.Cache
 import dagger.Module
 import dagger.Provides
@@ -13,10 +12,10 @@ class PhotoDetailScreenModule(val view: PhotoDetailScreenContract.view) {
     fun providesPhotoDetail() = view
 
     @Provides
-    fun providesPhotoNetworkLayer(retrofit: Retrofit) = PhotoNetworkLayer(retrofit)
+    fun providesPhotoNetworkLayer(retrofit: Retrofit) = PhotoDetailScreenNetworkLayer(retrofit)
 
     @Provides
-    fun providesPhotoDetailPresenter(photoNetworkLayer: PhotoNetworkLayer,
+    fun providesPhotoDetailPresenter(photoNetworkLayer: PhotoDetailScreenNetworkLayer,
                                      cache: Cache): PhotoDetailScreenContract.presenter =
             PhotoDetailScreenPresenter(view,photoNetworkLayer,cache)
 }

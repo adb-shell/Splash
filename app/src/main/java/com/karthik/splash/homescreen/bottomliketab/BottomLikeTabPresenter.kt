@@ -2,7 +2,6 @@ package com.karthik.splash.homescreen.bottomliketab
 
 import com.karthik.splash.BuildConfig
 import com.karthik.splash.models.PhotosLists.Photos
-import com.karthik.splash.restservices.networklayer.UserServiceNetworkLayer
 import com.karthik.splash.storage.Cache
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -10,7 +9,7 @@ import java.util.ArrayList
 
 class BottomLikeTabPresenter(private val view: BottomLikeTabContract.view,
                              private val cache: Cache,
-                             private val userServiceNetworkLayer: UserServiceNetworkLayer):BottomLikeTabContract.presenter {
+                             private val userServiceNetworkLayer: BottomLikeTabNetworkLayer):BottomLikeTabContract.presenter {
 
     private val disposable = CompositeDisposable()
     private val userscope = "public+read_user+read_photos+write_likes";
@@ -37,7 +36,7 @@ class BottomLikeTabPresenter(private val view: BottomLikeTabContract.view,
     }
 
     private fun getUserLikeList(){
-        disposable.add(userServiceNetworkLayer.userLikedPhotos.subscribeWith(object: DisposableSingleObserver<ArrayList<Photos>>() {
+        disposable.add(userServiceNetworkLayer.getUserLikedPhotos().subscribeWith(object: DisposableSingleObserver<ArrayList<Photos>>() {
             override fun onSuccess(photos: ArrayList<Photos>) {
                 view.hideProgress()
                 view.showLikesList(photos)

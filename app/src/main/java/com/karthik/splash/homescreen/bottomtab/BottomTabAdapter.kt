@@ -73,7 +73,7 @@ class BottomTabAdapter(private val photolist:ArrayList<Photos>,
         override fun onClick(view: View?) {
             val context = view?.context
             val intent = Intent(context, PhotoDetailScreen::class.java)
-            intent.putExtra(Utils.Photo, photolist[adapterPosition])
+            intent.putExtra(Utils.photo, photolist[adapterPosition])
             context?.startActivity(intent)
         }
     }

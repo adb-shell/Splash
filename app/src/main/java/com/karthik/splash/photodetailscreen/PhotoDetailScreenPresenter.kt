@@ -4,14 +4,13 @@ import android.content.Context
 import com.esafirm.rxdownloader.RxDownloader
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.models.photodetail.PhotoDetailInfo
-import com.karthik.splash.restservices.networklayer.PhotoNetworkLayer
 import com.karthik.splash.storage.Cache
 import com.karthik.splash.misc.Utils
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 
 class PhotoDetailScreenPresenter(private val view:PhotoDetailScreenContract.view,
-                                 private val photoNetworkLayer: PhotoNetworkLayer,
+                                 private val photoNetworkLayer: PhotoDetailScreenNetworkLayer,
                                  private val cache: Cache):PhotoDetailScreenContract.presenter {
 
 
@@ -54,7 +53,7 @@ class PhotoDetailScreenPresenter(private val view:PhotoDetailScreenContract.view
     override fun downloadPhoto(context: Context, fileName: String, url: String?) {
         if(view.isPermissionGranted()){
             RxDownloader.getInstance(context)
-                    .download(url, fileName, Utils.PhotoMimeType)
+                    .download(url, fileName, Utils.photomimetype)
                     .subscribe({ path -> view.showFileDownloadedSuccessMessage(path) },
                                { view.showFileErrorDownloading() })
             return

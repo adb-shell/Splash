@@ -1,13 +1,11 @@
-package com.karthik.splash.restservices.interceptors
+package com.karthik.splash.restserviceutility.interceptors
 
 import com.karthik.splash.BuildConfig
 import com.karthik.splash.storage.Cache
 
 import java.io.IOException
 
-import okhttp3.HttpUrl
 import okhttp3.Interceptor
-import okhttp3.Request
 import okhttp3.Response
 
 /**

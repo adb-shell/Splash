@@ -1,13 +1,12 @@
 package com.karthik.splash.homescreen.bottomtab
 
 import com.karthik.splash.models.PhotosLists.Photos
-import com.karthik.splash.restservices.networklayer.FeedsNetworkLayer
 import com.karthik.splash.misc.Utils
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 
 class BottomTabPresenter(private val view:BottomTabContract.View,
-                         private val feedsNetworkLayer: FeedsNetworkLayer):BottomTabContract.Presenter {
+                         private val bottomTabNetworkLayer: BottomTabNetworkLayer):BottomTabContract.Presenter {
 
     private val MAX_LIMIT = 3
     private val disposable = CompositeDisposable()
@@ -64,10 +63,10 @@ class BottomTabPresenter(private val view:BottomTabContract.View,
         }
 
         if (isCacheAvailable) {
-            disposable.add(feedsNetworkLayer.newFeedsCache.subscribeWith(photoscallback))
+            disposable.add(bottomTabNetworkLayer.getNewFeedCache().subscribeWith(photoscallback))
             return
         }
-        disposable.add(feedsNetworkLayer.getNewFeeds(pageSize).subscribeWith(photoscallback))
+        disposable.add(bottomTabNetworkLayer.getNewFeeds(pageSize).subscribeWith(photoscallback))
     }
 
     private fun getFeaturedFeeds(isCacheAvailable: Boolean, pageSize: Int) {
@@ -81,10 +80,10 @@ class BottomTabPresenter(private val view:BottomTabContract.View,
             }
         }
         if(isCacheAvailable){
-            disposable.add(feedsNetworkLayer.featuredFeedsCache.subscribeWith(photoscallback))
+            disposable.add(bottomTabNetworkLayer.getFeaturedFeedCache().subscribeWith(photoscallback))
             return
         }
-        disposable.add(feedsNetworkLayer.getFeaturedFeeds(pageSize).subscribeWith(photoscallback))
+        disposable.add(bottomTabNetworkLayer.getFeaturedFeeds(pageSize).subscribeWith(photoscallback))
     }
 
     private fun getTrendingFeeds(isCacheAvailable: Boolean, pageSize: Int) {
@@ -98,9 +97,9 @@ class BottomTabPresenter(private val view:BottomTabContract.View,
             }
         }
         if(isCacheAvailable){
-            disposable.add(feedsNetworkLayer.trendingFeedsCache.subscribeWith(photoscallback))
+            disposable.add(bottomTabNetworkLayer.getTrendingFeedCache().subscribeWith(photoscallback))
             return
         }
-        disposable.add(feedsNetworkLayer.getTrendingFeeds(pageSize).subscribeWith(photoscallback))
+        disposable.add(bottomTabNetworkLayer.getTrendingFeeds(pageSize).subscribeWith(photoscallback))
     }
 }

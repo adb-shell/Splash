@@ -1,7 +1,6 @@
 package com.karthik.splash.homescreen.bottomtab
 
 import android.content.Context
-import com.karthik.splash.restservices.networklayer.FeedsNetworkLayer
 import com.karthik.splash.storage.Cache
 import com.karthik.splash.storage.SqlLiteDbHandler
 import dagger.Module
@@ -30,9 +29,9 @@ class BottomTabModule{
 
     @Provides
     fun providesNetworkLayer(retrofit: Retrofit,cache: Cache,sqlLiteDbHandler: SqlLiteDbHandler) =
-            FeedsNetworkLayer(retrofit,cache,sqlLiteDbHandler)
+            BottomTabNetworkLayer(retrofit, cache, sqlLiteDbHandler)
 
     @Provides
-    fun providesBottomTabPresenter(feedsNetworkLayer: FeedsNetworkLayer):BottomTabContract.Presenter =
-            BottomTabPresenter(view,feedsNetworkLayer)
+    fun providesBottomTabPresenter(bottomTabNetworkLayer: BottomTabNetworkLayer):BottomTabContract.Presenter =
+            BottomTabPresenter(view,bottomTabNetworkLayer)
 }

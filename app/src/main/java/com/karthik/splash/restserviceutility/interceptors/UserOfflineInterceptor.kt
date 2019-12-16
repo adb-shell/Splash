@@ -1,8 +1,8 @@
-package com.karthik.splash.restservices.interceptors
+package com.karthik.splash.restserviceutility.interceptors
 
 import android.content.Context
 
-import com.karthik.splash.restservices.UserOfflineException
+import com.karthik.splash.restserviceutility.UserOfflineException
 import com.karthik.splash.misc.Utils
 
 import java.io.IOException

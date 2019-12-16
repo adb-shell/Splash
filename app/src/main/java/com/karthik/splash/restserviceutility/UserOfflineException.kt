@@ -1,4 +1,4 @@
-package com.karthik.splash.restservices
+package com.karthik.splash.restserviceutility
 
 
 import java.io.IOException

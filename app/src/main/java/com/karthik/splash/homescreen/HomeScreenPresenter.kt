@@ -3,14 +3,13 @@ package com.karthik.splash.homescreen
 import com.karthik.splash.models.oauth.OAuthBody
 import com.karthik.splash.models.oauth.UserAuth
 import com.karthik.splash.R
-import com.karthik.splash.restservices.networklayer.OAuthNetworkLayer
 import com.karthik.splash.storage.Cache
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 
 class HomeScreenPresenter(private val view: HomeScreenContract.View,
                           private val cache: Cache,
-                          private val oAuthNetworkLayer: OAuthNetworkLayer):HomeScreenContract.Presenter {
+                          private val homeScreenNetworkLayer: HomeScreenNetworkLayer):HomeScreenContract.Presenter {
 
     private val disposable = CompositeDisposable()
 
@@ -27,7 +26,7 @@ class HomeScreenPresenter(private val view: HomeScreenContract.View,
     }
 
     override fun getUserDetail(code: String?) {
-        disposable.add(oAuthNetworkLayer.postOAuth(OAuthBody(code)).subscribeWith(object:DisposableSingleObserver<UserAuth>(){
+        disposable.add(homeScreenNetworkLayer.postOAuth(OAuthBody(code)).subscribeWith(object:DisposableSingleObserver<UserAuth>(){
             override fun onSuccess(userAuth: UserAuth) {
                 cache.setUserLoggedIn()
                 cache.setAuthCode(userAuth.accessToken)

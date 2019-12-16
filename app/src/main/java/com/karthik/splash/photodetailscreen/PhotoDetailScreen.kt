@@ -31,7 +31,7 @@ class PhotoDetailScreen:AppCompatActivity(), PhotoDetailScreenContract.view,View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_detail)
-        photo = intent.getParcelableExtra(Utils.Photo)
+        photo = intent.getParcelableExtra(Utils.photo)
         photoDetailScreenComponent = (application as SplashApp).getComponent()
                 .plus(PhotoDetailScreenModule(this))
         photoDetailScreenComponent?.inject(this)
