@@ -5,7 +5,6 @@ import com.karthik.splash.BuildConfig
 import com.karthik.splash.restserviceutility.interceptors.AuthorizationKeyInterceptor
 import com.karthik.splash.restserviceutility.interceptors.UserOfflineInterceptor
 import com.karthik.splash.storage.Cache
-import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -36,12 +35,7 @@ class SplashNetworkModule {
                 .addInterceptor(AuthorizationKeyInterceptor(cache))
                 .addInterceptor(httpLogger)
 
-        if(BuildConfig.DEBUG){
-            httpLogger.level = HttpLoggingInterceptor.Level.BODY
-            okhttpbuilder.addInterceptor(ChuckInterceptor(context))
-        }else{
-            httpLogger.level = HttpLoggingInterceptor.Level.NONE
-        }
+        httpLogger.level = HttpLoggingInterceptor.Level.NONE
         return okhttpbuilder.build()
     }
 
