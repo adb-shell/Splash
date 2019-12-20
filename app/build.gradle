@@ -39,6 +39,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "version"
+    productFlavors {
+        demo{
+            dimension "version"
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        appstore{
+            dimension "version"
+        }
+    }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
