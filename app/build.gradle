@@ -48,6 +48,8 @@ android {
         }
         appstore{
             dimension "version"
+            applicationIdSuffix ".appstore"
+            versionNameSuffix "-appstore"
         }
     }
     compileOptions {

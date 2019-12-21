@@ -13,7 +13,6 @@ import com.karthik.splash.homescreen.bottomtab.BottomTabComponent
 import com.karthik.splash.homescreen.bottomtab.BottomTabModule
 import com.karthik.splash.photodetailscreen.PhotoDetailScreenComponent
 import com.karthik.splash.photodetailscreen.PhotoDetailScreenModule
-import com.karthik.splash.root.com.karthik.splash.root.SplashNetworkModule
 import com.karthik.splash.splashscreen.SplashScreenComponent
 import com.karthik.splash.splashscreen.SplashScreenModule
 
