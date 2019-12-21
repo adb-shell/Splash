@@ -39,6 +39,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "version"
+    productFlavors {
+        demo{
+            dimension "version"
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        appstore{
+            dimension "version"
+            applicationIdSuffix ".appstore"
+            versionNameSuffix "-appstore"
+        }
+    }
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -69,8 +82,11 @@ dependencies {
     implementation "com.github.florent37:materialimageloading:${PICASSO_MATERIAL}"
     implementation "com.github.esafirm:RxDownloader:${RX_DOWNLOADER}"
 
-
+    
     debugImplementation "com.readystatesoftware.chuck:library:${CHUCK_VER}"
+    releaseImplementation "com.readystatesoftware.chuck:library-no-op:${CHUCK_VER}"
+
+    //testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

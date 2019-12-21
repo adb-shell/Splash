@@ -20,7 +20,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [SplashAppModule::class,SplashNetworkModule::class])
+@Component(modules = [SplashAppModule::class, SplashNetworkModule::class])
 interface SplashAppComponent {
     fun inject(app:SplashApp)
     fun plus(splashScreenModule: SplashScreenModule): SplashScreenComponent
