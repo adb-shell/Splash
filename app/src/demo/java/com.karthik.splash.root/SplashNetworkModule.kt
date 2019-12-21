@@ -1,4 +1,4 @@
-package com.karthik.splash.root.com.karthik.splash.root
+package com.karthik.splash.root
 
 import android.content.Context
 import com.karthik.splash.BuildConfig
