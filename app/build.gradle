@@ -72,8 +72,6 @@ dependencies {
     implementation "com.android.support:design:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:customtabs:${SUPPORT_TOOL_VERSION}"
     implementation "com.android.support:recyclerview-v7:${SUPPORT_TOOL_VERSION}"
-    implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
-    kapt "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VER}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_CONV_VER}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VER}"
