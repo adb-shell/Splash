@@ -4,9 +4,9 @@ import android.Manifest
 import android.app.DownloadManager
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.PermissionChecker
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_bottom_tab_settings.*
 import javax.inject.Inject
 
-class BottomSettingsTabFragment:Fragment(), BottomSettingsTabContract.view,View.OnClickListener {
+class BottomSettingsTabFragment: Fragment(), BottomSettingsTabContract.view,View.OnClickListener {
 
     private var bottomSettingsTabComponent:BottomSettingsTabComponent?=null
     private val permission = Manifest.permission.READ_EXTERNAL_STORAGE

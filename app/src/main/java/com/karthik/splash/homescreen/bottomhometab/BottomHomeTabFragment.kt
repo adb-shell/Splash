@@ -2,7 +2,7 @@ package com.karthik.splash.homescreen.bottomhometab
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_bottom_tab_home.*
 import javax.inject.Inject
 
-class BottomHomeTabFragment:Fragment(),BottomHomeTabContract.view {
+class BottomHomeTabFragment: Fragment(),BottomHomeTabContract.view {
 
     private var bottomHomeTabComponent:BottomHomeTabComponent?=null
 

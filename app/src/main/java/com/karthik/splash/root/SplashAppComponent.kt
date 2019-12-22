@@ -13,8 +13,8 @@ import com.karthik.splash.homescreen.bottomtab.BottomTabComponent
 import com.karthik.splash.homescreen.bottomtab.BottomTabModule
 import com.karthik.splash.photodetailscreen.PhotoDetailScreenComponent
 import com.karthik.splash.photodetailscreen.PhotoDetailScreenModule
-import com.karthik.splash.splashscreen.SplashScreenComponent
-import com.karthik.splash.splashscreen.SplashScreenModule
+import com.karthik.splash.splashscreen.di.SplashScreenComponent
+import com.karthik.splash.splashscreen.di.SplashScreenModule
 
 import dagger.Component
 import javax.inject.Singleton

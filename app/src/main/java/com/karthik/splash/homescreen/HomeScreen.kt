@@ -3,8 +3,8 @@ package com.karthik.splash.homescreen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
 import com.karthik.splash.R
@@ -15,7 +15,7 @@ import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
-class HomeScreen: AppCompatActivity(),BottomNavigationView.OnNavigationItemSelectedListener, HomeScreenContract.View {
+class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, HomeScreenContract.View {
 
     private var homeScreenComponent:HomeScreenComponent?=null
     private val code = "code"

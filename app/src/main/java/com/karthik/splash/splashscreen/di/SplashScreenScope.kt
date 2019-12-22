@@ -1,4 +1,4 @@
-package com.karthik.splash.splashscreen
+package com.karthik.splash.splashscreen.di
 
 import javax.inject.Scope
 

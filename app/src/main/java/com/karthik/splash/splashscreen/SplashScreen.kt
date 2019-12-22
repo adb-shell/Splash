@@ -3,10 +3,12 @@ package com.karthik.splash.splashscreen
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.HomeScreen
 import com.karthik.splash.root.SplashApp
+import com.karthik.splash.splashscreen.di.SplashScreenComponent
+import com.karthik.splash.splashscreen.di.SplashScreenModule
 import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
 
