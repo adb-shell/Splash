@@ -1,17 +1,24 @@
 package com.karthik.splash.splashscreen.di
 
-import com.karthik.splash.splashscreen.SplashScreenContract
-import com.karthik.splash.splashscreen.SplashScreenPresenter
+
+
+import androidx.lifecycle.ViewModelProvider
+import com.karthik.splash.splashscreen.SplashScreen
+import com.karthik.splash.splashscreen.SplashScreenViewModel
+import com.karthik.splash.splashscreen.SplashViewContract
 import com.karthik.splash.storage.Cache
 import dagger.Module
 import dagger.Provides
 
 @Module
-class SplashScreenModule(private val splashView: SplashScreenContract.SplashView) {
+class SplashScreenModule(private val splashView: SplashViewContract) {
 
     @Provides
     fun providesSplashView() = splashView
 
     @Provides
-    fun providesSplashScreenPresenter(cache: Cache): SplashScreenContract.SplashPresenter = SplashScreenPresenter(splashView, cache)
+    fun providesSplashScreenViewModel(cache: Cache):SplashScreenViewModel{
+        val factory = SplashScreenViewModel.SplashScreenViewModelFactory(cache,splashView)
+        return ViewModelProvider(splashView.getSplashScreenContext() as SplashScreen,factory).get(SplashScreenViewModel::class.java)
+    }
 }
