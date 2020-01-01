@@ -1,5 +1,6 @@
-package com.karthik.splash.homescreen
+package com.karthik.splash.homescreen.di
 
+import com.karthik.splash.homescreen.HomeScreen
 import dagger.Subcomponent
 
 /**

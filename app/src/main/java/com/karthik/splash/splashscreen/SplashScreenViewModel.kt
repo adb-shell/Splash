@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class SplashScreenViewModel @Inject constructor(val cache: Cache,val splashViewContract: SplashViewContract):ViewModel() {
 
-    val shouldshowcache:LiveData<SplashScreenState> = getViewState()
+    val splashscreenstate:LiveData<SplashScreenState> = getViewState()
 
     private fun getViewState():LiveData<SplashScreenState>{
         val state = MutableLiveData<SplashScreenState>()

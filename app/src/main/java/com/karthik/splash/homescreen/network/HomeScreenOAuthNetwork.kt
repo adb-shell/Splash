@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen
+package com.karthik.splash.homescreen.network
 
 import com.karthik.splash.models.oauth.OAuthBody
 import com.karthik.splash.models.oauth.UserAuth
@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HomeScreenNetworkLayer(okHttpClient: OkHttpClient) {
+class HomeScreenOAuthNetwork(okHttpClient: OkHttpClient) {
     private val retrofit:Retrofit
     private val OAUTH_BASE = "https://unsplash.com/"
 

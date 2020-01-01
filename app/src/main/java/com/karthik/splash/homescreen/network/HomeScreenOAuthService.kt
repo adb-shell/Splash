@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen
+package com.karthik.splash.homescreen.network
 
 import com.karthik.splash.models.oauth.OAuthBody
 import com.karthik.splash.models.oauth.UserAuth

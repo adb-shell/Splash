@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.HomeScreen
 import com.karthik.splash.root.SplashApp
@@ -30,7 +28,7 @@ class SplashScreen: AppCompatActivity(),SplashViewContract{
                 .plus(SplashScreenModule(this))
         splashScreenComponent?.inject(this)
         Handler().postDelayed({
-            splashScreenModule.shouldshowcache.observe(this,Observer<SplashScreenState> {state->
+            splashScreenModule.splashscreenstate.observe(this,Observer<SplashScreenState> { state->
                 when(state){
                     SplashScreenState.FreshDashBoardScreen->showDashBoardScreen(false)
                     SplashScreenState.CachedDashBoardScreen->showDashBoardScreen(true)
