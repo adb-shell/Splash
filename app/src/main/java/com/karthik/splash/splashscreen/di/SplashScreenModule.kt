@@ -17,8 +17,6 @@ class SplashScreenModule(private val splashView: SplashViewContract) {
     fun providesSplashView() = splashView
 
     @Provides
-    fun providesSplashScreenViewModel(cache: Cache):SplashScreenViewModel{
-        val factory = SplashScreenViewModel.SplashScreenViewModelFactory(cache,splashView)
-        return ViewModelProvider(splashView.getSplashScreenContext() as SplashScreen,factory).get(SplashScreenViewModel::class.java)
-    }
+    fun providesSplashScreenViewModel(cache: Cache):SplashScreenViewModel.SplashScreenViewModelFactory =
+            SplashScreenViewModel.SplashScreenViewModelFactory(cache,splashView)
 }

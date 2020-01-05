@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.HomeScreen
 import com.karthik.splash.root.SplashApp
@@ -19,7 +20,7 @@ class SplashScreen: AppCompatActivity(),SplashViewContract{
     private var splashScreenComponent: SplashScreenComponent?=null
 
     @Inject
-    lateinit var splashScreenModule:SplashScreenViewModel
+    lateinit var splashviewmodulefactory: SplashScreenViewModel.SplashScreenViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +28,9 @@ class SplashScreen: AppCompatActivity(),SplashViewContract{
         splashScreenComponent = (application as SplashApp).getComponent()
                 .plus(SplashScreenModule(this))
         splashScreenComponent?.inject(this)
+        val splashscreenviewmodule = ViewModelProvider(this,splashviewmodulefactory).get(SplashScreenViewModel::class.java)
         Handler().postDelayed({
-            splashScreenModule.splashscreenstate.observe(this,Observer<SplashScreenState> { state->
+            splashscreenviewmodule.splashscreenstate.observe(this,Observer<SplashScreenState> { state->
                 when(state){
                     SplashScreenState.FreshDashBoardScreen->showDashBoardScreen(false)
                     SplashScreenState.CachedDashBoardScreen->showDashBoardScreen(true)

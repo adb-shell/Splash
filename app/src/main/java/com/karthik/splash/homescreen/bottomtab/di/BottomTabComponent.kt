@@ -1,5 +1,6 @@
-package com.karthik.splash.homescreen.bottomtab
+package com.karthik.splash.homescreen.bottomtab.di
 
+import com.karthik.splash.homescreen.bottomtab.BottomTabFragment
 import dagger.Subcomponent
 
 /**

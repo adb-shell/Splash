@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabFragment
 import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabFragment
@@ -24,6 +25,7 @@ class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSele
     private val code = "code"
 
     @Inject
+    lateinit var homescreenfactory: HomeScreenViewModel.HomeScreenViewModelFactory
     lateinit var homescreenviewmodel: HomeScreenViewModel
 
 
@@ -45,7 +47,7 @@ class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSele
         homeScreenComponent?.inject(this)
         navigation.setOnNavigationItemSelectedListener(this)
         inflateHome()
-
+        homescreenviewmodel = ViewModelProvider(this,homescreenfactory).get(HomeScreenViewModel::class.java)
         homescreenviewmodel.userloginstate.observe(this, Observer<HomeScreenLoginState> { state->
             if(state is HomeScreenLoginState.LoginFailed){
                 displayUnableToLogin()
