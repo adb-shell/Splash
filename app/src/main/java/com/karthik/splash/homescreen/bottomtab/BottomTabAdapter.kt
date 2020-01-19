@@ -16,6 +16,7 @@ import com.karthik.splash.photodetailscreen.PhotoDetailScreen
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
+@Deprecated("Use BottomFeedAdapter")
 class BottomTabAdapter(private val photolist:ArrayList<Photos>,
                        private val paginatedview:PaginatedView?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

@@ -94,9 +94,8 @@ dependencies {
     implementation "androidx.room:room-runtime:${ARCH_COMPONENT_ROOM_VERSION}"
     kapt "androidx.room:room-compiler:${ARCH_COMPONENT_ROOM_VERSION}"
     implementation "androidx.room:room-rxjava2:${ARCH_COMPONENT_ROOM_VERSION}"
-    //paging + rxjava2
+    //paging
     implementation "androidx.paging:paging-runtime:${ARCH_COMPONENT_PAGING_VERSION}"
-    implementation "androidx.paging:paging-rxjava2:${ARCH_COMPONENT_PAGING_VERSION}"
 
 
 

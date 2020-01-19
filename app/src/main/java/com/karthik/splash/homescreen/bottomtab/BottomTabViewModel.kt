@@ -1,66 +1,49 @@
 package com.karthik.splash.homescreen.bottomtab
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.karthik.splash.homescreen.bottomtab.network.BottomTabRepository
-import com.karthik.splash.misc.Utils
 import javax.inject.Inject
+import androidx.paging.PagedList
+import androidx.lifecycle.*
+import androidx.paging.LivePagedListBuilder
+import com.karthik.splash.homescreen.bottomtab.datasource.BottomTabDataSourceFactory
+import com.karthik.splash.homescreen.bottomtab.datasource.BottomTabPaginationData
+import com.karthik.splash.homescreen.bottomtab.network.PhotoFeedNetworkState
+import com.karthik.splash.models.PhotosLists.Photos
+
+
+
+class BottomTabViewModelFactory(private val isCacheAvailable:Boolean,
+                                private val bottomTabRepository: BottomTabRepository,
+                                private val type:BottomTabTypes):ViewModelProvider.NewInstanceFactory(){
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T
+            = BottomTabViewModel(isCacheAvailable,bottomTabRepository,type) as T
+}
+
 
 class BottomTabViewModel @Inject constructor(private val isCacheAvailable:Boolean,
-                                             private val bottomTabRepository: BottomTabRepository):ViewModel() {
+                                             private val bottomTabRepository: BottomTabRepository,
+                                             type:BottomTabTypes):ViewModel() {
+    val feeds: LiveData<PagedList<Photos>>
+    val networkState:LiveData<PhotoFeedNetworkState>
 
-    val newfeeds:MutableLiveData<PhotoFeedState> = MutableLiveData()
-    val featuredfeeds:MutableLiveData<PhotoFeedState> = MutableLiveData()
-    val trendingfeeds:MutableLiveData<PhotoFeedState> = MutableLiveData()
-
-    //TODO:pagination implementation
-    fun getPaginatedFeeds(mode: BottomTabTypes?, pageSize: Int){
-
-    }
-
-    fun getFeeds(mode: BottomTabTypes?){
-
-        requireNotNull(mode) { "mode cannot be null" }
-
-        val type:String = when(mode){
-            is BottomTabTypes.New-> BottomTabRepository.SORT_BY_LATEST
-            is BottomTabTypes.Featured-> BottomTabRepository.SORT_BY_POPULAR
-            is BottomTabTypes.Trending-> BottomTabRepository.SORT_BY_OLDEST
-            else -> ""
-        }
-
-        bottomTabRepository.getFeeds(type = type,successhander = {photos->
-            when(mode){
-                is BottomTabTypes.New->newfeeds.value = PhotoFeedState.FeedState(photos)
-                is BottomTabTypes.Featured->featuredfeeds.value = PhotoFeedState.FeedState(photos)
-                is BottomTabTypes.Trending->trendingfeeds.value = PhotoFeedState.FeedState(photos)
-            }
-        },errorhandler = {error->
-            when(mode){
-               is BottomTabTypes.New->manageErrors(error,newfeeds)
-               is BottomTabTypes.Featured->manageErrors(error,featuredfeeds)
-               is BottomTabTypes.Trending->manageErrors(error,trendingfeeds)
-            }
-        })
-    }
-
-    private fun manageErrors(error: Throwable,feed:MutableLiveData<PhotoFeedState>) {
-        if(Utils.getErrorType(error)== Utils.NetworkErrorType.OFFLINE){
-            feed.value =  PhotoFeedState.FeedNoInternet
-            return
-        }
-        feed.value =  PhotoFeedState.FeedError(error)
+    /**
+     * Pagination initialisation.
+     */
+    init {
+       val datatsourcefactory = BottomTabDataSourceFactory(bottomTabRepository,
+               BottomTabPaginationData(0,BottomTabTypes.convertTabToType(type)))
+       val pagedlistconfig = PagedList.Config.Builder()
+                .setEnablePlaceholders(true)
+                .setInitialLoadSizeHint(10)
+                .setPageSize(10).build()
+       feeds = LivePagedListBuilder(datatsourcefactory,pagedlistconfig).build()
+       networkState = Transformations.switchMap(datatsourcefactory.datasource) { datasource->
+           datasource.networkState
+       }
     }
 
     override fun onCleared() {
         super.onCleared()
         bottomTabRepository.clearResources()
-    }
-
-    class BottomTabViewModelFactory(private val isCacheAvailable:Boolean,
-                                    private val bottomTabRepository: BottomTabRepository):ViewModelProvider.NewInstanceFactory(){
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T
-                = BottomTabViewModel(isCacheAvailable,bottomTabRepository) as T
     }
 }

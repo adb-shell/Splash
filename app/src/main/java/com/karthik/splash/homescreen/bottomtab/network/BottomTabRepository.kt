@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import retrofit2.Retrofit
-import java.util.ArrayList
 
 class BottomTabRepository(retrofit: Retrofit,
                           private val cache:Cache,
@@ -45,8 +44,7 @@ class BottomTabRepository(retrofit: Retrofit,
                     dbHandler.updateHomeNewResponseCache(
                             Utils.convertArrayListToString(photos))*/
                     photos
-                }.observeOn(AndroidSchedulers.mainThread())
-                 .subscribeWith(object: DisposableSingleObserver<ArrayList<Photos>>(){
+                }.subscribeWith(object: DisposableSingleObserver<ArrayList<Photos>>(){
                     override fun onSuccess(photos: ArrayList<Photos>) = successhander(photos)
                     override fun onError(e: Throwable) = errorhandler(e)
                 }))

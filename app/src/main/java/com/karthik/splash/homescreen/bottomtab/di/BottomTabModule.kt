@@ -1,8 +1,9 @@
 package com.karthik.splash.homescreen.bottomtab.di
 
 import android.content.Context
+import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
 import com.karthik.splash.homescreen.bottomtab.network.BottomTabRepository
-import com.karthik.splash.homescreen.bottomtab.BottomTabViewModel
+import com.karthik.splash.homescreen.bottomtab.BottomTabViewModelFactory
 import com.karthik.splash.storage.Cache
 import com.karthik.splash.storage.SqlLiteDbHandler
 import dagger.Module
@@ -15,13 +16,14 @@ class BottomTabModule{
 
     private val sqlLiteDbHandler: SqlLiteDbHandler
     private val isCacheAvailable:Boolean
+    private val bottomtabtype:BottomTabTypes
 
-    constructor(isCacheAvailable:Boolean?, context: Context?){
-
+    constructor(isCacheAvailable:Boolean?, context: Context?,bottomtabtype: BottomTabTypes?){
         checkNotNull(context) { "context cannot be null" }
-
+        requireNotNull(bottomtabtype) { "type cannot be null" }
         sqlLiteDbHandler = SqlLiteDbHandler(context)
         this.isCacheAvailable = isCacheAvailable != null
+        this.bottomtabtype = bottomtabtype
     }
 
     @Provides
@@ -33,5 +35,5 @@ class BottomTabModule{
 
     @Provides
     fun providesBottomTabVFactory(bottomTabRepository: BottomTabRepository) =
-            BottomTabViewModel.BottomTabViewModelFactory(isCacheAvailable,bottomTabRepository)
+            BottomTabViewModelFactory(isCacheAvailable,bottomTabRepository,bottomtabtype)
 }
