@@ -33,7 +33,6 @@ class BottomTabViewModel @Inject constructor(private val isCacheAvailable:Boolea
        val datatsourcefactory = BottomTabDataSourceFactory(bottomTabRepository,
                BottomTabPaginationData(0,BottomTabTypes.convertTabToType(type)))
        val pagedlistconfig = PagedList.Config.Builder()
-                .setEnablePlaceholders(true)
                 .setInitialLoadSizeHint(10)
                 .setPageSize(10).build()
        feeds = LivePagedListBuilder(datatsourcefactory,pagedlistconfig).build()

@@ -3,8 +3,8 @@ package com.karthik.splash.root
 
 import com.karthik.splash.homescreen.di.HomeScreenComponent
 import com.karthik.splash.homescreen.di.HomeScreenModule
-import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabComponent
-import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabModule
+import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabComponent
+import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabModule
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsTabComponent
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsTabModule
 import com.karthik.splash.homescreen.bottomtab.di.BottomTabComponent

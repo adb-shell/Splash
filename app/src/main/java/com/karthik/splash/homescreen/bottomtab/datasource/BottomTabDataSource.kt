@@ -19,7 +19,7 @@ class BottomTabDataSource(private val bottomTabRepository: BottomTabRepository,
             callback.onResult(photos,null,BottomTabPaginationData(2,intialpaginationData.mode))
             networkState.postValue(PhotoFeedNetworkState.FeedNetworkLoadSuccess)
         },errorhandler = {error->
-            networkState.value = PhotoFeedNetworkState.FeedNetworkError(error)
+            networkState.postValue(PhotoFeedNetworkState.FeedNetworkError(error))
         })
     }
 
@@ -29,7 +29,7 @@ class BottomTabDataSource(private val bottomTabRepository: BottomTabRepository,
             callback.onResult(photos,BottomTabPaginationData(params.key.pagenumber+1,params.key.mode))
             networkState.postValue(PhotoFeedNetworkState.FeedNetworkPaginationLoadSuccess)
         },errorhandler = {error->
-             networkState.value = PhotoFeedNetworkState.FeedNetworkPaginationLoadError(error)
+             networkState.postValue(PhotoFeedNetworkState.FeedNetworkPaginationLoadError(error))
         })
     }
 }

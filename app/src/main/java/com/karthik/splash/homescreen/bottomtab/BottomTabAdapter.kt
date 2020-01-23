@@ -17,8 +17,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 @Deprecated("Use BottomFeedAdapter")
-class BottomTabAdapter(private val photolist:ArrayList<Photos>,
-                       private val paginatedview:PaginatedView?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BottomTabAdapter(private val photolist:ArrayList<Photos>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val PROGRESS_VIEW = 0
     private val NORMAL_VIEW = 1
@@ -46,14 +45,14 @@ class BottomTabAdapter(private val photolist:ArrayList<Photos>,
             loadImage(position, holder, context)
         }else{
             ispageloading = true
-            paginatedview?.getPage(++currentpage)
+            //paginatedview?.getPage(++currentpage)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(paginatedview!=null && position==photolist.size-1 && currentpage<=paginatedview.getMaxPageLimit()){
-            return PROGRESS_VIEW
-        }
+//        if(paginatedview!=null && position==photolist.size-1 && currentpage<=paginatedview.getMaxPageLimit()){
+//            return PROGRESS_VIEW
+//        }
         return NORMAL_VIEW
     }
 

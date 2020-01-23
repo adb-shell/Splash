@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen.bottomliketab
+package com.karthik.splash.homescreen.bottomliketab.network
 
 import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.models.UserProfile.Profile
@@ -13,7 +13,7 @@ import retrofit2.http.Path
  * Created by karthikrk on 30/11/17.
  */
 
-interface BottomLikeTabService {
+interface BottomLikeTabNetworkService {
 
     @GET("me")
     fun getUserProfile(): Single<Profile>

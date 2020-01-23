@@ -1,5 +1,6 @@
-package com.karthik.splash.homescreen.bottomliketab
+package com.karthik.splash.homescreen.bottomliketab.di
 
+import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabFragment
 import dagger.Subcomponent
 
 /**
@@ -8,5 +9,5 @@ import dagger.Subcomponent
 @BottomLikeTabScope
 @Subcomponent(modules = [BottomLikeTabModule::class])
 interface BottomLikeTabComponent {
-    fun inject(feedsLike:BottomLikeTabFragment)
+    fun inject(feedsLike: BottomLikeTabFragment)
 }

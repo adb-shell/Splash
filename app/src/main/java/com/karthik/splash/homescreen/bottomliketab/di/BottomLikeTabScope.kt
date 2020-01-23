@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen.bottomliketab
+package com.karthik.splash.homescreen.bottomliketab.di
 
 import javax.inject.Scope
 
