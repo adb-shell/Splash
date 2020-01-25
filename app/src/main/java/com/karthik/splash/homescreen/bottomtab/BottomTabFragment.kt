@@ -74,11 +74,9 @@ class BottomTabFragment: Fragment(){
          * Observe the network state.
          */
         bottomtabviewmodel.networkState.observe(viewLifecycleOwner,Observer<PhotoFeedNetworkState> { state->
+            hideProgressBar()
             when(state){
-                is PhotoFeedNetworkState.FeedNetworkLoadSuccess->{
-                    hideProgressBar()
-                    feedslist.visibility = View.VISIBLE
-                }
+                is PhotoFeedNetworkState.FeedNetworkLoadSuccess->feedslist.visibility = View.VISIBLE
                 is PhotoFeedNetworkState.FeedNetworkError->showEmptyScreen()
                 is PhotoFeedNetworkState.FeedNetworkNoInternet->showNoInternetScreen()
                 is PhotoFeedNetworkState.FeedNetworkPaginationLoading->feedsadapter.showPaginationProgress()

@@ -1,5 +1,6 @@
-package com.karthik.splash.homescreen.bottomsettingstab
+package com.karthik.splash.homescreen.bottomsettingstab.di
 
+import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsTabFragment
 import dagger.Subcomponent
 
 /**
