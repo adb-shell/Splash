@@ -12,6 +12,12 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
+
+class HomeScreenViewModelFactory(private val cache: Cache,
+                                 private val homeScreenOAuthRepository: HomeScreenOAuthRepository): ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = HomeScreenViewModel(cache,homeScreenOAuthRepository) as T
+}
+
 class HomeScreenViewModel @Inject constructor(private val cache: Cache,
                                               private val homeScreenOAuthRepository: HomeScreenOAuthRepository): ViewModel() {
     val userloginstate:MutableLiveData<HomeScreenLoginState> = MutableLiveData()
@@ -36,10 +42,5 @@ class HomeScreenViewModel @Inject constructor(private val cache: Cache,
         if(!disposable.isDisposed){
             disposable.dispose()
         }
-    }
-
-    class HomeScreenViewModelFactory(private val cache: Cache,
-                                     private val homeScreenOAuthRepository: HomeScreenOAuthRepository): ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T = HomeScreenViewModel(cache,homeScreenOAuthRepository) as T
     }
 }

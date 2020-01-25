@@ -25,7 +25,7 @@ class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSele
     private val code = "code"
 
     @Inject
-    lateinit var homescreenfactory: HomeScreenViewModel.HomeScreenViewModelFactory
+    lateinit var homescreenfactory: HomeScreenViewModelFactory
     lateinit var homescreenviewmodel: HomeScreenViewModel
 
 

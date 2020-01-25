@@ -3,7 +3,7 @@ package com.karthik.splash.homescreen.di
 
 
 import com.karthik.splash.homescreen.network.HomeScreenOAuthRepository
-import com.karthik.splash.homescreen.HomeScreenViewModel
+import com.karthik.splash.homescreen.HomeScreenViewModelFactory
 import com.karthik.splash.storage.Cache
 import dagger.Module
 import dagger.Provides
@@ -18,5 +18,5 @@ class HomeScreenModule{
 
     @Provides
     fun providesHomeScreenPresenter(cache: Cache, oAuthOAuthRepository: HomeScreenOAuthRepository)
-            = HomeScreenViewModel.HomeScreenViewModelFactory(cache,oAuthOAuthRepository)
+            = HomeScreenViewModelFactory(cache,oAuthOAuthRepository)
 }
