@@ -1,4 +1,4 @@
-package com.karthik.splash.photodetailscreen
+package com.karthik.splash.photodetailscreen.network
 
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.models.photodetail.PhotoDetailInfo

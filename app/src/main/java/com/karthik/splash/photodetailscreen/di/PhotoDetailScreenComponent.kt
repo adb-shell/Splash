@@ -1,7 +1,8 @@
-package com.karthik.splash.photodetailscreen
+package com.karthik.splash.photodetailscreen.di
 
 
 
+import com.karthik.splash.photodetailscreen.PhotoDetailScreen
 import dagger.Subcomponent
 
 /**

@@ -9,8 +9,8 @@ import com.karthik.splash.homescreen.bottomsettingstab.di.BottomSettingsTabCompo
 import com.karthik.splash.homescreen.bottomsettingstab.di.BottomSettingsTabModule
 import com.karthik.splash.homescreen.bottomtab.di.BottomTabComponent
 import com.karthik.splash.homescreen.bottomtab.di.BottomTabModule
-import com.karthik.splash.photodetailscreen.PhotoDetailScreenComponent
-import com.karthik.splash.photodetailscreen.PhotoDetailScreenModule
+import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenComponent
+import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenModule
 import com.karthik.splash.splashscreen.di.SplashScreenComponent
 import com.karthik.splash.splashscreen.di.SplashScreenModule
 
