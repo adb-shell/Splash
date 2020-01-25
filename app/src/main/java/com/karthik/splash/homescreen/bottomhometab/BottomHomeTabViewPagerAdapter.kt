@@ -1,8 +1,8 @@
 package com.karthik.splash.homescreen.bottomhometab
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.karthik.splash.homescreen.bottomtab.BottomTabFragment
 import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
 import java.util.ArrayList

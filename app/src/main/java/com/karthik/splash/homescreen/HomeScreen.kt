@@ -3,25 +3,30 @@ package com.karthik.splash.homescreen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabFragment
 import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabFragment
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsTabFragment
+import com.karthik.splash.homescreen.di.HomeScreenComponent
+import com.karthik.splash.homescreen.di.HomeScreenModule
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
-class HomeScreen: AppCompatActivity(),BottomNavigationView.OnNavigationItemSelectedListener, HomeScreenContract.View {
+class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
 
-    private var homeScreenComponent:HomeScreenComponent?=null
+    private var homeScreenComponent: HomeScreenComponent?=null
     private val code = "code"
 
     @Inject
-    lateinit var homeScreenPresenter: HomeScreenContract.Presenter
+    lateinit var homescreenfactory: HomeScreenViewModelFactory
+    lateinit var homescreenviewmodel: HomeScreenViewModel
 
 
     companion object{
@@ -38,17 +43,25 @@ class HomeScreen: AppCompatActivity(),BottomNavigationView.OnNavigationItemSelec
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         homeScreenComponent = (application as SplashApp).getComponent()
-                .plus(HomeScreenModule(this))
+                .plus(HomeScreenModule())
         homeScreenComponent?.inject(this)
         navigation.setOnNavigationItemSelectedListener(this)
         inflateHome()
+        homescreenviewmodel = ViewModelProvider(this,homescreenfactory).get(HomeScreenViewModel::class.java)
+        homescreenviewmodel.userloginstate.observe(this, Observer<HomeScreenLoginState> { state->
+            if(state is HomeScreenLoginState.LoginFailed){
+                displayUnableToLogin()
+            }
+            inflateLikes()
+        })
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         if(intent!=null && intent.data!=null && intent.data?.authority!=null
-                && !intent.data?.authority.isNullOrEmpty())
-            homeScreenPresenter.getUserDetail(intent.data?.getQueryParameter(code))
+                && !intent.data?.authority.isNullOrEmpty()) {
+            homescreenviewmodel.getUserInfo(intent.data?.getQueryParameter(code))
+        }
     }
 
     override fun onDestroy() {
@@ -57,31 +70,36 @@ class HomeScreen: AppCompatActivity(),BottomNavigationView.OnNavigationItemSelec
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        homeScreenPresenter.onNavigationItemSelected(menuItem.itemId)
+        if(menuItem.itemId==navigation.selectedItemId)
+            return true
+
+        when(menuItem.itemId){
+            R.id.navigation_home-> inflateHome()
+            R.id.navigation_likes-> inflateLikes()
+            R.id.navigation_settings-> inflateSettings()
+        }
         return true
     }
 
-    override fun inflateHome() {
+    private fun inflateHome() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, BottomHomeTabFragment.getInstance(
                 intent.getBooleanExtra(IS_FROM_CACHE, false)))
         transaction.commit()
     }
 
-    override fun inflateLikes() {
+    private fun inflateLikes() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container,BottomLikeTabFragment.getInstance())
         transaction.commit()
     }
 
-    override fun inflateSettings() {
+    private fun inflateSettings() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, BottomSettingsTabFragment.getInstance())
         transaction.commit()
     }
 
-    override fun getSelectedItem(): Int = navigation.selectedItemId
-
-    override fun displayUnableToLogin() =
+    private fun displayUnableToLogin() =
             Toast.makeText(this, getString(R.string.unable_to_login), Toast.LENGTH_LONG).show()
 }

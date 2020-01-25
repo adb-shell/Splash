@@ -1,24 +1,32 @@
 package com.karthik.splash.homescreen.bottomtab
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.R
+import com.karthik.splash.homescreen.bottomtab.di.BottomTabComponent
+import com.karthik.splash.homescreen.bottomtab.di.BottomTabModule
+import com.karthik.splash.homescreen.bottomtab.network.PhotoFeedNetworkState
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_new.*
 import javax.inject.Inject
 
-class BottomTabFragment:Fragment(), BottomTabContract.View, PaginatedView {
+class BottomTabFragment: Fragment(){
 
-    private var bottomTabComponent: BottomTabComponent?=null
-    private lateinit var feedsAdapter:BottomTabAdapter
+    private var bottomtabcomponent: BottomTabComponent?=null
+    private lateinit var feedsadapter:BottomFeedAdapter
+    private var iscacheavailable:Boolean?=false
+    private lateinit var bottomtabviewmodel:BottomTabViewModel
 
     @Inject
-    lateinit var presenter:BottomTabContract.Presenter
+    lateinit var bottomtabviewmodelfactory: BottomTabViewModelFactory
 
     companion object{
         const val Mode = "Mode"
@@ -34,61 +42,68 @@ class BottomTabFragment:Fragment(), BottomTabContract.View, PaginatedView {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_new, container, false)
-        bottomTabComponent = (activity!!.application as SplashApp)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        iscacheavailable = arguments?.getBoolean(Cache)
+        val mode = arguments?.getParcelable<BottomTabTypes>(Mode)
+        bottomtabcomponent = (activity?.application as SplashApp)
                 .getComponent()
-                .plus(BottomTabModule(this,context))
-        bottomTabComponent?.inject(this)
-        return rootView
+                .plus(BottomTabModule(iscacheavailable,context,mode))
+        bottomtabcomponent?.inject(this)
+        bottomtabviewmodel = ViewModelProvider(this,bottomtabviewmodelfactory).get(BottomTabViewModel::class.java)
     }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_new, container, false)
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val mode = arguments?.getParcelable<BottomTabTypes>(Mode)
-        val cache = arguments?.getBoolean(Cache)
-        presenter.getFeeds(mode,cache,1)
+        feedsadapter = BottomFeedAdapter()
+        feedslist.layoutManager = LinearLayoutManager(context)
+        feedslist.adapter = feedsadapter
+
+        /**
+         * Observe the feeds.
+         */
+        bottomtabviewmodel.feeds.observe(viewLifecycleOwner,Observer<PagedList<Photos>>{ photos->
+            feedsadapter.submitList(photos)
+        })
+
+        /**
+         * Observe the network state.
+         */
+        bottomtabviewmodel.networkState.observe(viewLifecycleOwner,Observer<PhotoFeedNetworkState> { state->
+            hideProgressBar()
+            when(state){
+                is PhotoFeedNetworkState.FeedNetworkLoadSuccess->feedslist.visibility = View.VISIBLE
+                is PhotoFeedNetworkState.FeedNetworkError->showEmptyScreen()
+                is PhotoFeedNetworkState.FeedNetworkNoInternet->showNoInternetScreen()
+                is PhotoFeedNetworkState.FeedNetworkPaginationLoading->feedsadapter.showPaginationProgress()
+                is PhotoFeedNetworkState.FeedNetworkPaginationLoadSuccess,
+                is PhotoFeedNetworkState.FeedNetworkPaginationLoadError->feedsadapter.hidePaginationProgress()
+            }
+        })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        presenter.clearResources()
-        bottomTabComponent = null
+        bottomtabcomponent = null
     }
 
-    override fun hideProgressBar() {
-        progress.visibility = View.GONE
-    }
-
-    override fun showPhotosList(photos: ArrayList<Photos>) {
-        if (!presenter.isPaginatedItems()) {
-            feedslist.visibility = View.VISIBLE
-            feedslist.layoutManager = LinearLayoutManager(context)
-            feedsAdapter = BottomTabAdapter(photos, this)
-            feedslist.adapter = feedsAdapter
-            return
-        }
-        feedsAdapter.addPaginatedItems(photos)
-    }
-
-    override fun showEmptyScreen() {
+    private fun showEmptyScreen() {
         feedslist.visibility = View.GONE
         nointernettext.visibility = View.VISIBLE
         nointernettext.text = getString(R.string.error_connecting)
     }
 
-    override fun showNoInternetScreen() {
+    private fun showNoInternetScreen() {
         feedslist.visibility = View.GONE
         nointernetimage.visibility = View.VISIBLE
         nointernettext.visibility = View.VISIBLE
     }
 
-    override fun isFeedListVisible(): Boolean = feedslist.visibility == View.VISIBLE
-
-    override fun getPage(pageNo: Int) {
-        val mode = arguments?.getParcelable<BottomTabTypes>(Mode)
-        presenter.getPaginatedFeeds(mode, pageNo)
+    private fun hideProgressBar() {
+        progress.visibility = View.GONE
     }
-
-    override fun getMaxPageLimit(): Int = presenter.getPageMaxLimit()
 }

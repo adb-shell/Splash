@@ -1,7 +1,7 @@
 package com.karthik.splash.aboutscreen
 
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +33,7 @@ class LibraryAdapter(private val libraries: ArrayList<Library>) : RecyclerView.A
 
     override fun getItemCount() = libraries.size
 
-    inner class LibraryHolder:RecyclerView.ViewHolder {
+    inner class LibraryHolder: RecyclerView.ViewHolder {
         val libtitle:TextView
         val libversion:TextView
         constructor(itemView: View):super(itemView){
