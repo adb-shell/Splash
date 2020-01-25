@@ -12,11 +12,11 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 ## Todo:<br/>
 ~~1.Rewrite in kotlin.<br/>~~
 2.Use following achitecture components:.<br/>
-   &nbsp;&nbsp;&nbsp;(2a)Lifecycles.<br/>
-   &nbsp;&nbsp;&nbsp;(2b)LiveData<br/>
-   &nbsp;&nbsp;&nbsp;(2c)Paging<br/>
+   &nbsp;&nbsp;&nbsp;~~(2a)Lifecycles.<br/>~~
+   &nbsp;&nbsp;&nbsp;~~(2b)LiveData<br/>~~
+   &nbsp;&nbsp;&nbsp;~~(2c)Paging<br/>~~
    &nbsp;&nbsp;&nbsp;(2d)Room<br/>
-   &nbsp;&nbsp;&nbsp;(2e)ViewModel<br/>
+   &nbsp;&nbsp;&nbsp;~~(2e)ViewModel<br/>~~
    &nbsp;&nbsp;&nbsp;(2f)Navigation<br/>
 3.Use Android KTX extensively.<br/>
 4.Write Junit<br/>
