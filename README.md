@@ -18,13 +18,13 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
    &nbsp;&nbsp;&nbsp;(2d)Room<br/>
    &nbsp;&nbsp;&nbsp;~~(2e)ViewModel<br/>~~
    &nbsp;&nbsp;&nbsp;(2f)Navigation<br/>
-3.Use Android KTX extensively.<br/>
+3.Write every layout using constraint.<br/>
 4.Write Junit<br/>
 5.Write Espresso tests.<br/>
 5.Android Wear OS Support.<br/>
 6.DownloadManager for downloading images.<br/>
 7.Image Loading using Coil<br/>
-8.Integrate Leak Canary and find memory leaks.
+8.Integrate Leak Canary and find memory leaks.<br/>
 9.Use material components for the UI<br/>
 10.Klint integration with basic CI.<br/>
 
