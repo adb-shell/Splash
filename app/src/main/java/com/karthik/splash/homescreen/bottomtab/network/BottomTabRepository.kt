@@ -4,10 +4,8 @@ import com.karthik.splash.misc.InternetHandler
 import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.restserviceutility.UserOfflineException
 import com.karthik.splash.storage.MemoryCache
-import com.karthik.splash.storage.SqlLiteDbHandler
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableSingleObserver
