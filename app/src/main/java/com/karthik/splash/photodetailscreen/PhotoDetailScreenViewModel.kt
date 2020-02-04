@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.photodetailscreen.network.PhotoDetailScreenRepository
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 
-class PhotoDetailScreenViewModelFactory(private val cache: Cache,private val photoRepository: PhotoDetailScreenRepository):ViewModelProvider.NewInstanceFactory(){
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T  = PhotoDetailScreenViewModel(cache,photoRepository) as T
+class PhotoDetailScreenViewModelFactory(private val memoryCache: MemoryCache, private val photoRepository: PhotoDetailScreenRepository):ViewModelProvider.NewInstanceFactory(){
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T  = PhotoDetailScreenViewModel(memoryCache,photoRepository) as T
 }
 
 
-class PhotoDetailScreenViewModel(private val cache: Cache,
+class PhotoDetailScreenViewModel(private val memoryCache: MemoryCache,
                                  private val photoRepository: PhotoDetailScreenRepository):ViewModel() {
 
     val photodetails:MutableLiveData<PhotoDetailInfo> = MutableLiveData()
@@ -31,7 +31,7 @@ class PhotoDetailScreenViewModel(private val cache: Cache,
         }
     }
 
-    fun isUserLoggedIn() = cache.isUserLoggedIn()
+    fun isUserLoggedIn() = memoryCache.isUserLoggedIn()
 
     fun getnetworkState() = photoRepository.photoDetailsNetworkState
 

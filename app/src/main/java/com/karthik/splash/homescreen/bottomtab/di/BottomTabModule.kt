@@ -4,8 +4,10 @@ import android.content.Context
 import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
 import com.karthik.splash.homescreen.bottomtab.network.BottomTabRepository
 import com.karthik.splash.homescreen.bottomtab.BottomTabViewModelFactory
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.misc.InternetHandler
+import com.karthik.splash.storage.MemoryCache
 import com.karthik.splash.storage.SqlLiteDbHandler
+import com.karthik.splash.storage.db.SplashDao
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -26,12 +28,12 @@ class BottomTabModule{
         this.bottomtabtype = bottomtabtype
     }
 
-    @Provides
+    @Provides @Deprecated("Will be removed soon")
     fun providesDb() = sqlLiteDbHandler
 
     @Provides
-    fun providesNetworkLayer(retrofit: Retrofit,cache: Cache,sqlLiteDbHandler: SqlLiteDbHandler) =
-            BottomTabRepository(retrofit, cache, sqlLiteDbHandler)
+    fun providesNetworkLayer(retrofit: Retrofit,splashDao: SplashDao,cache: MemoryCache,internetHandler: InternetHandler) =
+            BottomTabRepository(retrofit,splashDao,cache,internetHandler)
 
     @Provides
     fun providesBottomTabVFactory(bottomTabRepository: BottomTabRepository) =

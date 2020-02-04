@@ -6,15 +6,15 @@ import com.karthik.splash.BuildConfig
 import com.karthik.splash.homescreen.bottomliketab.network.BottomLikeTabRepository
 import com.karthik.splash.homescreen.bottomliketab.network.LikeFeedNetworkState
 import com.karthik.splash.models.PhotosLists.Photos
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 
-class BottomLikeViewModelFactory(private val cache: Cache,
+class BottomLikeViewModelFactory(private val memoryCache: MemoryCache,
                                  private val userServiceRepository: BottomLikeTabRepository):ViewModelProvider.NewInstanceFactory(){
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = BottomLikeViewModel(cache,userServiceRepository) as T
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = BottomLikeViewModel(memoryCache,userServiceRepository) as T
 }
 
 
-class BottomLikeViewModel(private val cache: Cache,
+class BottomLikeViewModel(private val memoryCache: MemoryCache,
                           private val respository: BottomLikeTabRepository):ViewModel() {
 
     private val userscope = "public+read_user+read_photos+write_likes"
@@ -39,7 +39,7 @@ class BottomLikeViewModel(private val cache: Cache,
 
     private fun isloggedIn():MutableLiveData<Boolean>{
         val status = MutableLiveData<Boolean>()
-        status.postValue(cache.isUserLoggedIn())
+        status.postValue(memoryCache.isUserLoggedIn())
         return status
     }
 

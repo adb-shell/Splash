@@ -8,6 +8,7 @@ import com.karthik.splash.misc.Utils
 import com.karthik.splash.models.PhotosLists.Photos
 import java.util.ArrayList
 
+@Deprecated("using room")
 class SqlLiteDbHandler: SQLiteOpenHelper {
 
     private val TABLE_NAME = "response"

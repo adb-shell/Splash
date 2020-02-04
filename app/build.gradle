@@ -90,7 +90,7 @@ dependencies {
     //Lifecycle comp:(ViewModel + LiveData)
     implementation "androidx.lifecycle:lifecycle-extensions:${ARCH_LIFECYCLE_COMPONENT_VERSION}"
     implementation "androidx.lifecycle:lifecycle-common-java8:${ARCH_LIFECYCLE_COMPONENT_VERSION}"
-    //room + rxjava2
+    //room + rxjava
     implementation "androidx.room:room-runtime:${ARCH_COMPONENT_ROOM_VERSION}"
     kapt "androidx.room:room-compiler:${ARCH_COMPONENT_ROOM_VERSION}"
     implementation "androidx.room:room-rxjava2:${ARCH_COMPONENT_ROOM_VERSION}"

@@ -3,7 +3,7 @@ package com.karthik.splash.homescreen.bottomsettingstab.di
 
 
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModelFactory
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 import dagger.Module
 import dagger.Provides
 
@@ -11,5 +11,5 @@ import dagger.Provides
 class BottomSettingsTabModule{
 
     @Provides
-    fun providesBottomSettingsPresenter(cache: Cache) = BottomSettingsViewModelFactory(cache)
+    fun providesBottomSettingsPresenter(memoryCache: MemoryCache) = BottomSettingsViewModelFactory(memoryCache)
 }

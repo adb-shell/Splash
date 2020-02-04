@@ -1,17 +1,22 @@
 package com.karthik.splash.homescreen.bottomtab.network
 
+import com.karthik.splash.misc.InternetHandler
 import com.karthik.splash.models.PhotosLists.Photos
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.restserviceutility.UserOfflineException
+import com.karthik.splash.storage.MemoryCache
 import com.karthik.splash.storage.SqlLiteDbHandler
+import com.karthik.splash.storage.db.SplashDao
+import com.karthik.splash.storage.db.entity.PhotosStorage
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableSingleObserver
 import retrofit2.Retrofit
 
 class BottomTabRepository(retrofit: Retrofit,
-                          private val cache:Cache,
-                          private val dbHandler: SqlLiteDbHandler) {
+                          private val localdb: SplashDao,
+                          private val cache: MemoryCache,
+                          private val internetHandler: InternetHandler) {
 
     private val bottomTabNetworkService: BottomTabNetworkService
     private val disposable:CompositeDisposable
@@ -27,27 +32,45 @@ class BottomTabRepository(retrofit: Retrofit,
         disposable = CompositeDisposable()
     }
 
-    fun getNewFeedCache() = Single.just(dbHandler.getCachedHomeNewResponse())
-
-    fun getTrendingFeedCache() = Single.just(dbHandler.getTrendingHomeNewResponse())
-
-    fun getFeaturedFeedCache() = Single.just(dbHandler.getFeaturedHomeNewResponse())
-
     fun getFeeds(pageno:Int=1,
                     type:String,
                     successhander:(ArrayList<Photos>)->Unit,
                     errorhandler:(e: Throwable)->Unit) {
+        when {
+            internetHandler.isInternetAvailable() -> getFreshFeeds(pageno,type,successhander,errorhandler)
+            cache.isCacheAvail() -> getFeedsFromLocalDb(pageno,type,successhander,errorhandler)
+            else -> errorhandler(UserOfflineException())
+        }
+    }
+
+    private fun getFreshFeeds(pageno:Int=1,
+                              type:String,
+                              successhander:(ArrayList<Photos>)->Unit,
+                              errorhandler:(e: Throwable)->Unit){
         disposable.add(bottomTabNetworkService.getPhotos(type, pageno)
-                .map { photos ->
-                    //TODO:cache implementation
-                    /*cache.setCacheAvail()
-                    dbHandler.updateHomeNewResponseCache(
-                            Utils.convertArrayListToString(photos))*/
-                    photos
-                }.subscribeWith(object: DisposableSingleObserver<ArrayList<Photos>>(){
-                    override fun onSuccess(photos: ArrayList<Photos>) = successhander(photos)
-                    override fun onError(e: Throwable) = errorhandler(e)
-                }))
+                .flatMap {photos->
+                    localdb.setPhotos(PhotosStorage(pagenumber = pageno,type = type,
+                            photos = photos,pgtype = "$pageno:$type"))
+                }.flatMap { localdb.getPhotos(page = pageno,type = type).toSingle() }
+               .subscribeWith(object:DisposableSingleObserver<PhotosStorage>(){
+                   override fun onSuccess(photostorage: PhotosStorage) {
+                       //TODO:make it more specific
+                       cache.setCacheAvail()
+                       successhander(photostorage.photos)
+                   }
+                   override fun onError(e: Throwable) = errorhandler(e)
+               }))
+    }
+
+    private fun getFeedsFromLocalDb(pageno:Int=1,
+                                    type:String,
+                                    successhander:(ArrayList<Photos>)->Unit,
+                                    errorhandler:(e: Throwable)->Unit){
+        disposable.add(localdb.getPhotos(pageno,type).subscribeWith(object:DisposableMaybeObserver<PhotosStorage>(){
+            override fun onSuccess(storagephotos: PhotosStorage) = successhander(storagephotos.photos)
+            override fun onError(e: Throwable) = errorhandler(e)
+            override fun onComplete(){}
+        }))
     }
 
     fun clearResources(){

@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import com.karthik.splash.R
 import javax.inject.Inject
 
-class Cache {
+class MemoryCache {
     var context: Context
     var preferences:SharedPreferences
 
