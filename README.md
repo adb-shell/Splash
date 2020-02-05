@@ -29,11 +29,10 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 10.Klint integration with basic CI.<br/>
 
 ## Technologies used so far:<br/>
-1.Rxjava<br/>
-2.RxDownloader<br/>
-3.RxAndroid<br/>
-4.Chuck for logging api calls.<br/>
-5.Standard Square libs (okhttp,dagger,picasso)<br/>
+1.Rx Java,Downloader,Android<br/>
+2.Android arch components<br/>
+3.Chuck for logging api calls.<br/>
+4.Standard Square libs (okhttp,dagger,picasso)<br/>
 
 
 ## License
