@@ -2,9 +2,10 @@ package com.karthik.splash.root
 
 import android.content.Context
 import com.karthik.splash.BuildConfig
+import com.karthik.splash.misc.InternetHandler
 import com.karthik.splash.restserviceutility.interceptors.AuthorizationKeyInterceptor
 import com.karthik.splash.restserviceutility.interceptors.UserOfflineInterceptor
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -27,11 +28,11 @@ class SplashNetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkhttpClient(context:Context,cache: Cache):OkHttpClient{
+    fun providesOkhttpClient(cache: MemoryCache,internetHandler: InternetHandler):OkHttpClient{
         val httpLogger = HttpLoggingInterceptor()
         val okhttpbuilder = OkHttpClient.Builder()
                 .connectTimeout(TIME_OUT,TimeUnit.SECONDS)
-                .addInterceptor(UserOfflineInterceptor(context))
+                .addInterceptor(UserOfflineInterceptor(internetHandler))
                 .addInterceptor(AuthorizationKeyInterceptor(cache))
                 .addInterceptor(httpLogger)
 
