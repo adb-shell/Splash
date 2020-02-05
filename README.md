@@ -15,7 +15,7 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
    &nbsp;&nbsp;&nbsp;~~(2a)Lifecycles.<br/>~~
    &nbsp;&nbsp;&nbsp;~~(2b)LiveData<br/>~~
    &nbsp;&nbsp;&nbsp;~~(2c)Paging<br/>~~
-   &nbsp;&nbsp;&nbsp;(2d)Room<br/>
+   &nbsp;&nbsp;&nbsp;~~(2d)Room<br/>~~
    &nbsp;&nbsp;&nbsp;~~(2e)ViewModel<br/>~~
    &nbsp;&nbsp;&nbsp;(2f)Navigation<br/>
 3.Write every layout using constraint.<br/>
