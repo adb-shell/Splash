@@ -4,7 +4,7 @@ package com.karthik.splash.homescreen.di
 
 import com.karthik.splash.homescreen.network.HomeScreenOAuthRepository
 import com.karthik.splash.homescreen.HomeScreenViewModelFactory
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,6 +17,6 @@ class HomeScreenModule{
             = HomeScreenOAuthRepository(okHttpClient)
 
     @Provides
-    fun providesHomeScreenPresenter(cache: Cache, oAuthOAuthRepository: HomeScreenOAuthRepository)
-            = HomeScreenViewModelFactory(cache,oAuthOAuthRepository)
+    fun providesHomeScreenPresenter(memoryCache: MemoryCache, oAuthOAuthRepository: HomeScreenOAuthRepository)
+            = HomeScreenViewModelFactory(memoryCache,oAuthOAuthRepository)
 }

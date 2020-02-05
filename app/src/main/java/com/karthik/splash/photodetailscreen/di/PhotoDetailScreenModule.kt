@@ -3,7 +3,7 @@ package com.karthik.splash.photodetailscreen.di
 
 import com.karthik.splash.photodetailscreen.network.PhotoDetailScreenRepository
 import com.karthik.splash.photodetailscreen.PhotoDetailScreenViewModelFactory
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -16,5 +16,5 @@ class PhotoDetailScreenModule{
 
     @Provides
     fun providesPhotoDetailPresenter(photoRepository: PhotoDetailScreenRepository,
-                                     cache: Cache)= PhotoDetailScreenViewModelFactory(cache,photoRepository)
+                                     memoryCache: MemoryCache)= PhotoDetailScreenViewModelFactory(memoryCache,photoRepository)
 }

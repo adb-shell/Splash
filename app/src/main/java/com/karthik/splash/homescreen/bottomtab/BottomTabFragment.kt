@@ -48,7 +48,7 @@ class BottomTabFragment: Fragment(){
         val mode = arguments?.getParcelable<BottomTabTypes>(Mode)
         bottomtabcomponent = (activity?.application as SplashApp)
                 .getComponent()
-                .plus(BottomTabModule(iscacheavailable,context,mode))
+                .plus(BottomTabModule(iscacheavailable,mode))
         bottomtabcomponent?.inject(this)
         bottomtabviewmodel = ViewModelProvider(this,bottomtabviewmodelfactory).get(BottomTabViewModel::class.java)
     }

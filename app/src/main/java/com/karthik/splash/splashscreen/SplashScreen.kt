@@ -20,7 +20,7 @@ class SplashScreen: AppCompatActivity(),SplashViewContract{
     private var splashScreenComponent: SplashScreenComponent?=null
 
     @Inject
-    lateinit var splashviewmodulefactory: SplashScreenViewModel.SplashScreenViewModelFactory
+    lateinit var splashviewmodulefactory: SplashScreenViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

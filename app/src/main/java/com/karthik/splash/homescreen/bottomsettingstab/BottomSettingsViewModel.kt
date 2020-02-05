@@ -3,23 +3,23 @@ package com.karthik.splash.homescreen.bottomsettingstab
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 
-class BottomSettingsViewModelFactory(private val cache:Cache):ViewModelProvider.NewInstanceFactory(){
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = BottomSettingsViewModel(cache) as T
+class BottomSettingsViewModelFactory(private val memoryCache:MemoryCache):ViewModelProvider.NewInstanceFactory(){
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = BottomSettingsViewModel(memoryCache) as T
 }
 
-class BottomSettingsViewModel(private val cache:Cache): ViewModel() {
+class BottomSettingsViewModel(private val memoryCache:MemoryCache): ViewModel() {
     val isuserloggedin: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
-        isuserloggedin.postValue(cache.isUserLoggedIn())
+        isuserloggedin.postValue(memoryCache.isUserLoggedIn())
     }
 
-    fun getUserName():String? = cache.getUserName()
+    fun getUserName():String? = memoryCache.getUserName()
 
     fun logoutUser(){
-        cache.logOutUser()
-        isuserloggedin.postValue(cache.isUserLoggedIn())
+        memoryCache.logOutUser()
+        isuserloggedin.postValue(memoryCache.isUserLoggedIn())
     }
 }

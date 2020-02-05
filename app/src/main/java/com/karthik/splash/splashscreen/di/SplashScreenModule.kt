@@ -2,11 +2,10 @@ package com.karthik.splash.splashscreen.di
 
 
 
-import androidx.lifecycle.ViewModelProvider
-import com.karthik.splash.splashscreen.SplashScreen
-import com.karthik.splash.splashscreen.SplashScreenViewModel
+import com.karthik.splash.misc.InternetHandler
+import com.karthik.splash.splashscreen.SplashScreenViewModelFactory
 import com.karthik.splash.splashscreen.SplashViewContract
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 import dagger.Module
 import dagger.Provides
 
@@ -17,6 +16,6 @@ class SplashScreenModule(private val splashView: SplashViewContract) {
     fun providesSplashView() = splashView
 
     @Provides
-    fun providesSplashScreenViewModel(cache: Cache):SplashScreenViewModel.SplashScreenViewModelFactory =
-            SplashScreenViewModel.SplashScreenViewModelFactory(cache,splashView)
+    fun providesSplashScreenViewModel(memoryCache: MemoryCache,internetHandler: InternetHandler): SplashScreenViewModelFactory =
+            SplashScreenViewModelFactory(memoryCache,splashView,internetHandler)
 }

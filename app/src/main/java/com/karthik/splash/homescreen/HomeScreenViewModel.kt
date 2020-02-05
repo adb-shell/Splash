@@ -7,18 +7,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.karthik.splash.homescreen.network.HomeScreenOAuthRepository
 import com.karthik.splash.models.oauth.OAuthBody
 import com.karthik.splash.models.oauth.UserAuth
-import com.karthik.splash.storage.Cache
+import com.karthik.splash.storage.MemoryCache
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
 
-class HomeScreenViewModelFactory(private val cache: Cache,
+class HomeScreenViewModelFactory(private val memoryCache: MemoryCache,
                                  private val homeScreenOAuthRepository: HomeScreenOAuthRepository): ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = HomeScreenViewModel(cache,homeScreenOAuthRepository) as T
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = HomeScreenViewModel(memoryCache,homeScreenOAuthRepository) as T
 }
 
-class HomeScreenViewModel @Inject constructor(private val cache: Cache,
+class HomeScreenViewModel @Inject constructor(private val memoryCache: MemoryCache,
                                               private val homeScreenOAuthRepository: HomeScreenOAuthRepository): ViewModel() {
     val userloginstate:MutableLiveData<HomeScreenLoginState> = MutableLiveData()
     private val disposable = CompositeDisposable()
@@ -26,8 +26,8 @@ class HomeScreenViewModel @Inject constructor(private val cache: Cache,
     fun getUserInfo(code:String?){
         disposable.add(homeScreenOAuthRepository.postOAuth(OAuthBody(code)).subscribeWith(object: DisposableSingleObserver<UserAuth>(){
             override fun onSuccess(userAuth: UserAuth) {
-                cache.setUserLoggedIn()
-                cache.setAuthCode(userAuth.accessToken)
+                memoryCache.setUserLoggedIn()
+                memoryCache.setAuthCode(userAuth.accessToken)
                 userloginstate.value = HomeScreenLoginState.LoginSuccess(userAuth)
             }
 
