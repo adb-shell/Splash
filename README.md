@@ -1,6 +1,6 @@
 ## Splash (work-in-progress)
 
-Splash is an unofficial Unsplash Android client that showcases use of `Dagger 2` `Rxjava 2`  `Retrofit` and `MVP`.<br/>
+Splash is an unofficial Unsplash Android client that showcases use of `Dagger 2` `Rxjava 2`  `Retrofit` and `Android Architecture components`.<br/>
 
 ## CI [![Build Status](https://app.bitrise.io/app/ace9bafaf050bb3e/status.svg?token=OBEws1-W4WXbb1hZ4KPJgQ&branch=develop)](https://app.bitrise.io/app/ace9bafaf050bb3e)
 
@@ -24,7 +24,7 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 5.Android Wear OS Support.<br/>
 6.Migration of gradle scripts from groovy to kotlin.<br/>
 7.DownloadManager for downloading images.<br/>
-8.Integrate Leak Canary and find memory leaks.<br/>
+8.Measure the perf using leak canray and other available tools.<br/>
 9.Use material components for the UI<br/>
 10.Klint integration with basic CI.<br/>
 
