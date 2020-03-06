@@ -19,14 +19,13 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
    &nbsp;&nbsp;&nbsp;~~(2e)ViewModel<br/>~~
    &nbsp;&nbsp;&nbsp;(2f)Navigation<br/>
 3.Write every layout using constraint.<br/>
-4.Write Junit<br/>
-5.Write Espresso tests.<br/>
-5.Android Wear OS Support.<br/>
-6.Migration of gradle scripts from groovy to kotlin.<br/>
-7.DownloadManager for downloading images.<br/>
-8.Measure the perf using leak canray and other available tools.<br/>
-9.Use material components for the UI<br/>
-10.Klint integration with basic CI.<br/>
+4.Write Junit and Espresso tests.<br/>
+5.Use UberAuto dispose for rxjava<br/>
+5.Migration of gradle scripts from groovy to kotlin.<br/>
+6.DownloadManager for downloading images.<br/>
+7.Measure the perf using leak canray and other available tools.<br/>
+8.Use material components for the UI<br/>
+9.Klint integration with basic CI.<br/>
 
 ## Technologies used so far:<br/>
 1.Rx Java,Downloader,Android<br/>
