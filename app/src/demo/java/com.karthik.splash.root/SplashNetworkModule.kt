@@ -1,12 +1,12 @@
 package com.karthik.splash.root
 
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.karthik.splash.BuildConfig
 import com.karthik.splash.misc.InternetHandler
 import com.karthik.splash.restserviceutility.interceptors.AuthorizationKeyInterceptor
 import com.karthik.splash.restserviceutility.interceptors.UserOfflineInterceptor
 import com.karthik.splash.storage.MemoryCache
-import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -40,7 +40,7 @@ class SplashNetworkModule {
 
         if(BuildConfig.DEBUG){
             httpLogger.level = HttpLoggingInterceptor.Level.BODY
-            okhttpbuilder.addInterceptor(ChuckInterceptor(context))
+            okhttpbuilder.addInterceptor(ChuckerInterceptor(context))
         }else{
             httpLogger.level = HttpLoggingInterceptor.Level.NONE
         }

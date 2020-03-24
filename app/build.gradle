@@ -100,9 +100,9 @@ dependencies {
 
 
 
-    
-    debugImplementation "com.readystatesoftware.chuck:library:${CHUCK_VERSION}"
-    releaseImplementation "com.readystatesoftware.chuck:library-no-op:${CHUCK_VERSION}"
+
+    debugImplementation "com.github.ChuckerTeam.Chucker:library:${CHUCKER_VERSION}"
+    releaseImplementation "com.github.ChuckerTeam.Chucker:library-no-op:${CHUCKER_VERSION}"
 
     //testing
     testImplementation "junit:junit:${JUNIT_VERSION}"
