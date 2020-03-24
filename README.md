@@ -18,20 +18,12 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
    &nbsp;&nbsp;&nbsp;~~(2d)Room<br/>~~
    &nbsp;&nbsp;&nbsp;~~(2e)ViewModel<br/>~~
    &nbsp;&nbsp;&nbsp;(2f)Navigation<br/>
-3.Write every layout using constraint.<br/>
-4.Write Junit and Espresso tests.<br/>
-5.Use UberAuto dispose for rxjava<br/>
-5.Migration of gradle scripts from groovy to kotlin.<br/>
-6.DownloadManager for downloading images.<br/>
-7.Measure the perf using leak canray and other available tools.<br/>
-8.Use material components for the UI<br/>
-9.Klint integration with basic CI.<br/>
-
-## Technologies used so far:<br/>
-1.Rx Java,Downloader,Android<br/>
-2.Android arch components<br/>
-3.Chuck for logging api calls.<br/>
-4.Standard Square libs (okhttp,dagger,picasso)<br/>
+3.Use constraint layouts.<br/>
+4.Integrate Uber Auto Dispose.<br/>
+5.Write Junit and Espresso tests.<br/>
+6.Integrate Klint and [detekt](https://github.com/arturbosch/detekt) tools.<br/>
+7.Integrate leak canary<br/>
+8.Material Components<br/>
 
 
 ## License
