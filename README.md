@@ -9,21 +9,6 @@ You can configure your API key,API secret and auth callback in `app/build.gradle
 
 <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-1.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-2.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-3.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-4.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-5.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-6.png" width="200">
 
-## Todo:<br/>
-~~1.Rewrite in kotlin.<br/>~~
-2.Use following achitecture components:.<br/>
-   &nbsp;&nbsp;&nbsp;~~(2a)Lifecycles.<br/>~~
-   &nbsp;&nbsp;&nbsp;~~(2b)LiveData<br/>~~
-   &nbsp;&nbsp;&nbsp;~~(2c)Paging<br/>~~
-   &nbsp;&nbsp;&nbsp;~~(2d)Room<br/>~~
-   &nbsp;&nbsp;&nbsp;~~(2e)ViewModel<br/>~~
-   &nbsp;&nbsp;&nbsp;(2f)Navigation<br/>
-3.Use constraint layouts.<br/>
-4.Integrate Uber Auto Dispose.<br/>
-5.Write Junit and Espresso tests.<br/>
-6.Integrate Klint and [detekt](https://github.com/arturbosch/detekt) tools.<br/>
-7.Integrate leak canary<br/>
-8.Material Components<br/>
 
 
 ## License
