@@ -1,8 +1,6 @@
-## Splash (work-in-progress)
+## Splash
 
-Splash is an unofficial Unsplash Android client that showcases use of `Dagger 2` `Rxjava 2`  `Retrofit` and `Android Architecture components`.<br/>
-
-## CI [![Build Status](https://app.bitrise.io/app/ace9bafaf050bb3e/status.svg?token=OBEws1-W4WXbb1hZ4KPJgQ&branch=develop)](https://app.bitrise.io/app/ace9bafaf050bb3e)
+Splash is an android app that showcases use of `Dagger 2` `Rxjava 2`  `Retrofit` and `Android Architecture components` with the help of `unsplash` api.<br/>
 
 ## Setup
 You can configure your API key,API secret and auth callback in `app/build.gradle`.<br/><br/>
