@@ -1,10 +1,11 @@
 ## Splash
 
-Splash is an android app that showcases use of `Dagger 2` `Rxjava 2`  `Retrofit` and `Android Architecture components` with the help of `unsplash` api.<br/>
+Splash is an android app that showcases use of `Dagger 2`, `Rxjava 2` along with `Android Architecture components` with the help of `unsplash` api.<br/>
 
 ## Setup
-You can configure your API key,API secret and auth callback in `app/build.gradle`.<br/><br/>
+You can configure your API key, API secret and auth callback in `app/build.gradle`.<br/><br/>
 
+## Preview
 <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-1.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-2.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-3.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-4.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-5.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-6.png" width="200">
 
 
