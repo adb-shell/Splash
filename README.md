@@ -1,4 +1,5 @@
-## Splash
+## Splash  
+Build Status: [![Build Status](https://app.bitrise.io/app/148bcaee35a29293/status.svg?token=GfxLmo6-yd14y4FlSrLM-Q&branch=develop)](https://app.bitrise.io/app/148bcaee35a29293)
 
 Splash is an android app that showcases use of `Dagger 2`, `Rxjava 2` along with `Android Architecture components` with the help of `unsplash` api.<br/>
 
