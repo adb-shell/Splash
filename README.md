@@ -9,6 +9,11 @@ You can configure your API key, API secret and auth callback in `buildSrc/config
 ## Preview
 <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-1.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-2.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-3.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-4.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-5.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-6.png" width="200">
 
+## Todo 
+1.Migration to constraint layout 2.0.<br/>
+2.Using navigation component.<br/>
+3.Espresso and Junit tests for fragments and viewmodels.<br/>
+4.view and data binding.<br/>
 
 
 ## License
