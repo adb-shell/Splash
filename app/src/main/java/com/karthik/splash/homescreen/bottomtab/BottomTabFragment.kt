@@ -50,10 +50,12 @@ class BottomTabFragment: Fragment(){
                 .getComponent()
                 .plus(BottomTabModule(iscacheavailable,mode))
         bottomtabcomponent?.inject(this)
-        bottomtabviewmodel = ViewModelProvider(this,bottomtabviewmodelfactory).get(BottomTabViewModel::class.java)
+        bottomtabviewmodel = ViewModelProvider(this,bottomtabviewmodelfactory)
+                .get(BottomTabViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_new, container, false)
 
 

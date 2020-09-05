@@ -10,12 +10,9 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class SplashScreenModule(private val splashView: SplashViewContract) {
-
-    @Provides
-    fun providesSplashView() = splashView
+class SplashScreenModule {
 
     @Provides
     fun providesSplashScreenViewModel(memoryCache: MemoryCache,internetHandler: InternetHandler): SplashScreenViewModelFactory =
-            SplashScreenViewModelFactory(memoryCache,splashView,internetHandler)
+            SplashScreenViewModelFactory(memoryCache,internetHandler)
 }

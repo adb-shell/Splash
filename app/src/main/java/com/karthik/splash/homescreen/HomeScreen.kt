@@ -19,21 +19,21 @@ import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
-class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
+class HomeScreen : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private var homeScreenComponent: HomeScreenComponent?=null
+    private var homeScreenComponent: HomeScreenComponent? = null
     private val code = "code"
 
     @Inject
     lateinit var homescreenfactory: HomeScreenViewModelFactory
-    lateinit var homescreenviewmodel: HomeScreenViewModel
+    private lateinit var homescreenviewmodel: HomeScreenViewModel
 
 
-    companion object{
+    companion object {
         const val IS_FROM_CACHE = "IS_FROM_CACHE"
-        fun getIntent(context: Context,isFromCache:Boolean):Intent{
+        fun getIntent(context: Context, isFromCache: Boolean): Intent {
             val intent = Intent(context, HomeScreen::class.java)
-            intent.putExtra(IS_FROM_CACHE,isFromCache)
+            intent.putExtra(IS_FROM_CACHE, isFromCache)
             return intent
         }
     }
@@ -47,19 +47,22 @@ class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSele
         homeScreenComponent?.inject(this)
         navigation.setOnNavigationItemSelectedListener(this)
         inflateHome()
-        homescreenviewmodel = ViewModelProvider(this,homescreenfactory).get(HomeScreenViewModel::class.java)
-        homescreenviewmodel.userloginstate.observe(this, Observer<HomeScreenLoginState> { state->
-            if(state is HomeScreenLoginState.LoginFailed){
-                displayUnableToLogin()
+        homescreenviewmodel = ViewModelProvider(this, homescreenfactory).get(HomeScreenViewModel::class.java)
+        homescreenviewmodel.userloginstate.observe(this, Observer<HomeScreenLoginState> { state ->
+            when (state) {
+                is HomeScreenLoginState.LoginFailed -> {
+                    displayUnableToLogin()
+                }
+                else -> {
+                    inflateLikes()
+                }
             }
-            inflateLikes()
         })
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if(intent!=null && intent.data!=null && intent.data?.authority!=null
-                && !intent.data?.authority.isNullOrEmpty()) {
+        intent?.data?.authority?.let {
             homescreenviewmodel.getUserInfo(intent.data?.getQueryParameter(code))
         }
     }
@@ -70,13 +73,13 @@ class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSele
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        if(menuItem.itemId==navigation.selectedItemId)
+        if (menuItem.itemId == navigation.selectedItemId)
             return true
 
-        when(menuItem.itemId){
-            R.id.navigation_home-> inflateHome()
-            R.id.navigation_likes-> inflateLikes()
-            R.id.navigation_settings-> inflateSettings()
+        when (menuItem.itemId) {
+            R.id.navigation_home -> inflateHome()
+            R.id.navigation_likes -> inflateLikes()
+            R.id.navigation_settings -> inflateSettings()
         }
         return true
     }
@@ -90,7 +93,7 @@ class HomeScreen: AppCompatActivity(), BottomNavigationView.OnNavigationItemSele
 
     private fun inflateLikes() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container,BottomLikeTabFragment.getInstance())
+        transaction.replace(R.id.container, BottomLikeTabFragment.getInstance())
         transaction.commit()
     }
 

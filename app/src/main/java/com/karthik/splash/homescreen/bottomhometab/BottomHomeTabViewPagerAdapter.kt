@@ -7,15 +7,15 @@ import com.karthik.splash.homescreen.bottomtab.BottomTabFragment
 import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
 import java.util.ArrayList
 
-class BottomHomeTabViewPagerAdapter(private val pagetitles: ArrayList<BottomTabTypes>,
-                                    private val isfromcache:Boolean,
-                                    fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager) {
+internal class BottomHomeTabViewPagerAdapter(private val pagetitles: ArrayList<BottomTabTypes>,
+                                    private val isfromcache: Boolean,
+                                    fragmentManager: FragmentManager) :
+        FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(position: Int): Fragment = BottomTabFragment.getInstance(pagetitles[position],isfromcache)
+    override fun getItem(position: Int): Fragment =
+            BottomTabFragment.getInstance(pagetitles[position], isfromcache)
 
     override fun getCount(): Int = pagetitles.size
 
-    override fun getPageTitle(position: Int): CharSequence{
-        return pagetitles[position].title
-    }
+    override fun getPageTitle(position: Int): CharSequence = pagetitles[position].title
 }

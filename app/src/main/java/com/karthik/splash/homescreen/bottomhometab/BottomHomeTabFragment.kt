@@ -32,14 +32,17 @@ class BottomHomeTabFragment: Fragment(){
     }
 
     private fun intialiseTab() {
-        if(context==null)
-            return
+        val titles = arrayListOf(
+                BottomTabTypes.New(requireContext().getString(R.string.frag_title_1)),
+                BottomTabTypes.Trending(requireContext().getString(R.string.frag_title_2)),
+                BottomTabTypes.Featured(requireContext().getString(R.string.frag_title_3))
+        )
 
-        val titles = arrayListOf(BottomTabTypes.New(context!!.getString(R.string.frag_title_1)),
-                BottomTabTypes.Trending(context!!.getString(R.string.frag_title_2)),
-                BottomTabTypes.Featured(context!!.getString(R.string.frag_title_3)))
-        viewpager.adapter = BottomHomeTabViewPagerAdapter(fragmentManager = childFragmentManager,
-                pagetitles = titles,isfromcache = arguments!!.getBoolean(HomeScreen.IS_FROM_CACHE))
+        viewpager.adapter = BottomHomeTabViewPagerAdapter(
+                fragmentManager = childFragmentManager,
+                pagetitles = titles,
+                isfromcache = arguments?.getBoolean(HomeScreen.IS_FROM_CACHE) ?: false)
+
         viewpager.offscreenPageLimit = 3
         tabs.setupWithViewPager(viewpager)
     }

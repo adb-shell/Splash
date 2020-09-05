@@ -111,5 +111,5 @@ class BottomFeedAdapter : PagedListAdapter<Photos, RecyclerView.ViewHolder>(DIFF
         }
     }
 
-    inner class ProgressViewHolder(rootview:View): RecyclerView.ViewHolder(rootview)
+    class ProgressViewHolder(rootview:View): RecyclerView.ViewHolder(rootview)
 }
