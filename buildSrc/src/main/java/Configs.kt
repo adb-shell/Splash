@@ -67,7 +67,7 @@ class Configs {
 
     object AppConfig {
         const val applicationId = "com.karthik.splash"
-        const val kotlinVersion = "1.3.72"
+        const val kotlinVersion = "1.4.0"
         const val androidToolsVersion = "4.0.1"
 
         const val compileSDKVersion = "29"
