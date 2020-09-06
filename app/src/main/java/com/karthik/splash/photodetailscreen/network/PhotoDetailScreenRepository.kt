@@ -1,5 +1,6 @@
 package com.karthik.splash.photodetailscreen.network
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.models.photodetail.PhotoDetailInfo
@@ -10,13 +11,10 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 
 class PhotoDetailScreenRepository(retrofit: Retrofit) {
-    private val photoService: PhotoService
+    private val photoService: PhotoService = retrofit.create(PhotoService::class.java)
     private val disposable = CompositeDisposable()
-    val photoDetailsNetworkState:MutableLiveData<PhotoDetailsNetworkState> = MutableLiveData()
-
-    init {
-        photoService = retrofit.create(PhotoService::class.java)
-    }
+    private val internalState: MutableLiveData<PhotoDetailsNetworkState> = MutableLiveData()
+    val photoDetailsNetworkState: LiveData<PhotoDetailsNetworkState> = internalState
 
     fun getPhotoInfo(id:String,
                      successhander:(detail: PhotoDetailInfo)->Unit){
@@ -24,11 +22,11 @@ class PhotoDetailScreenRepository(retrofit: Retrofit) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object:DisposableSingleObserver<PhotoDetailInfo>(){
                     override fun onSuccess(detail: PhotoDetailInfo){
-                        photoDetailsNetworkState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
+                        internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
                         successhander(detail)
                     }
                     override fun onError(e: Throwable) =
-                            photoDetailsNetworkState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError(e))
+                        internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError(e))
                 }))
     }
 
@@ -39,11 +37,11 @@ class PhotoDetailScreenRepository(retrofit: Retrofit) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object:DisposableSingleObserver<LikeResponse>(){
                     override fun onSuccess(likeResponse: LikeResponse) {
-                        photoDetailsNetworkState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
+                        internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
                         successhander(likeResponse)
                     }
                     override fun onError(e: Throwable)=
-                            photoDetailsNetworkState.postValue(PhotoDetailsNetworkState.PhotoLikeNetworkLoadError(e))
+                        internalState.postValue(PhotoDetailsNetworkState.PhotoLikeNetworkLoadError(e))
                 }))
     }
 
