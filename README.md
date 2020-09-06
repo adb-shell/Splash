@@ -13,7 +13,7 @@ You can configure your API key, API secret and auth callback in `buildSrc/config
 1.Migration to constraint layout 2.0.<br/>
 2.Using navigation component.<br/>
 3.Espresso and Junit tests for fragments and viewmodels.<br/>
-4.view and data binding.<br/>
+4.Kotlin co-routines.<br/>
 
 
 ## License
