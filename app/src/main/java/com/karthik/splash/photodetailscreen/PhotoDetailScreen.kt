@@ -17,6 +17,7 @@ import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.R
 import com.karthik.splash.misc.Utils
+import com.karthik.splash.misc.loadImage
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenComponent
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenModule
@@ -47,7 +48,9 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
 
         username.text = getString(R.string.By,photo.user?.name)
         createdtime.text = getString(R.string.On, Utils.parseDate(photo.createdTime))
-        Picasso.with(this).load(photo.urls?.regular).into(feeddetailimage)
+        photo.urls?.regular?.let {url->
+            feeddetailimage.loadImage(url,0)
+        }
 
 
         viewmodel.getPhotoDetail(photo.id)
@@ -107,14 +110,9 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
     }
 
     private fun showPhotoDetails(photoDetailInfo: PhotoDetailInfo) {
-        Picasso.with(this)
-                .load(photoDetailInfo.user?.profileImage?.medium)
-                .transform(CircularTransform())
-                .into(userimg)
-        Picasso.with(this)
-                .load(photoDetailInfo.user?.profileImage?.medium)
-                .transform(CircularTransform())
-                .into(userimg)
+        photoDetailInfo.user?.profileImage?.medium?.let {url->
+            userimg.loadImage(url,0,CircularTransform())
+        }
         nolikes.text = photoDetailInfo.likes.toString()
         noviews.text = photoDetailInfo.user?.totalCollections.toString()
         userloc.text = getUserLocation(photoDetailInfo)
@@ -128,12 +126,10 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
     private fun errorLikingPhoto() = Toast.makeText(this,
             getString(R.string.like_error_1),Toast.LENGTH_LONG).show()
 
-    private fun getUserLocation(photoDetailInfo: PhotoDetailInfo?): String {
-        return if (photoDetailInfo?.location == null || photoDetailInfo.location?.country == null) {
-            getString(R.string.unknown)
-        } else {
-            photoDetailInfo.location?.country!!
-        }
+    private fun getUserLocation(photoDetailInfo: PhotoDetailInfo?): String? {
+        return photoDetailInfo?.location?.country?.let {
+            photoDetailInfo.location?.country
+        } ?: getString(R.string.unknown)
     }
 
     private fun showLoginRequired() = Toast.makeText(this,

@@ -15,9 +15,8 @@ import com.karthik.splash.splashscreen.di.SplashScreenModule
 import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
 
-class SplashScreen: AppCompatActivity(),SplashViewContract{
-    private val SPLASH_DELAY = 1000L
-    private var splashScreenComponent: SplashScreenComponent?=null
+class SplashScreen : AppCompatActivity(), SplashViewContract {
+    private var splashScreenComponent: SplashScreenComponent? = null
 
     @Inject
     lateinit var splashviewmodulefactory: SplashScreenViewModelFactory
@@ -26,18 +25,20 @@ class SplashScreen: AppCompatActivity(),SplashViewContract{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         splashScreenComponent = (application as SplashApp).getComponent()
-                .plus(SplashScreenModule(this))
+                .plus(SplashScreenModule())
+
         splashScreenComponent?.inject(this)
-        val splashscreenviewmodule = ViewModelProvider(this,splashviewmodulefactory).get(SplashScreenViewModel::class.java)
-        Handler().postDelayed({
-            splashscreenviewmodule.splashscreenstate.observe(this,Observer<SplashScreenState> { state->
-                when(state){
-                    SplashScreenState.FreshDashBoardScreen->showDashBoardScreen(false)
-                    SplashScreenState.CachedDashBoardScreen->showDashBoardScreen(true)
-                    SplashScreenState.NoInternetScreen->showNoInternetScreen()
-                }
-            })
-        }, SPLASH_DELAY)
+
+        val splashscreenviewmodule = ViewModelProvider(this, splashviewmodulefactory)
+                .get(SplashScreenViewModel::class.java)
+
+        splashscreenviewmodule.splashscreenstate.observe(this, Observer<SplashScreenState> { state ->
+            when (state) {
+                SplashScreenState.FreshDashBoardScreen -> showDashBoardScreen(false)
+                SplashScreenState.CachedDashBoardScreen -> showDashBoardScreen(true)
+                SplashScreenState.NoInternetScreen -> showNoInternetScreen()
+            }
+        })
     }
 
     override fun onDestroy() {

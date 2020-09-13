@@ -2,23 +2,19 @@ package com.karthik.splash.homescreen.bottomtab
 
 
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.github.florent37.materialimageloading.MaterialImageLoading
 import com.karthik.splash.R
 import com.karthik.splash.misc.Utils
+import com.karthik.splash.misc.loadImage
 import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.photodetailscreen.PhotoDetailScreen
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 
 class BottomFeedAdapter : PagedListAdapter<Photos, RecyclerView.ViewHolder>(DIFF_CALLBACK){
 
@@ -41,8 +37,10 @@ class BottomFeedAdapter : PagedListAdapter<Photos, RecyclerView.ViewHolder>(DIFF
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is BottomViewHolder){
             val context = holder.itemView.context
-            setAppropriateBackground(position, holder, context)
-            loadImage(position, holder, context)
+            holder.setAppropriateBackground(position, context)
+            getItem(position)?.urls?.regular?.let {url->
+                holder.feedimage.loadImage(url,1200)
+            }
         }
     }
 
@@ -71,29 +69,6 @@ class BottomFeedAdapter : PagedListAdapter<Photos, RecyclerView.ViewHolder>(DIFF
                 return oldItem == newItem
             }
         }
-    }
-
-    private fun loadImage(position:Int, holder: BottomViewHolder, context: Context){
-        Picasso.with(context)
-                .load(getItem(position)?.urls?.regular)
-                .into(holder.feedimage, object : Callback {
-                    override fun onSuccess() {
-                        MaterialImageLoading.animate(holder.feedimage)
-                                .setDuration(1200)
-                                .start()
-                    }
-                    override fun onError() {}
-                })
-    }
-
-    private fun setAppropriateBackground(position: Int, holder: BottomViewHolder,
-                                         context: Context) {
-        if (position % 2 == 0)
-            holder.itemView.setBackgroundColor(
-                    ContextCompat.getColor(context, R.color.primary_light))
-        else
-            holder.itemView.setBackgroundColor(
-                    ContextCompat.getColor(context, R.color.divider))
     }
 
     inner class BottomViewHolder: RecyclerView.ViewHolder, View.OnClickListener {
