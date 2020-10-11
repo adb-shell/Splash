@@ -61,8 +61,8 @@ class Configs {
         const val splashLoginCallbackValue = "\"splash://splash-auth-callback\""
         const val splashCallbackValue = "\"splash-auth-callback\""
         const val splashBaseUrlValue = "\"https://api.unsplash.com/\""
-        const val splashKeyValue ="\"\""
-        const val splashKeySecretValue ="\"\""
+        const val splashKeyValue ="\"ac86565306b813a0190fd19e8b9600022dd58b6e40dc1dca43f9712819d5893a\""
+        const val splashKeySecretValue ="\"f2735b748148802a1d0b72cea526da86c146a4176be529aa2ac1972568dfba41\""
     }
 
     object AppConfig {
