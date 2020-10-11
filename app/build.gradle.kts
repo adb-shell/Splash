@@ -119,6 +119,10 @@ dependencies {
      * Testing depndencies
      */
     testImplementation(Configs.DependenciesConfig.junit)
+    testImplementation(Configs.DependenciesConfig.nharmanMockito)
+    testImplementation(Configs.DependenciesConfig.junitExtension)
+    testImplementation(Configs.DependenciesConfig.archCoreTesting)
+
     androidTestImplementation(Configs.DependenciesConfig.junitExtension)
     androidTestImplementation(Configs.DependenciesConfig.espressoCore)
     androidTestImplementation(Configs.DependenciesConfig.roomTesting)
