@@ -18,6 +18,7 @@ import com.karthik.splash.R.layout.fragment_bottom_tab_settings
 import com.karthik.splash.aboutscreen.AboutScreen
 import com.karthik.splash.homescreen.bottomsettingstab.di.BottomSettingsTabComponent
 import com.karthik.splash.homescreen.bottomsettingstab.di.BottomSettingsTabModule
+import com.karthik.splash.models.UserStatus
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_bottom_tab_settings.*
 import javax.inject.Inject
@@ -51,11 +52,14 @@ class BottomSettingsTabFragment: Fragment(),View.OnClickListener {
         logout.setOnClickListener(this)
         about.setOnClickListener(this)
         downloads.setOnClickListener(this)
-        viewModel.isuserloggedin.observe(viewLifecycleOwner, Observer<Boolean> {isloggedin->
-            if(isloggedin && !viewModel.getUserName().isNullOrEmpty()){
-                showLoggedInView(viewModel.getUserName()!!)
-            }else{
-                showNonLoggedInView()
+        viewModel.userStatus.observe(viewLifecycleOwner, { userStatus ->
+            when (userStatus) {
+                is UserStatus.UserLoggedIn -> {
+                    showLoggedInView(userStatus.username)
+                }
+                is UserStatus.UserNotLoggedIn -> {
+                    showNonLoggedInView()
+                }
             }
         })
     }
