@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class HomeScreenOAuthRepository(okHttpClient: OkHttpClient) {
+class HomeScreenOAuthRepository(okHttpClient: OkHttpClient) : IHomeScreenOAuthRepository {
     private val retrofit:Retrofit
     private val OAUTH_BASE = "https://unsplash.com/"
 
@@ -23,7 +23,7 @@ class HomeScreenOAuthRepository(okHttpClient: OkHttpClient) {
                 .build()
     }
 
-    fun postOAuth(oAuthBody: OAuthBody): Single<UserAuth> =
+    override fun postOAuth(oAuthBody: OAuthBody): Single<UserAuth> =
             retrofit.create(HomeScreenOAuthService::class.java).OauthAuthorize(oAuthBody)
                     .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

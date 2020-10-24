@@ -40,11 +40,11 @@ android {
 
     buildTypes {
         getByName("debug") {
-            resValue("string", "version", defaultConfig.versionName)
+            defaultConfig.versionName?.let { resValue("string", "version", it) }
         }
 
         getByName("release") {
-            resValue("string", "version", defaultConfig.versionName)
+            defaultConfig.versionName?.let { resValue("string", "version", it) }
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
@@ -54,13 +54,13 @@ android {
 
     productFlavors {
         create("demo") {
-            setDimension("version")
+            dimension("version")
             applicationIdSuffix = Configs.AppConfig.demoApllicationSuffix
             versionNameSuffix = Configs.AppConfig.demoApllicationVersionNameSuffix
         }
 
         create("appstore") {
-            setDimension("version")
+            dimension("version")
             applicationIdSuffix = Configs.AppConfig.appstoreApplicationSuffix
             versionNameSuffix = Configs.AppConfig.appstoreApllicationVersionNameSuffix
         }
