@@ -1,9 +1,11 @@
 package com.karthik.splash.homescreen.bottomliketab.network
 
+import com.karthik.splash.misc.IInternetHandler
 import com.karthik.splash.misc.InternetHandler
 import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.models.UserProfile.Profile
 import com.karthik.splash.restserviceutility.UserOfflineException
+import com.karthik.splash.storage.IMemoryCache
 import com.karthik.splash.storage.MemoryCache
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
@@ -18,19 +20,15 @@ import retrofit2.Retrofit
 import java.lang.IllegalStateException
 import java.util.ArrayList
 
-class BottomLikeTabRepository(retrofit: Retrofit, private val memoryCache: MemoryCache,
+class BottomLikeTabRepository(private val bottomLikeTabNetworkService: BottomLikeTabNetworkService,
+                              private val memoryCache: IMemoryCache,
                               private val localdb: SplashDao,
-                              private val internetHandler: InternetHandler) {
-    private val bottomLikeTabNetworkService: BottomLikeTabNetworkService
+                              private val internetHandler: IInternetHandler): IBottomLikeTabRepository {
     private val disposable = CompositeDisposable()
     private val LIKE  = "LIKE"
 
-    init {
-        bottomLikeTabNetworkService = retrofit.create(BottomLikeTabNetworkService::class.java)
-    }
-
-    fun getUserLikedPhotos(successhander:(ArrayList<Photos>)->Unit,
-                           errorhandler:(e: Throwable)->Unit){
+    override fun getUserLikedPhotos(successhander:(ArrayList<Photos>)->Unit,
+                                    errorhandler:(e: Throwable)->Unit){
         if(memoryCache.getUserName()==null){
             getUserProfile(successhander,errorhandler)
             return
@@ -117,7 +115,7 @@ class BottomLikeTabRepository(retrofit: Retrofit, private val memoryCache: Memor
                 }))
     }
 
-    fun clearResources(){
+    override fun clearResources(){
         if(!disposable.isDisposed){
             disposable.dispose()
         }

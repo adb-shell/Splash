@@ -74,6 +74,10 @@ android {
     androidExtensions {
         isExperimental = true
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
