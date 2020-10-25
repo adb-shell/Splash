@@ -17,6 +17,7 @@ import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
+import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 import java.util.ArrayList
 
@@ -33,7 +34,7 @@ class BottomLikeTabRepository(private val bottomLikeTabNetworkService: BottomLik
             getUserProfile(successhander,errorhandler)
             return
         }
-        getLikedPhotos(successhander,errorhandler,memoryCache.getUserName()!!)
+        getLikedPhotos(successhander,errorhandler,memoryCache.getUserName())
     }
 
     private fun getUserProfile(successhander:(ArrayList<Photos>)->Unit,
@@ -80,7 +81,7 @@ class BottomLikeTabRepository(private val bottomLikeTabNetworkService: BottomLik
     }
 
     private fun getLikedPhotos(successhander:(ArrayList<Photos>)->Unit,
-                               errorhandler:(e: Throwable)->Unit,username:String){
+                               errorhandler:(e: Throwable)->Unit,username:String?){
         when{
             internetHandler.isInternetAvailable()->getFreshSetOfLikedPhotos(successhander,errorhandler,username)
             memoryCache.isCacheAvail()->getLikedPhotosFromDb(successhander,errorhandler)
@@ -89,7 +90,13 @@ class BottomLikeTabRepository(private val bottomLikeTabNetworkService: BottomLik
     }
 
     private fun getFreshSetOfLikedPhotos(successhander:(ArrayList<Photos>)->Unit,
-                                         errorhandler:(e: Throwable)->Unit,username:String) {
+                                         errorhandler:(e: Throwable)->Unit,username:String?) {
+
+        if (username.isNullOrEmpty()) {
+            errorhandler(IllegalArgumentException())
+            return
+        }
+
         disposable.add(bottomLikeTabNetworkService.getUserLikePhotos(username)
                 .subscribeOn(Schedulers.io())
                 .flatMap {photos->
