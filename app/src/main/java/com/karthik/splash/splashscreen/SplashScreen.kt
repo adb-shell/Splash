@@ -3,7 +3,6 @@ package com.karthik.splash.splashscreen
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider

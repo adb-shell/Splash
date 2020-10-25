@@ -40,11 +40,11 @@ android {
 
     buildTypes {
         getByName("debug") {
-            resValue("string", "version", defaultConfig.versionName)
+            defaultConfig.versionName?.let { resValue("string", "version", it) }
         }
 
         getByName("release") {
-            resValue("string", "version", defaultConfig.versionName)
+            defaultConfig.versionName?.let { resValue("string", "version", it) }
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
@@ -54,13 +54,13 @@ android {
 
     productFlavors {
         create("demo") {
-            setDimension("version")
+            dimension("version")
             applicationIdSuffix = Configs.AppConfig.demoApllicationSuffix
             versionNameSuffix = Configs.AppConfig.demoApllicationVersionNameSuffix
         }
 
         create("appstore") {
-            setDimension("version")
+            dimension("version")
             applicationIdSuffix = Configs.AppConfig.appstoreApplicationSuffix
             versionNameSuffix = Configs.AppConfig.appstoreApllicationVersionNameSuffix
         }
@@ -73,6 +73,10 @@ android {
 
     androidExtensions {
         isExperimental = true
+    }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
     }
 }
 
@@ -119,6 +123,10 @@ dependencies {
      * Testing depndencies
      */
     testImplementation(Configs.DependenciesConfig.junit)
+    testImplementation(Configs.DependenciesConfig.nharmanMockito)
+    testImplementation(Configs.DependenciesConfig.junitExtension)
+    testImplementation(Configs.DependenciesConfig.archCoreTesting)
+
     androidTestImplementation(Configs.DependenciesConfig.junitExtension)
     androidTestImplementation(Configs.DependenciesConfig.espressoCore)
     androidTestImplementation(Configs.DependenciesConfig.roomTesting)

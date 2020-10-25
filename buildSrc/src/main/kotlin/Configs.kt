@@ -10,6 +10,7 @@ import Configs.VersionsConfig.daggerVersion
 import Configs.VersionsConfig.junitExtensionVersion
 import Configs.VersionsConfig.junitVersion
 import Configs.VersionsConfig.materialVersion
+import Configs.VersionsConfig.nhaarmanMockitoVersion
 import Configs.VersionsConfig.picassoMaterialVersion
 import Configs.VersionsConfig.picassoVersion
 import Configs.VersionsConfig.retrofitConvVersion
@@ -45,6 +46,7 @@ class Configs {
         const val versionCode = 1
         const val versionName = "0.4"
         const val archCoreTestingVersion = "2.1.0"
+        const val nhaarmanMockitoVersion = "2.2.0"
     }
 
     object SplashUrlConfig {
@@ -68,7 +70,7 @@ class Configs {
     object AppConfig {
         const val applicationId = "com.karthik.splash"
         const val kotlinVersion = "1.4.0"
-        const val androidToolsVersion = "4.0.1"
+        const val androidToolsVersion = "4.1.0"
 
         const val compileSDKVersion = "29"
         const val minSDKVersion = 21
@@ -117,5 +119,6 @@ class Configs {
         const val espressoCore = "androidx.test.espresso:espresso-core:${androidXCoreTestVersion}"
         const val roomTesting = "androidx.room:room-testing:${archComponentRoomVersion}"
         const val archCoreTesting = "androidx.arch.core:core-testing:${archCoreTestingVersion}"
+        const val nharmanMockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:${nhaarmanMockitoVersion}"
     }
 }
