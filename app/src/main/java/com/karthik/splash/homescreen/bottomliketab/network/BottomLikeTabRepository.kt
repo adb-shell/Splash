@@ -1,96 +1,120 @@
 package com.karthik.splash.homescreen.bottomliketab.network
 
 import com.karthik.splash.misc.IInternetHandler
-import com.karthik.splash.misc.InternetHandler
-import com.karthik.splash.models.PhotosLists.Photos
-import com.karthik.splash.models.UserProfile.Profile
+import com.karthik.splash.models.photoslists.Photos
+import com.karthik.splash.models.userprofile.Profile
 import com.karthik.splash.restserviceutility.UserOfflineException
 import com.karthik.splash.storage.IMemoryCache
-import com.karthik.splash.storage.MemoryCache
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
 import com.karthik.splash.storage.db.entity.UserInfo
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableMaybeObserver
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
-import java.util.ArrayList
+import java.util.*
 
-class BottomLikeTabRepository(private val bottomLikeTabNetworkService: BottomLikeTabNetworkService,
-                              private val memoryCache: IMemoryCache,
-                              private val localdb: SplashDao,
-                              private val internetHandler: IInternetHandler): IBottomLikeTabRepository {
+class BottomLikeTabRepository(
+        private val bottomLikeTabNetworkService: BottomLikeTabNetworkService,
+        private val memoryCache: IMemoryCache,
+        private val localdb: SplashDao,
+        private val internetHandler: IInternetHandler
+) : IBottomLikeTabRepository {
     private val disposable = CompositeDisposable()
-    private val LIKE  = "LIKE"
+    private val _like = "LIKE"
 
-    override fun getUserLikedPhotos(successhander:(ArrayList<Photos>)->Unit,
-                                    errorhandler:(e: Throwable)->Unit){
-        if(memoryCache.getUserName()==null){
-            getUserProfile(successhander,errorhandler)
+    override fun getUserLikedPhotos(
+            successhander: (ArrayList<Photos>) -> Unit,
+            errorhandler: (e: Throwable) -> Unit
+    ) {
+        if (memoryCache.getUserName() == null) {
+            getUserProfile(successhander, errorhandler)
             return
         }
-        getLikedPhotos(successhander,errorhandler,memoryCache.getUserName())
+        getLikedPhotos(successhander, errorhandler, memoryCache.getUserName())
     }
 
-    private fun getUserProfile(successhander:(ArrayList<Photos>)->Unit,
-                               errorhandler:(e: Throwable)->Unit) {
+    private fun getUserProfile(
+            successhander: (ArrayList<Photos>) -> Unit,
+            errorhandler: (e: Throwable) -> Unit
+    ) {
         when {
-            internetHandler.isInternetAvailable() ->  getFreshUserProfile(successhander,errorhandler)
-            memoryCache.isCacheAvail() -> getUserProfileLocalDb(successhander, errorhandler)
-            else -> errorhandler(UserOfflineException())
+            internetHandler.isInternetAvailable() ->
+                getFreshUserProfile(successhander, errorhandler)
+            memoryCache.isCacheAvail()            -> getUserProfileLocalDb(successhander,
+                    errorhandler)
+            else                                  -> errorhandler(UserOfflineException())
         }
     }
 
-    private fun getFreshUserProfile(successhander:(ArrayList<Photos>)->Unit,
-                                    errorhandler:(e: Throwable)->Unit){
+    private fun getFreshUserProfile(
+            successhander: (ArrayList<Photos>) -> Unit,
+            errorhandler: (e: Throwable) -> Unit
+    ) {
         disposable.add(bottomLikeTabNetworkService.getUserProfile()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object:DisposableSingleObserver<Profile>(){
+                .subscribeWith(object : DisposableSingleObserver<Profile>() {
                     override fun onSuccess(profile: Profile) {
-                        if(profile.username!=null) {
+                        if (profile.username != null) {
                             memoryCache.setUserName(profile.username!!)
-                            localdb.setUserInfo(UserInfo(id = profile.id,username = profile.username,bio = profile.bio,
-                                    email = profile.email,authcode = memoryCache.getAuthCode(),user = "${profile.id}:${profile.email}"))
+                            localdb.setUserInfo(UserInfo(
+                                    id = profile.id,
+                                    username = profile.username,
+                                    bio = profile.bio,
+                                    email = profile.email,
+                                    authcode = memoryCache.getAuthCode(),
+                                    user = "${profile.id}:${profile.email}"))
                             getLikedPhotos(successhander, errorhandler, profile.username!!)
                             return
                         }
                         errorhandler(IllegalStateException("username is empty"))
                     }
-                    override fun onError(e: Throwable) = errorhandler(e)
+
+                    override fun onError(e: Throwable) =
+                            errorhandler(e)
                 }))
     }
 
-    private fun getUserProfileLocalDb(successhander:(ArrayList<Photos>)->Unit,
-                                      errorhandler:(e: Throwable)->Unit){
+    private fun getUserProfileLocalDb(
+            successhander: (ArrayList<Photos>) -> Unit,
+            errorhandler: (e: Throwable) -> Unit
+    ) {
         disposable.add(localdb.getUserInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object:DisposableMaybeObserver<UserInfo>(){
-            override fun onSuccess(t: UserInfo) = getLikedPhotos(successhander, errorhandler,t.username!!)
+                .subscribeWith(object : DisposableMaybeObserver<UserInfo>() {
+                    override fun onSuccess(t: UserInfo) =
+                            getLikedPhotos(successhander,
+                                    errorhandler, t.username)
 
-            override fun onError(e: Throwable) = errorhandler(e)
+                    override fun onError(e: Throwable) =
+                            errorhandler(e)
 
-            override fun onComplete() {}
-        }))
+                    override fun onComplete() {
+                        //TODO:log to crashlytics
+                    }
+                }))
     }
 
-    private fun getLikedPhotos(successhander:(ArrayList<Photos>)->Unit,
-                               errorhandler:(e: Throwable)->Unit,username:String?){
-        when{
-            internetHandler.isInternetAvailable()->getFreshSetOfLikedPhotos(successhander,errorhandler,username)
-            memoryCache.isCacheAvail()->getLikedPhotosFromDb(successhander,errorhandler)
-            else-> errorhandler(UserOfflineException())
+    private fun getLikedPhotos(
+            successhander: (ArrayList<Photos>) -> Unit,
+            errorhandler: (e: Throwable) -> Unit, username: String?
+    ) {
+        when {
+            internetHandler.isInternetAvailable() -> getFreshSetOfLikedPhotos(successhander,
+                    errorhandler, username)
+            memoryCache.isCacheAvail()            -> getLikedPhotosFromDb(successhander,
+                    errorhandler)
+            else                                  -> errorhandler(UserOfflineException())
         }
     }
 
-    private fun getFreshSetOfLikedPhotos(successhander:(ArrayList<Photos>)->Unit,
-                                         errorhandler:(e: Throwable)->Unit,username:String?) {
+    private fun getFreshSetOfLikedPhotos(
+            successhander: (ArrayList<Photos>) -> Unit,
+            errorhandler: (e: Throwable) -> Unit, username: String?
+    ) {
 
         if (username.isNullOrEmpty()) {
             errorhandler(IllegalArgumentException())
@@ -99,31 +123,45 @@ class BottomLikeTabRepository(private val bottomLikeTabNetworkService: BottomLik
 
         disposable.add(bottomLikeTabNetworkService.getUserLikePhotos(username)
                 .subscribeOn(Schedulers.io())
-                .flatMap {photos->
-                    localdb.setPhotos(PhotosStorage(pagenumber = 1,type = LIKE,photos = photos,pgtype = "1:LIKE"))
+                .flatMap { photos ->
+                    localdb.setPhotos(PhotosStorage(
+                            pagenumber = 1,
+                            type = _like,
+                            photos = photos,
+                            pgtype = "1:LIKE"))
                 }
-                .flatMap { localdb.getPhotos(page = 1,type = LIKE).toSingle() }
+                .flatMap { localdb.getPhotos(page = 1, type = _like).toSingle() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object:DisposableSingleObserver<PhotosStorage>(){
-                    override fun onSuccess(photoStorage: PhotosStorage) = successhander(photoStorage.photos)
-                    override fun onError(e: Throwable) = errorhandler(e)
+                .subscribeWith(object : DisposableSingleObserver<PhotosStorage>() {
+                    override fun onSuccess(photoStorage: PhotosStorage) =
+                            successhander(photoStorage.photos)
+
+                    override fun onError(e: Throwable) =
+                            errorhandler(e)
                 }))
     }
 
-    private fun getLikedPhotosFromDb(successhander: (ArrayList<Photos>) -> Unit,
-                                     errorhandler: (e: Throwable) -> Unit) {
-        disposable.add(localdb.getPhotos(1,LIKE).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(object:DisposableMaybeObserver<PhotosStorage>(){
-                    override fun onSuccess(storedphotos: PhotosStorage) = successhander(storedphotos.photos)
+    private fun getLikedPhotosFromDb(
+            successhander: (ArrayList<Photos>) -> Unit,
+            errorhandler: (e: Throwable) -> Unit
+    ) {
+        disposable.add(localdb.getPhotos(1, _like).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(
+                        object : DisposableMaybeObserver<PhotosStorage>() {
+                            override fun onSuccess(storedphotos: PhotosStorage) =
+                                    successhander(storedphotos.photos)
 
-                    override fun onError(e: Throwable) = errorhandler(e)
+                            override fun onError(e: Throwable) =
+                                    errorhandler(e)
 
-                    override fun onComplete() {}
-                }))
+                            override fun onComplete() {
+                                //TODO:log to crashlytics
+                            }
+                        }))
     }
 
-    override fun clearResources(){
-        if(!disposable.isDisposed){
+    override fun clearResources() {
+        if (!disposable.isDisposed) {
             disposable.dispose()
         }
     }

@@ -16,19 +16,23 @@ class MemoryCache : IMemoryCache {
                 context.getString(R.string.local_cache), Context.MODE_PRIVATE)
     }
 
-    override fun isUserLoggedIn() = preferences.getBoolean(context.getString(R.string.is_user_logged_in),
-            false)
+    override fun isUserLoggedIn() =
+            preferences.getBoolean(context.getString(R.string.is_user_logged_in),
+                    false)
 
-    override fun setUserLoggedIn() = preferences.edit()
-            .putBoolean(context.getString(R.string.is_user_logged_in), true)
-            .apply()
+    override fun setUserLoggedIn() =
+            preferences.edit()
+                    .putBoolean(context.getString(R.string.is_user_logged_in), true)
+                    .apply()
 
-    override fun isCacheAvail() = preferences.getBoolean(context
-            .getString(R.string.is_response_cache_avail), false)
+    override fun isCacheAvail() =
+            preferences.getBoolean(context
+                    .getString(R.string.is_response_cache_avail), false)
 
-    override fun setCacheAvail() = preferences.edit()
-            .putBoolean(context.getString(R.string.is_response_cache_avail), true)
-            .apply()
+    override fun setCacheAvail() =
+            preferences.edit()
+                    .putBoolean(context.getString(R.string.is_response_cache_avail), true)
+                    .apply()
 
     override fun setAuthCode(code: String?) {
         if (code == null)
@@ -38,13 +42,17 @@ class MemoryCache : IMemoryCache {
                 .apply()
     }
 
-    override fun getAuthCode() = preferences.getString(context.getString(R.string.auth_code), null)
+    override fun getAuthCode() =
+            preferences.getString(context.getString(R.string.auth_code), null)
 
-    override fun setUserName(username: String) = preferences.edit()
-            .putString(context.getString(R.string.user_name), username)
-            .apply()
+    override fun setUserName(username: String) =
+            preferences.edit()
+                    .putString(context.getString(R.string.user_name), username)
+                    .apply()
 
-    override fun getUserName() = preferences.getString(context.getString(R.string.user_name), null)
+    override fun getUserName() =
+            preferences.getString(context.getString(R.string.user_name), null)
 
-    override fun logOutUser() = preferences.edit().clear().apply()
+    override fun logOutUser() =
+            preferences.edit().clear().apply()
 }

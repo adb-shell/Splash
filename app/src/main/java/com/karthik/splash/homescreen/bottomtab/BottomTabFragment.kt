@@ -1,15 +1,12 @@
 package com.karthik.splash.homescreen.bottomtab
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
-import com.karthik.splash.models.PhotosLists.Photos
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomtab.di.BottomTabComponent
 import com.karthik.splash.homescreen.bottomtab.di.BottomTabModule
@@ -18,23 +15,23 @@ import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_new.*
 import javax.inject.Inject
 
-class BottomTabFragment: Fragment(){
+class BottomTabFragment : Fragment() {
 
-    private var bottomtabcomponent: BottomTabComponent?=null
-    private lateinit var feedsadapter:BottomFeedAdapter
-    private var iscacheavailable:Boolean?=false
-    private lateinit var bottomtabviewmodel:BottomTabViewModel
+    private var bottomtabcomponent: BottomTabComponent? = null
+    private lateinit var feedsadapter: BottomFeedAdapter
+    private var iscacheavailable: Boolean? = false
+    private lateinit var bottomtabviewmodel: BottomTabViewModel
 
     @Inject
     lateinit var bottomtabviewmodelfactory: BottomTabViewModelFactory
 
-    companion object{
+    companion object {
         const val Mode = "Mode"
         const val Cache = "Cache"
-        fun getInstance(mode:BottomTabTypes,isfromcache:Boolean):BottomTabFragment{
+        fun getInstance(mode: BottomTabTypes, isfromcache: Boolean): BottomTabFragment {
             val args = Bundle()
-            args.putParcelable(Mode,mode)
-            args.putBoolean(Cache,isfromcache)
+            args.putParcelable(Mode, mode)
+            args.putBoolean(Cache, isfromcache)
             val fragment = BottomTabFragment()
             fragment.retainInstance = true
             fragment.arguments = args
@@ -48,14 +45,16 @@ class BottomTabFragment: Fragment(){
         val mode = arguments?.getParcelable<BottomTabTypes>(Mode)
         bottomtabcomponent = (activity?.application as SplashApp)
                 .getComponent()
-                .plus(BottomTabModule(iscacheavailable,mode))
+                .plus(BottomTabModule(iscacheavailable, mode))
         bottomtabcomponent?.inject(this)
-        bottomtabviewmodel = ViewModelProvider(this,bottomtabviewmodelfactory)
+        bottomtabviewmodel = ViewModelProvider(this, bottomtabviewmodelfactory)
                 .get(BottomTabViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? =
             inflater.inflate(R.layout.fragment_new, container, false)
 
 
@@ -68,22 +67,25 @@ class BottomTabFragment: Fragment(){
         /**
          * Observe the feeds.
          */
-        bottomtabviewmodel.feeds.observe(viewLifecycleOwner,Observer<PagedList<Photos>>{ photos->
+        bottomtabviewmodel.feeds.observe(viewLifecycleOwner, { photos ->
             feedsadapter.submitList(photos)
         })
 
         /**
          * Observe the network state.
          */
-        bottomtabviewmodel.networkState.observe(viewLifecycleOwner,Observer<PhotoFeedNetworkState> { state->
+        bottomtabviewmodel.networkState.observe(viewLifecycleOwner, { state ->
             hideProgressBar()
-            when(state){
-                is PhotoFeedNetworkState.FeedNetworkLoadSuccess->feedslist.visibility = View.VISIBLE
-                is PhotoFeedNetworkState.FeedNetworkError->showEmptyScreen()
-                is PhotoFeedNetworkState.FeedNetworkNoInternet->showNoInternetScreen()
-                is PhotoFeedNetworkState.FeedNetworkPaginationLoading->feedsadapter.showPaginationProgress()
+            when (state) {
+                is PhotoFeedNetworkState.FeedNetworkLoadSuccess         -> feedslist.visibility =
+                        View.VISIBLE
+                is PhotoFeedNetworkState.FeedNetworkError               -> showEmptyScreen()
+                is PhotoFeedNetworkState.FeedNetworkNoInternet          -> showNoInternetScreen()
+                is PhotoFeedNetworkState.FeedNetworkPaginationLoading   ->
+                    feedsadapter.showPaginationProgress()
                 is PhotoFeedNetworkState.FeedNetworkPaginationLoadSuccess,
-                is PhotoFeedNetworkState.FeedNetworkPaginationLoadError->feedsadapter.hidePaginationProgress()
+                is PhotoFeedNetworkState.FeedNetworkPaginationLoadError ->
+                    feedsadapter.hidePaginationProgress()
             }
         })
     }

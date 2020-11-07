@@ -1,7 +1,7 @@
 package com.karthik.splash.homescreen.bottomliketab.network
 
-import com.karthik.splash.models.PhotosLists.Photos
-import com.karthik.splash.models.UserProfile.Profile
+import com.karthik.splash.models.photoslists.Photos
+import com.karthik.splash.models.userprofile.Profile
 
 import java.util.ArrayList
 

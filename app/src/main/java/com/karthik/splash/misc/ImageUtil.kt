@@ -18,7 +18,9 @@ fun ImageView.loadImage(url: String, duration: Int, transform: Transformation? =
                                 .start()
                     }
 
-                    override fun onError() {}
+                    override fun onError() {
+                        //TODO:log to crashlytics
+                    }
                 })
     } ?: Picasso.with(context)
             .load(url)
@@ -29,6 +31,8 @@ fun ImageView.loadImage(url: String, duration: Int, transform: Transformation? =
                             .start()
                 }
 
-                override fun onError() {}
+                override fun onError() {
+                    //TODO:log to crashlytics
+                }
             })
 }

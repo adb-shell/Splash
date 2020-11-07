@@ -1,6 +1,6 @@
 package com.karthik.splash.homescreen.bottomtab
 
-import com.karthik.splash.models.PhotosLists.Photos
+import com.karthik.splash.models.photoslists.Photos
 
 /**
  * Created by karthikrk on 16/11/17.

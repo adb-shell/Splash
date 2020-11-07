@@ -47,16 +47,14 @@ class HomeScreen : AppCompatActivity(), BottomNavigationView.OnNavigationItemSel
         homeScreenComponent?.inject(this)
         navigation.setOnNavigationItemSelectedListener(this)
         inflateHome()
-        homescreenviewmodel = ViewModelProvider(this, homescreenfactory).get(HomeScreenViewModel::class.java)
-        homescreenviewmodel.userloginstate.observe(this, Observer<HomeScreenLoginState> { state ->
-            when (state) {
-                is HomeScreenLoginState.LoginFailed -> {
-                    displayUnableToLogin()
-                }
-                else -> {
-                    inflateLikes()
-                }
+        homescreenviewmodel = ViewModelProvider(this, homescreenfactory)
+                .get(HomeScreenViewModel::class.java)
+        homescreenviewmodel.userloginstate.observe(this, Observer { state ->
+            if (state is HomeScreenLoginState.LoginFailed) {
+                displayUnableToLogin()
+                return@Observer
             }
+            inflateLikes()
         })
     }
 

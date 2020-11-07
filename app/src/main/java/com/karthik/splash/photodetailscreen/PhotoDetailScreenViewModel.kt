@@ -9,15 +9,19 @@ import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.storage.IMemoryCache
 
 @Suppress("UNCHECKED_CAST")
-class PhotoDetailScreenViewModelFactory(private val memoryCache: IMemoryCache,
-                                        private val photoRepository: IPhotoDetailScreenRepository) : ViewModelProvider.NewInstanceFactory() {
+class PhotoDetailScreenViewModelFactory(
+        private val memoryCache: IMemoryCache,
+        private val photoRepository: IPhotoDetailScreenRepository
+) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             PhotoDetailScreenViewModel(memoryCache, photoRepository) as T
 }
 
 
-class PhotoDetailScreenViewModel(private val memoryCache: IMemoryCache,
-                                 private val photoRepository: IPhotoDetailScreenRepository) : ViewModel() {
+class PhotoDetailScreenViewModel(
+        private val memoryCache: IMemoryCache,
+        private val photoRepository: IPhotoDetailScreenRepository
+) : ViewModel() {
     private val details: MutableLiveData<PhotoDetailInfo> = MutableLiveData()
     private val like: MutableLiveData<LikeResponse> = MutableLiveData()
 
@@ -25,24 +29,26 @@ class PhotoDetailScreenViewModel(private val memoryCache: IMemoryCache,
     val photodetails: LiveData<PhotoDetailInfo> = details
 
     fun getPhotoDetail(id: String) {
-        photoRepository.getPhotoInfo(id,{ photoinfo ->
+        photoRepository.getPhotoInfo(id, { photoinfo ->
             details.postValue(photoinfo)
-        },{
+        }, {
             //TODO:handle error
         })
     }
 
     fun likeThePhoto(id: String) {
-        photoRepository.likePhoto(id,{ likeResponse ->
+        photoRepository.likePhoto(id, { likeResponse ->
             like.postValue(likeResponse)
-        },{
+        }, {
             //TODO:handle error
         })
     }
 
-    fun isUserLoggedIn() = memoryCache.isUserLoggedIn()
+    fun isUserLoggedIn() =
+            memoryCache.isUserLoggedIn()
 
-    fun getnetworkState() = photoRepository.getPhotoDetailNetworkState()
+    fun getnetworkState() =
+            photoRepository.getPhotoDetailNetworkState()
 
     override fun onCleared() {
         super.onCleared()

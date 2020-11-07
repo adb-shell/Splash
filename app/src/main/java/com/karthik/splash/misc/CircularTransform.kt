@@ -4,8 +4,9 @@ import android.graphics.*
 import com.squareup.picasso.Transformation
 import kotlin.math.min
 
-class CircularTransform: Transformation {
-    override fun key(): String = "circle"
+class CircularTransform : Transformation {
+    override fun key(): String =
+            "circle"
 
     override fun transform(source: Bitmap): Bitmap {
         val size = min(source.width, source.height)
@@ -20,7 +21,7 @@ class CircularTransform: Transformation {
         val bitmap = Bitmap.createBitmap(size, size, source.config)
         val canvas = Canvas(bitmap)
         val paint = Paint()
-        val shader = BitmapShader(squaredBitmap,Shader.TileMode.CLAMP,Shader.TileMode.CLAMP)
+        val shader = BitmapShader(squaredBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
         paint.shader = shader
         paint.isAntiAlias = true
         val r = size / 2f

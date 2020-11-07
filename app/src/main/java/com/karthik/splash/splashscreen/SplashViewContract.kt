@@ -7,5 +7,5 @@ import android.content.Context
  */
 
 interface SplashViewContract {
-    fun getSplashScreenContext():Context
+    fun getSplashScreenContext(): Context
 }

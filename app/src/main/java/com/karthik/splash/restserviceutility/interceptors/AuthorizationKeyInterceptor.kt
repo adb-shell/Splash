@@ -13,21 +13,21 @@ import okhttp3.Response
  */
 
 class AuthorizationKeyInterceptor(private val memoryCache: MemoryCache) : Interceptor {
-    private val Authorization = "Authorization"
-    private val Bearer = "Bearer "
-    private val ClientId = "client_id"
+    private val authorization = "Authorization"
+    private val bearer = "Bearer "
+    private val clientId = "clientId"
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         if (memoryCache.isUserLoggedIn()) {
             val request = chain.request()
                     .newBuilder()
-                    .addHeader(Authorization, Bearer + memoryCache.getAuthCode()!!)
+                    .addHeader(authorization, bearer + memoryCache.getAuthCode()!!)
                     .build()
             return chain.proceed(request)
         } else {
             val newHttpurl = chain.request().url().newBuilder()
-                    .addQueryParameter(ClientId, BuildConfig.SPLASH_KEY)
+                    .addQueryParameter(clientId, BuildConfig.SPLASH_KEY)
                     .build()
 
             val newRequest = chain.request()

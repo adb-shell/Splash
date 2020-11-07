@@ -11,20 +11,20 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeScreenOAuthRepository(okHttpClient: OkHttpClient) : IHomeScreenOAuthRepository {
-    private val retrofit:Retrofit
-    private val OAUTH_BASE = "https://unsplash.com/"
+    private val retrofit: Retrofit
+    private val oauthBase = "https://unsplash.com/"
 
     init {
         retrofit = Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(OAUTH_BASE)
+                .baseUrl(oauthBase)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }
 
     override fun postOAuth(oAuthBody: OAuthBody): Single<UserAuth> =
-            retrofit.create(HomeScreenOAuthService::class.java).OauthAuthorize(oAuthBody)
+            retrofit.create(HomeScreenOAuthService::class.java).oauthAuthorize(oAuthBody)
                     .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
 }

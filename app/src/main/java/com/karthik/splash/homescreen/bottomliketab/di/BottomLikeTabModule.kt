@@ -12,18 +12,23 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
-class BottomLikeTabModule{
+class BottomLikeTabModule {
 
     @Provides
-    fun providesUserServiceNetwork(retrofit: Retrofit, memoryCache: MemoryCache,localdb:SplashDao,
-                                   internetHandler: InternetHandler):IBottomLikeTabRepository{
+    fun providesUserServiceNetwork(
+            retrofit: Retrofit, memoryCache: MemoryCache, localdb: SplashDao,
+            internetHandler: InternetHandler
+    ): IBottomLikeTabRepository {
         val likeTabService = retrofit.create(BottomLikeTabNetworkService::class.java)
         return BottomLikeTabRepository(likeTabService, memoryCache, localdb, internetHandler)
     }
 
 
     @Provides
-    fun providesBottomLikeViewModelFactory(memoryCache: MemoryCache,
-                                           userServiceRepository: IBottomLikeTabRepository)
-            : BottomLikeViewModelFactory = BottomLikeViewModelFactory(memoryCache,userServiceRepository)
+    fun providesBottomLikeViewModelFactory(
+            memoryCache: MemoryCache,
+            userServiceRepository: IBottomLikeTabRepository
+    )
+            : BottomLikeViewModelFactory =
+            BottomLikeViewModelFactory(memoryCache, userServiceRepository)
 }

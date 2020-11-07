@@ -13,5 +13,5 @@ import retrofit2.http.POST
 
 interface HomeScreenOAuthService {
     @POST("oauth/token")
-    fun OauthAuthorize(@Body oAuthBody: OAuthBody): Single<UserAuth>
+    fun oauthAuthorize(@Body oAuthBody: OAuthBody): Single<UserAuth>
 }
