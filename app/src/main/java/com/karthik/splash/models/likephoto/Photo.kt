@@ -7,7 +7,6 @@ import com.karthik.splash.models.photoslists.Links
 
 
 data class Photo(
-        @SerializedName("urls") var urls: Urls? = null,
         @SerializedName("color") var color: String? = null,
         @SerializedName("width") var width: Int = 0,
         @SerializedName("description") var description: String? = null,

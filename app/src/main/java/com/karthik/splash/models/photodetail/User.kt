@@ -25,8 +25,6 @@ data class User(
         var location: String? = null,
         @SerializedName("total_collections")
         var totalCollections: Int = 0,
-        @SerializedName("links")
-        var links: Links? = null,
         @SerializedName("id")
         var id: String? = null,
         @SerializedName("first_name")
