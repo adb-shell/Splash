@@ -31,13 +31,14 @@ class SplashScreen : AppCompatActivity(), SplashViewContract {
         val splashscreenviewmodule = ViewModelProvider(this, splashviewmodulefactory)
                 .get(SplashScreenViewModel::class.java)
 
-        splashscreenviewmodule.splashscreenstate.observe(this, Observer<SplashScreenState> { state ->
-            when (state) {
-                SplashScreenState.FreshDashBoardScreen -> showDashBoardScreen(false)
-                SplashScreenState.CachedDashBoardScreen -> showDashBoardScreen(true)
-                SplashScreenState.NoInternetScreen -> showNoInternetScreen()
-            }
-        })
+        splashscreenviewmodule.splashscreenstate.observe(this,
+                Observer<SplashScreenState> { state ->
+                    when (state) {
+                        SplashScreenState.FreshDashBoardScreen  -> showDashBoardScreen(false)
+                        SplashScreenState.CachedDashBoardScreen -> showDashBoardScreen(true)
+                        SplashScreenState.NoInternetScreen      -> showNoInternetScreen()
+                    }
+                })
     }
 
     override fun onDestroy() {
@@ -45,7 +46,8 @@ class SplashScreen : AppCompatActivity(), SplashViewContract {
         splashScreenComponent = null
     }
 
-    override fun getSplashScreenContext(): Context = this
+    override fun getSplashScreenContext(): Context =
+            this
 
     private fun showNoInternetScreen() {
         splashdisplaytext.text = getString(R.string.no_internet)

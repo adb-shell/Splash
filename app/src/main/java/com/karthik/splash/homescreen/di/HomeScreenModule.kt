@@ -13,8 +13,13 @@ import okhttp3.OkHttpClient
 class HomeScreenModule {
 
     @Provides
-    fun providesOAuthNetworkLayer(okHttpClient: OkHttpClient): IHomeScreenOAuthRepository = HomeScreenOAuthRepository(okHttpClient)
+    fun providesOAuthNetworkLayer(okHttpClient: OkHttpClient): IHomeScreenOAuthRepository =
+            HomeScreenOAuthRepository(okHttpClient)
 
     @Provides
-    fun providesHomeScreenPresenter(memoryCache: MemoryCache, oAuthOAuthRepository: IHomeScreenOAuthRepository) = HomeScreenViewModelFactory(memoryCache, oAuthOAuthRepository)
+    fun providesHomeScreenPresenter(
+            memoryCache: MemoryCache,
+            oAuthOAuthRepository: IHomeScreenOAuthRepository
+    ) =
+            HomeScreenViewModelFactory(memoryCache, oAuthOAuthRepository)
 }

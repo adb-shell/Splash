@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-android-extensions")
     id("kotlin-kapt")
+    id("io.gitlab.arturbosch.detekt").version("1.14.2")
 }
 
 android {
@@ -78,6 +79,18 @@ android {
     testOptions {
         unitTests.isReturnDefaultValues = true
     }
+}
+
+detekt{
+    toolVersion = "1.14.2"
+    buildUponDefaultConfig = true
+    reports{
+        html {
+            enabled = true
+            destination = file("../config/detekt-reports.html")
+        }
+    }
+    autoCorrect = true
 }
 
 dependencies {

@@ -11,21 +11,26 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
-class BottomTabModule{
-    private val isCacheAvailable:Boolean
-    private val bottomtabtype:BottomTabTypes
+class BottomTabModule {
+    private val isCacheAvailable: Boolean
+    private val bottomtabtype: BottomTabTypes
 
-    constructor(isCacheAvailable:Boolean?,bottomtabtype: BottomTabTypes?){
+    constructor(isCacheAvailable: Boolean?, bottomtabtype: BottomTabTypes?) {
         requireNotNull(bottomtabtype) { "type cannot be null" }
         this.isCacheAvailable = isCacheAvailable != null
         this.bottomtabtype = bottomtabtype
     }
 
     @Provides
-    fun providesNetworkLayer(retrofit: Retrofit,splashDao: SplashDao,cache: MemoryCache,internetHandler: InternetHandler) =
-            BottomTabRepository(retrofit,splashDao,cache,internetHandler)
+    fun providesNetworkLayer(
+            retrofit: Retrofit,
+            splashDao: SplashDao,
+            cache: MemoryCache,
+            internetHandler: InternetHandler
+    ) =
+            BottomTabRepository(retrofit, splashDao, cache, internetHandler)
 
     @Provides
     fun providesBottomTabVFactory(bottomTabRepository: BottomTabRepository) =
-            BottomTabViewModelFactory(isCacheAvailable,bottomTabRepository,bottomtabtype)
+            BottomTabViewModelFactory(isCacheAvailable, bottomTabRepository, bottomtabtype)
 }

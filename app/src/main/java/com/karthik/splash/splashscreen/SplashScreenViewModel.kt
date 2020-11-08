@@ -6,20 +6,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.karthik.splash.misc.IInternetHandler
-import com.karthik.splash.misc.InternetHandler
-import com.karthik.splash.misc.Utils
 import com.karthik.splash.storage.IMemoryCache
-import com.karthik.splash.storage.MemoryCache
-import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class SplashScreenViewModelFactory(private val memoryCache: IMemoryCache,
-                                   private val internetHandler: IInternetHandler) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>) = SplashScreenViewModel(memoryCache, internetHandler) as T
+class SplashScreenViewModelFactory(
+        private val memoryCache: IMemoryCache,
+        private val internetHandler: IInternetHandler
+) : ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            SplashScreenViewModel(memoryCache, internetHandler) as T
 }
 
-class SplashScreenViewModel constructor(private val memoryCache: IMemoryCache,
-                                        private val internetHandler: IInternetHandler) : ViewModel() {
+class SplashScreenViewModel constructor(
+        private val memoryCache: IMemoryCache,
+        private val internetHandler: IInternetHandler
+) : ViewModel() {
     val splashscreenstate: LiveData<SplashScreenState> = getViewState()
 
     private fun getViewState(): LiveData<SplashScreenState> {

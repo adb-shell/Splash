@@ -3,39 +3,39 @@ package com.karthik.splash.photodetailscreen
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
-import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.esafirm.rxdownloader.RxDownloader
-import com.karthik.splash.misc.CircularTransform
-import com.karthik.splash.models.photodetail.PhotoDetailInfo
-import com.karthik.splash.models.PhotosLists.Photos
 import com.karthik.splash.R
+import com.karthik.splash.misc.CircularTransform
 import com.karthik.splash.misc.Utils
 import com.karthik.splash.misc.loadImage
+import com.karthik.splash.models.photoslists.Photos
 import com.karthik.splash.models.likephoto.LikeResponse
+import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenComponent
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenModule
 import com.karthik.splash.photodetailscreen.network.PhotoDetailsNetworkState
 import com.karthik.splash.root.SplashApp
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_photo_detail.*
 import javax.inject.Inject
 
-class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
+class PhotoDetailScreen : AppCompatActivity(), View.OnClickListener {
 
-    private var photoDetailScreenComponent: PhotoDetailScreenComponent?=null
+    private var photoDetailScreenComponent: PhotoDetailScreenComponent? = null
     private val permission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+    private val imageLoadDuration = 0
 
     @Inject
     lateinit var viewmodelfactory: PhotoDetailScreenViewModelFactory
     private lateinit var photo: Photos
-    private lateinit var viewmodel:PhotoDetailScreenViewModel
+    private lateinit var viewmodel: PhotoDetailScreenViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,30 +44,36 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
         photoDetailScreenComponent = (application as SplashApp).getComponent()
                 .plus(PhotoDetailScreenModule())
         photoDetailScreenComponent?.inject(this)
-        viewmodel = ViewModelProvider(this,viewmodelfactory).get(PhotoDetailScreenViewModel::class.java)
+        viewmodel =
+                ViewModelProvider(this,
+                        viewmodelfactory).get(PhotoDetailScreenViewModel::class.java)
 
-        username.text = getString(R.string.By,photo.user?.name)
+        username.text = getString(R.string.By, photo.user?.name)
         createdtime.text = getString(R.string.On, Utils.parseDate(photo.createdTime))
-        photo.urls?.regular?.let {url->
-            feeddetailimage.loadImage(url,0)
+        photo.urls?.regular?.let { url ->
+            feeddetailimage.loadImage(url, imageLoadDuration)
         }
 
 
         viewmodel.getPhotoDetail(photo.id)
-        viewmodel.photodetails.observe(this,Observer<PhotoDetailInfo> { photoinfo->
+        viewmodel.photodetails.observe(this, Observer<PhotoDetailInfo> { photoinfo ->
             showPhotoDetails(photoinfo)
         })
-        viewmodel.photolike.observe(this, Observer<LikeResponse> { likeresponse->
+        viewmodel.photolike.observe(this, Observer<LikeResponse> { likeresponse ->
             Toast.makeText(this,
-                    getString(R.string.like_photo_success),Toast.LENGTH_SHORT).show()
+                    getString(R.string.like_photo_success), Toast.LENGTH_SHORT).show()
         })
-        viewmodel.getnetworkState().observe(this,Observer<PhotoDetailsNetworkState>{networkstate->
-            when(networkstate){
-                is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError->showDefaultView()
-                is PhotoDetailsNetworkState.PhotoLikeNetworkLoadError->errorLikingPhoto()
-                is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess->hideLoading()
-            }
-        })
+        viewmodel.getnetworkState()
+                .observe(this, Observer<PhotoDetailsNetworkState> { networkstate ->
+                    when (networkstate) {
+                        is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError   ->
+                            showDefaultView()
+                        is PhotoDetailsNetworkState.PhotoLikeNetworkLoadError      ->
+                            errorLikingPhoto()
+                        is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess ->
+                            hideLoading()
+                    }
+                })
     }
 
     override fun onDestroy() {
@@ -76,23 +82,24 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        when(view?.id){
-            R.id.likewrapper->{
-                if(viewmodel.isUserLoggedIn()){
+        when (view?.id) {
+            R.id.likewrapper -> {
+                if (viewmodel.isUserLoggedIn()) {
                     showLoading()
                     viewmodel.likeThePhoto(photo.id)
                     return
                 }
                 showLoginRequired()
             }
-            R.id.donwloadwrapper->{
-                if(ContextCompat.checkSelfPermission(this,permission) == PermissionChecker.PERMISSION_GRANTED){
+            R.id.donwloadwrapper -> {
+                if (ContextCompat.checkSelfPermission(this,
+                                permission) == PermissionChecker.PERMISSION_GRANTED) {
                     startDownloading()
                     return
                 }
                 ActivityCompat.requestPermissions(this, arrayOf(permission), 0)
             }
-            R.id.sharewrapper->{
+            R.id.sharewrapper -> {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/html"
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, photo.urls?.regular)
@@ -101,8 +108,12 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if(grantResults.isNotEmpty() && grantResults[0] == PermissionChecker.PERMISSION_GRANTED){
+    override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+    ) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PermissionChecker.PERMISSION_GRANTED) {
             startDownloading()
             return
         }
@@ -110,8 +121,8 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
     }
 
     private fun showPhotoDetails(photoDetailInfo: PhotoDetailInfo) {
-        photoDetailInfo.user?.profileImage?.medium?.let {url->
-            userimg.loadImage(url,0,CircularTransform())
+        photoDetailInfo.user?.profileImage?.medium?.let { url ->
+            userimg.loadImage(url, imageLoadDuration, CircularTransform())
         }
         nolikes.text = photoDetailInfo.likes.toString()
         noviews.text = photoDetailInfo.user?.totalCollections.toString()
@@ -123,8 +134,9 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
         sharewrapper.setOnClickListener(this)
     }
 
-    private fun errorLikingPhoto() = Toast.makeText(this,
-            getString(R.string.like_error_1),Toast.LENGTH_LONG).show()
+    private fun errorLikingPhoto() =
+            Toast.makeText(this,
+                    getString(R.string.like_error_1), Toast.LENGTH_LONG).show()
 
     private fun getUserLocation(photoDetailInfo: PhotoDetailInfo?): String? {
         return photoDetailInfo?.location?.country?.let {
@@ -132,8 +144,9 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
         } ?: getString(R.string.unknown)
     }
 
-    private fun showLoginRequired() = Toast.makeText(this,
-            getString(R.string.like_error),Toast.LENGTH_LONG).show()
+    private fun showLoginRequired() =
+            Toast.makeText(this,
+                    getString(R.string.like_error), Toast.LENGTH_LONG).show()
 
     private fun hideLoading() {
         additionalinfo.visibility = View.VISIBLE
@@ -152,11 +165,14 @@ class PhotoDetailScreen:AppCompatActivity(),View.OnClickListener {
 
     private fun startDownloading() {
         RxDownloader.getInstance(this)
-                .download(photo.urls?.full,photo.id,Utils.photomimetype)
+                .download(photo.urls?.full, photo.id, Utils.photomimetype)
                 .subscribe({ path ->
-                    Toast.makeText(this,getString(R.string.success_downloading,path),Toast.LENGTH_SHORT).show()
-                },{
-                    Toast.makeText(this,getString(R.string.error_downloading),Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,
+                            getString(R.string.success_downloading, path),
+                            Toast.LENGTH_SHORT).show()
+                }, {
+                    Toast.makeText(this, getString(R.string.error_downloading), Toast.LENGTH_LONG)
+                            .show()
                 })
     }
 }

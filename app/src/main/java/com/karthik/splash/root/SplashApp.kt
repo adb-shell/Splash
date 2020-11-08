@@ -9,12 +9,14 @@ class SplashApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val splashDatabase = Room.databaseBuilder(this,SplashDatabase::class.java,"splashdb").build()
+        val splashDatabase =
+                Room.databaseBuilder(this, SplashDatabase::class.java, "splashdb").build()
         splashAppComponent = DaggerSplashAppComponent.builder()
-                .splashAppModule(SplashAppModule(this,splashDatabase))
+                .splashAppModule(SplashAppModule(this, splashDatabase))
                 .build()
         splashAppComponent.inject(this)
     }
 
-    fun getComponent() = splashAppComponent
+    fun getComponent() =
+            splashAppComponent
 }

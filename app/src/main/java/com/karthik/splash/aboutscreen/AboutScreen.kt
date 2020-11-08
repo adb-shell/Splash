@@ -11,9 +11,9 @@ import com.karthik.splash.R
 import kotlinx.android.synthetic.main.activity_about.*
 import java.util.ArrayList
 
-class AboutScreen: AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
+class AboutScreen : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
 
-    private var scrollrange=-1
+    private var scrollrange = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

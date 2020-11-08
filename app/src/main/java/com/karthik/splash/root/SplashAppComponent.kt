@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [SplashAppModule::class, SplashNetworkModule::class])
 interface SplashAppComponent {
-    fun inject(app:SplashApp)
+    fun inject(app: SplashApp)
     fun plus(splashScreenModule: SplashScreenModule): SplashScreenComponent
     fun plus(homeScreenModule: HomeScreenModule): HomeScreenComponent
     fun plus(homeTabFeedsModule: BottomTabModule): BottomTabComponent

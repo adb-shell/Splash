@@ -11,15 +11,18 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
-class PhotoDetailScreenModule{
+class PhotoDetailScreenModule {
 
     @Provides
-    fun providesPhotoNetworkLayer(retrofit: Retrofit): IPhotoDetailScreenRepository{
+    fun providesPhotoNetworkLayer(retrofit: Retrofit): IPhotoDetailScreenRepository {
         val photoService: PhotoService = retrofit.create(PhotoService::class.java)
         return PhotoDetailScreenRepository(photoService = photoService)
     }
 
     @Provides
-    fun providesPhotoDetailPresenter(photoRepository: IPhotoDetailScreenRepository,
-                                     memoryCache: MemoryCache)= PhotoDetailScreenViewModelFactory(memoryCache,photoRepository)
+    fun providesPhotoDetailPresenter(
+            photoRepository: IPhotoDetailScreenRepository,
+            memoryCache: MemoryCache
+    ) =
+            PhotoDetailScreenViewModelFactory(memoryCache, photoRepository)
 }
