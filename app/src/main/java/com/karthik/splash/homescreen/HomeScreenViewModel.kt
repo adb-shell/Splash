@@ -1,23 +1,22 @@
 package com.karthik.splash.homescreen
 
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.karthik.splash.homescreen.network.IHomeScreenOAuthRepository
+import com.karthik.splash.models.UserStatus
 import com.karthik.splash.models.oauth.OAuthBody
 import com.karthik.splash.models.oauth.UserAuth
 import com.karthik.splash.storage.IMemoryCache
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @Suppress("UNCHECKED_CAST")
 class HomeScreenViewModelFactory(
+        private val homeScreenOAuthRepository: IHomeScreenOAuthRepository,
         private val memoryCache: IMemoryCache,
-        private val homeScreenOAuthRepository: IHomeScreenOAuthRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             HomeScreenViewModel(memoryCache, homeScreenOAuthRepository) as T
@@ -29,7 +28,6 @@ class HomeScreenViewModel @Inject constructor(
 ) : ViewModel() {
     private val state: MutableLiveData<HomeScreenLoginState> = MutableLiveData()
     val userloginstate: LiveData<HomeScreenLoginState> = state
-    private val disposable = CompositeDisposable()
 
     fun getUserInfo(code: String?) {
         if (code.isNullOrEmpty()) {
@@ -37,24 +35,15 @@ class HomeScreenViewModel @Inject constructor(
             return
         }
 
-        disposable.add(homeScreenOAuthRepository.postOAuth(OAuthBody(code)).subscribeWith(
-                object : DisposableSingleObserver<UserAuth>() {
-                    override fun onSuccess(userAuth: UserAuth) {
-                        memoryCache.setUserLoggedIn()
-                        memoryCache.setAuthCode(userAuth.accessToken)
-                        state.value = HomeScreenLoginState.LoginSuccess(userAuth)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        state.value = HomeScreenLoginState.LoginFailed(e)
-                    }
-                }))
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        if (!disposable.isDisposed) {
-            disposable.dispose()
+        viewModelScope.launch {
+            state.value = homeScreenOAuthRepository.postOAuth(OAuthBody(code))
+            when(state.value){
+                is HomeScreenLoginState.LoginSuccess->{
+                    memoryCache.setUserLoggedIn()
+                    val auth = (state.value as HomeScreenLoginState.LoginSuccess).userAuth
+                    memoryCache.setAuthCode(auth.accessToken)
+                }
+            }
         }
     }
 }

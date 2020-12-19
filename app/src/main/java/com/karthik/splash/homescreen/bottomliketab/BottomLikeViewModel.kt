@@ -37,8 +37,8 @@ class BottomLikeViewModel(
     val networkstate: LiveData<LikeFeedNetworkState> = _networkstate
     val isuserloggedin: LiveData<UserStatus> = _isuserloggedin
 
-    val loginurl = "${BuildConfig.SPLASH_LOGIN_URL}?clientId=${BuildConfig.SPLASH_KEY}" +
-            "&redirectUri=${BuildConfig.SPLASH_LOGIN_CALLBACK}&response_type=code&scope=$userscope"
+    val loginurl = "${BuildConfig.SPLASH_LOGIN_URL}?client_id=${BuildConfig.SPLASH_KEY}" +
+            "&redirect_uri=${BuildConfig.SPLASH_LOGIN_CALLBACK}&response_type=code&scope=$userscope"
 
 
     init {
@@ -60,7 +60,7 @@ class BottomLikeViewModel(
         if (memoryCache.isUserLoggedIn()) {
             memoryCache.getUserName()?.let { name ->
                 _isuserloggedin.postValue(UserStatus.UserLoggedIn(name))
-            } ?: _isuserloggedin.postValue(UserStatus.UserNotLoggedIn)
+            } ?: _isuserloggedin.postValue(UserStatus.UserLoggedIn(""))
         } else {
             _isuserloggedin.postValue(UserStatus.UserNotLoggedIn)
         }

@@ -21,5 +21,8 @@ class HomeScreenModule {
             memoryCache: MemoryCache,
             oAuthOAuthRepository: IHomeScreenOAuthRepository
     ) =
-            HomeScreenViewModelFactory(memoryCache, oAuthOAuthRepository)
+            HomeScreenViewModelFactory(
+                    memoryCache = memoryCache,
+                    homeScreenOAuthRepository = oAuthOAuthRepository
+            )
 }

@@ -1,9 +1,8 @@
 package com.karthik.splash.homescreen.network
 
+import com.karthik.splash.homescreen.HomeScreenLoginState
 import com.karthik.splash.models.oauth.OAuthBody
-import com.karthik.splash.models.oauth.UserAuth
-import io.reactivex.Single
 
 interface IHomeScreenOAuthRepository {
-    fun postOAuth(oAuthBody: OAuthBody): Single<UserAuth>
+    suspend fun postOAuth(oAuthBody: OAuthBody): HomeScreenLoginState
 }

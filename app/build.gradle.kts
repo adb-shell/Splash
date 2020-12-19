@@ -129,6 +129,12 @@ dependencies {
     kapt(Configs.DependenciesConfig.roomCompiler)
     implementation(Configs.DependenciesConfig.paging)
 
+    /**
+     * coroutines support.
+     */
+    implementation(Configs.DependenciesConfig.coroutines)
+    implementation(Configs.DependenciesConfig.viewmodelKTX)
+
     debugImplementation(Configs.DependenciesConfig.chuckerDebug)
     releaseImplementation(Configs.DependenciesConfig.chuckerRelease)
 

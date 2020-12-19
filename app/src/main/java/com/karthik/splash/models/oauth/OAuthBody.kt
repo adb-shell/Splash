@@ -7,16 +7,16 @@ import com.karthik.splash.BuildConfig
  */
 
 class OAuthBody(var code: String?) {
-    var clientId: String? = null
-    var clientSecret: String? = null
-    var redirectUri: String? = null
-    var grantType: String? = null
+    var client_id: String? = null
+    var client_secret: String? = null
+    var redirect_uri: String? = null
+    var grant_type: String? = null
 
     init {
-        clientId = BuildConfig.SPLASH_KEY
-        clientSecret = BuildConfig.SPLASH_KEY_SECRET
-        redirectUri = BuildConfig.SPLASH_LOGIN_CALLBACK
-        grantType = "authorization_code"
+        client_id = BuildConfig.SPLASH_KEY
+        client_secret = BuildConfig.SPLASH_KEY_SECRET
+        redirect_uri = BuildConfig.SPLASH_LOGIN_CALLBACK
+        grant_type = "authorization_code"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -27,10 +27,10 @@ class OAuthBody(var code: String?) {
 
     override fun hashCode(): Int {
         var result = code?.hashCode() ?: 0
-        result = 31 * result + (clientId?.hashCode() ?: 0)
-        result = 31 * result + (clientSecret?.hashCode() ?: 0)
-        result = 31 * result + (redirectUri?.hashCode() ?: 0)
-        result = 31 * result + (grantType?.hashCode() ?: 0)
+        result = 31 * result + (client_id?.hashCode() ?: 0)
+        result = 31 * result + (client_secret?.hashCode() ?: 0)
+        result = 31 * result + (redirect_uri?.hashCode() ?: 0)
+        result = 31 * result + (grant_type?.hashCode() ?: 0)
         return result
     }
 }

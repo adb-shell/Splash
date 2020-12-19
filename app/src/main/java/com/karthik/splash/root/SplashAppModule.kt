@@ -15,6 +15,7 @@ class SplashAppModule(private val context: Context, private val splashDatabase: 
     fun providesContext() =
             context
 
+    @Singleton
     @Provides
     fun providesCache() =
             MemoryCache(context)

@@ -9,6 +9,7 @@ import Configs.VersionsConfig.chuckerVersion
 import Configs.VersionsConfig.daggerVersion
 import Configs.VersionsConfig.junitExtensionVersion
 import Configs.VersionsConfig.junitVersion
+import Configs.VersionsConfig.kotlinCoroutinesVersion
 import Configs.VersionsConfig.materialVersion
 import Configs.VersionsConfig.nhaarmanMockitoVersion
 import Configs.VersionsConfig.picassoMaterialVersion
@@ -19,13 +20,14 @@ import Configs.VersionsConfig.retrofitVersion
 import Configs.VersionsConfig.rxAndroidVersion
 import Configs.VersionsConfig.rxDownloaderVersion
 import Configs.VersionsConfig.rxJavaVersion
+import Configs.VersionsConfig.viewModelKtxVersion
 
 class Configs {
     object VersionsConfig {
         const val junitVersion = "4.12"
         const val junitExtensionVersion = "1.1.1"
         const val daggerVersion = "2.10"
-        const val retrofitVersion = "2.3.0"
+        const val retrofitVersion = "2.6.0"
         const val retrofitConvVersion = "2.2.0"
         const val retrofitLoggerVersion = "3.4.1"
         const val picassoVersion = "2.5.2"
@@ -37,6 +39,7 @@ class Configs {
         const val archLifecycleComponentVersion = "2.2.0-rc03"
         const val archComponentRoomVersion = "2.2.3"
         const val archComponentPagingVersion = "2.1.1"
+        const val viewModelKtxVersion = "2.2.0"
         const val androidXVersion = "1.1.0"
         const val androidXBrowserVersion = "1.2.0"
         const val androidXCoreTestVersion = "3.1.0"
@@ -47,6 +50,7 @@ class Configs {
         const val versionName = "0.4"
         const val archCoreTestingVersion = "2.1.0"
         const val nhaarmanMockitoVersion = "2.2.0"
+        const val kotlinCoroutinesVersion = "1.4.2"
     }
 
     object SplashUrlConfig {
@@ -97,6 +101,12 @@ class Configs {
         const val picasso = "com.squareup.picasso:picasso:${picassoVersion}"
         const val materialLoading = "com.github.florent37:materialimageloading:${picassoMaterialVersion}"
         const val rxDownloader = "com.github.esafirm:RxDownloader:${rxDownloaderVersion}"
+
+        /**
+         * coroutines
+         */
+        const val coroutines  = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinCoroutinesVersion}"
+        const val viewmodelKTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${viewModelKtxVersion}"
 
         /**
          * Architecture components.
