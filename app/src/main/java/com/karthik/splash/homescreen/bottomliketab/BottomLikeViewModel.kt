@@ -1,15 +1,13 @@
 package com.karthik.splash.homescreen.bottomliketab
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.karthik.splash.BuildConfig
 import com.karthik.splash.homescreen.bottomliketab.network.IBottomLikeTabRepository
 import com.karthik.splash.homescreen.bottomliketab.network.LikeFeedNetworkState
 import com.karthik.splash.models.photoslists.Photos
 import com.karthik.splash.models.UserStatus
 import com.karthik.splash.storage.IMemoryCache
+import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 class BottomLikeViewModelFactory(
@@ -48,12 +46,17 @@ class BottomLikeViewModel(
 
     fun getLikedPhotos() {
         _networkstate.postValue(LikeFeedNetworkState.FeedNetworkLoading)
-        respository.getUserLikedPhotos({ photos ->
-            _networkstate.postValue(LikeFeedNetworkState.FeedNetworkLoadSuccess)
-            _likefeeds.postValue(photos)
-        }, { error ->
-            _networkstate.postValue(LikeFeedNetworkState.FeedNetworkError(error))
-        })
+        viewModelScope.launch {
+            when (val response = respository.getUserLikedPhotos()) {
+                is UserLikedPhotoResponse.UserLikedPhoto -> {
+                    _networkstate.postValue(LikeFeedNetworkState.FeedNetworkLoadSuccess)
+                    _likefeeds.postValue(response.photos)
+                }
+                is UserLikedPhotoResponse.UserLikedPhotoErrorState -> {
+                    _networkstate.postValue(LikeFeedNetworkState.FeedNetworkError(response.e))
+                }
+            }
+        }
     }
 
     private fun isloggedIn() {
@@ -64,10 +67,5 @@ class BottomLikeViewModel(
         } else {
             _isuserloggedin.postValue(UserStatus.UserNotLoggedIn)
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        respository.clearResources()
     }
 }

@@ -52,6 +52,5 @@ class SplashNetworkModule {
     fun providesRetrofitClient(@Named("BASE_URL") baseurl:String,okHttpClient: OkHttpClient):Retrofit =
             Retrofit.Builder().client(okHttpClient).baseUrl(baseurl)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()
 }

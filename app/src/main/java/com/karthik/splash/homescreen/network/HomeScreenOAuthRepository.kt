@@ -36,8 +36,6 @@ class HomeScreenOAuthRepository(
                 } else {
                     HomeScreenLoginState.LoginFailed(IllegalArgumentException())
                 }
-
-
             } catch (error: Throwable) {
                 HomeScreenLoginState.LoginFailed(error)
             }

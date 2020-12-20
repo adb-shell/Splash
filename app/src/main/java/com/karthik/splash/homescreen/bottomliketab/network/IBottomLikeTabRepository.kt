@@ -1,13 +1,7 @@
 package com.karthik.splash.homescreen.bottomliketab.network
 
-import com.karthik.splash.models.photoslists.Photos
-import java.util.ArrayList
+import com.karthik.splash.homescreen.bottomliketab.UserLikedPhotoResponse
 
 interface IBottomLikeTabRepository {
-    fun getUserLikedPhotos(
-            successhander: (ArrayList<Photos>) -> Unit,
-            errorhandler: (e: Throwable) -> Unit
-    )
-
-    fun clearResources()
+    suspend fun getUserLikedPhotos(): UserLikedPhotoResponse
 }

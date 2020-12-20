@@ -6,6 +6,7 @@ import com.karthik.splash.models.userprofile.Profile
 import java.util.ArrayList
 
 import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -16,8 +17,8 @@ import retrofit2.http.Path
 interface BottomLikeTabNetworkService {
 
     @GET("me")
-    fun getUserProfile(): Single<Profile>
+    suspend fun getUserProfile(): Response<Profile>
 
     @GET("users/{username}/likes")
-    fun getUserLikePhotos(@Path("username") username: String): Single<ArrayList<Photos>>
+    suspend fun getUserLikePhotos(@Path("username") username: String): Response<ArrayList<Photos>>
 }
