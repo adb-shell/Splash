@@ -43,9 +43,9 @@ class PhotoDetailScreenRepository(private val photoService: PhotoService) :
         }
     }
 
-    private fun reportLikeNetworkError(): PhotoLikeResponse.PhotoDetailsFailureResponse {
+    private fun reportLikeNetworkError(): PhotoLikeResponse.PhotoLikeFailureResponse {
         internalState.postValue(PhotoDetailsNetworkState.PhotoLikeNetworkLoadError)
-        return PhotoLikeResponse.PhotoDetailsFailureResponse(IllegalStateException())
+        return PhotoLikeResponse.PhotoLikeFailureResponse(IllegalStateException())
     }
 
     private fun reportDetailsNetworkError(): PhotoDetailsResponse.PhotoDetailsFailureResponse {

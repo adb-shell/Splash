@@ -21,5 +21,5 @@ sealed class PhotoLikeResponse {
     data class PhotoDetailsSuccessResponse(val likeResponse: LikeResponse) :
         PhotoLikeResponse()
 
-    data class PhotoDetailsFailureResponse(val error: Throwable) : PhotoLikeResponse()
+    data class PhotoLikeFailureResponse(val error: Throwable) : PhotoLikeResponse()
 }
