@@ -6,8 +6,6 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.karthik.splash.storage.db.entity.PhotosStorage
 import com.karthik.splash.storage.db.entity.UserInfo
-import io.reactivex.Maybe
-import io.reactivex.Single
 
 
 @Dao

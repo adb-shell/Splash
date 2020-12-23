@@ -3,12 +3,8 @@ package com.karthik.splash.homescreen
 
 import androidx.lifecycle.*
 import com.karthik.splash.homescreen.network.IHomeScreenOAuthRepository
-import com.karthik.splash.models.UserStatus
 import com.karthik.splash.models.oauth.OAuthBody
-import com.karthik.splash.models.oauth.UserAuth
 import com.karthik.splash.storage.IMemoryCache
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

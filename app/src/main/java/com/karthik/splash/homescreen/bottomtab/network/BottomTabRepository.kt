@@ -1,18 +1,12 @@
 package com.karthik.splash.homescreen.bottomtab.network
 
 import com.karthik.splash.misc.InternetHandler
-import com.karthik.splash.models.photoslists.Photos
 import com.karthik.splash.restserviceutility.UserOfflineException
 import com.karthik.splash.storage.MemoryCache
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableMaybeObserver
-import io.reactivex.observers.DisposableSingleObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import java.lang.IllegalStateException
 
 class BottomTabRepository(
         private val bottomTabNetworkService: BottomTabNetworkService,
