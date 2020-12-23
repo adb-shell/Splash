@@ -101,7 +101,6 @@ dependencies {
     implementation(Configs.DependenciesConfig.recyclerView)
     implementation(Configs.DependenciesConfig.retrofit)
     implementation(Configs.DependenciesConfig.retrofitConvertor)
-    implementation(Configs.DependenciesConfig.retrofitAdapter)
     implementation(Configs.DependenciesConfig.loggingInterceptor)
     implementation(Configs.DependenciesConfig.dagger)
     kapt(Configs.DependenciesConfig.daggerCompiler)
@@ -109,8 +108,6 @@ dependencies {
     /**
      * Rx java extensions
      */
-    implementation(Configs.DependenciesConfig.rxJava2)
-    implementation(Configs.DependenciesConfig.rxAndroid)
     implementation(Configs.DependenciesConfig.rxDownloader)
 
     /**
