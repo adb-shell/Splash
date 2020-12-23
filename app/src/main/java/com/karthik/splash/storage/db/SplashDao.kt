@@ -13,14 +13,14 @@ import io.reactivex.Single
 @Dao
 interface SplashDao {
     @Query("select * from Photos where pageno=:page AND type=:type")
-    fun getPhotos(page: Int, type: String): Maybe<PhotosStorage>
+    suspend fun getPhotos(page: Int, type: String): PhotosStorage
 
     @Query("select * from User")
-    fun getUserInfo(): Maybe<UserInfo>
+    suspend fun getUserInfo(): UserInfo
 
     @Insert(onConflict = REPLACE)
-    fun setPhotos(photosStorage: PhotosStorage): Single<Long>
+    suspend fun setPhotos(photosStorage: PhotosStorage): Long
 
     @Insert(onConflict = REPLACE)
-    fun setUserInfo(userInfo: UserInfo): Single<Long>
+    suspend fun setUserInfo(userInfo: UserInfo): Long
 }

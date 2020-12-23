@@ -3,6 +3,7 @@ package com.karthik.splash.homescreen.bottomtab.di
 import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
 import com.karthik.splash.homescreen.bottomtab.network.BottomTabRepository
 import com.karthik.splash.homescreen.bottomtab.BottomTabViewModelFactory
+import com.karthik.splash.homescreen.bottomtab.network.BottomTabNetworkService
 import com.karthik.splash.misc.InternetHandler
 import com.karthik.splash.storage.MemoryCache
 import com.karthik.splash.storage.db.SplashDao
@@ -27,10 +28,12 @@ class BottomTabModule {
             splashDao: SplashDao,
             cache: MemoryCache,
             internetHandler: InternetHandler
-    ) =
-            BottomTabRepository(retrofit, splashDao, cache, internetHandler)
+    ): BottomTabRepository {
+        val bottomNetworkService = retrofit.create(BottomTabNetworkService::class.java)
+        return BottomTabRepository(bottomNetworkService, splashDao, cache, internetHandler)
+    }
 
     @Provides
     fun providesBottomTabVFactory(bottomTabRepository: BottomTabRepository) =
-            BottomTabViewModelFactory(isCacheAvailable, bottomTabRepository, bottomtabtype)
+            BottomTabViewModelFactory(bottomTabRepository, bottomtabtype)
 }

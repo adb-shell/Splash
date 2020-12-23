@@ -1,30 +1,28 @@
 package com.karthik.splash.homescreen.bottomtab
 
-import com.karthik.splash.homescreen.bottomtab.network.BottomTabRepository
-import javax.inject.Inject
-import androidx.paging.PagedList
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.karthik.splash.homescreen.bottomtab.datasource.BottomTabDataSourceFactory
 import com.karthik.splash.homescreen.bottomtab.datasource.BottomTabPaginationData
+import com.karthik.splash.homescreen.bottomtab.network.IBottomTabRepository
 import com.karthik.splash.homescreen.bottomtab.network.PhotoFeedNetworkState
 import com.karthik.splash.misc.Utils
 import com.karthik.splash.models.photoslists.Photos
+import javax.inject.Inject
 
 
 class BottomTabViewModelFactory(
-        private val isCacheAvailable: Boolean,
-        private val bottomTabRepository: BottomTabRepository,
+        private val bottomTabRepository: IBottomTabRepository,
         private val type: BottomTabTypes
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-            BottomTabViewModel(isCacheAvailable, bottomTabRepository, type) as T
+            BottomTabViewModel(bottomTabRepository, type) as T
 }
 
 
 class BottomTabViewModel @Inject constructor(
-        private val isCacheAvailable: Boolean,
-        private val bottomTabRepository: BottomTabRepository,
+        bottomTabRepository: IBottomTabRepository,
         type: BottomTabTypes
 ) : ViewModel() {
     val feeds: LiveData<PagedList<Photos>>
@@ -34,8 +32,14 @@ class BottomTabViewModel @Inject constructor(
      * Pagination initialisation.
      */
     init {
-        val datatsourcefactory = BottomTabDataSourceFactory(bottomTabRepository,
-                BottomTabPaginationData(0, BottomTabTypes.convertTabToType(type)))
+        val datatsourcefactory = BottomTabDataSourceFactory(
+                repository = bottomTabRepository,
+                intialpaginationdata = BottomTabPaginationData(
+                        pagenumber = 0,
+                        mode = BottomTabTypes.convertTabToType(type)
+                ),
+                coroutineScope = viewModelScope
+        )
         val pagedlistconfig = PagedList.Config.Builder()
                 .setInitialLoadSizeHint(Utils.intialPageSize)
                 .setPageSize(Utils.pageSize).build()
@@ -43,10 +47,5 @@ class BottomTabViewModel @Inject constructor(
         networkState = Transformations.switchMap(datatsourcefactory.datasource) { datasource ->
             datasource.networkState
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        bottomTabRepository.clearResources()
     }
 }

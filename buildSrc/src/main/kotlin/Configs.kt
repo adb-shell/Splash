@@ -37,7 +37,7 @@ class Configs {
         const val picassoMaterialVersion = "1.0.2"
         const val rxDownloaderVersion = "1.0.1"
         const val archLifecycleComponentVersion = "2.2.0-rc03"
-        const val archComponentRoomVersion = "2.2.3"
+        const val archComponentRoomVersion = "2.2.5"
         const val archComponentPagingVersion = "2.1.1"
         const val viewModelKtxVersion = "2.2.0"
         const val androidXVersion = "1.1.0"
@@ -115,7 +115,7 @@ class Configs {
         const val lifecycleJava8 = "androidx.lifecycle:lifecycle-common-java8:${archLifecycleComponentVersion}"
         const val roomRuntime = "androidx.room:room-runtime:${archComponentRoomVersion}"
         const val roomCompiler = "androidx.room:room-compiler:${archComponentRoomVersion}"
-        const val roomRxjava2Adapter = "androidx.room:room-rxjava2:${archComponentRoomVersion}"
+        const val roomCoroutinesAdapter = "androidx.room:room-ktx:${archComponentRoomVersion}"
         const val paging = "androidx.paging:paging-runtime:${archComponentPagingVersion}"
 
         const val chuckerDebug = "com.github.ChuckerTeam.Chucker:library:${chuckerVersion}"
