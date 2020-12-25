@@ -2,8 +2,7 @@ package com.karthik.splash.homescreen.network
 
 import com.karthik.splash.models.oauth.OAuthBody
 import com.karthik.splash.models.oauth.UserAuth
-
-import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -13,5 +12,5 @@ import retrofit2.http.POST
 
 interface HomeScreenOAuthService {
     @POST("oauth/token")
-    fun oauthAuthorize(@Body oAuthBody: OAuthBody): Single<UserAuth>
+    suspend fun oauthAuthorize(@Body oAuthBody: OAuthBody): Response<UserAuth>
 }

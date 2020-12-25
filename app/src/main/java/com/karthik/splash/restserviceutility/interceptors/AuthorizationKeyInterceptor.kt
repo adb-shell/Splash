@@ -15,7 +15,7 @@ import okhttp3.Response
 class AuthorizationKeyInterceptor(private val memoryCache: MemoryCache) : Interceptor {
     private val authorization = "Authorization"
     private val bearer = "Bearer "
-    private val clientId = "clientId"
+    private val clientId = "client_id"
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {

@@ -7,10 +7,8 @@ import com.karthik.splash.models.oauth.OAuthBody
 import com.karthik.splash.models.oauth.UserAuth
 import com.karthik.splash.observeForTesting
 import com.karthik.splash.storage.IMemoryCache
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
-import io.reactivex.Single
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -49,8 +47,8 @@ class HomeScreenViewModelTest {
     fun `given repository returns success in post of OAuth login state is set as success`() {
         val oAuthBody = OAuthBody("abcdw")
         val userAuth = UserAuth(accessToken = "as",tokenType = "cd",scope = "sas",createdAt = "123456")
-        Mockito.`when`(homeScreenOAuthRepository.postOAuth(oAuthBody))
-                .thenReturn(Single.fromCallable { userAuth })
+        Mockito.`when`(runBlocking { homeScreenOAuthRepository.postOAuth(oAuthBody) })
+                .thenReturn(HomeScreenLoginState.LoginSuccess(userAuth))
         homeViewmodel.getUserInfo("abcdw")
         homeViewmodel.userloginstate.observeForTesting {  }
         Assert.assertTrue(homeViewmodel.userloginstate.value is HomeScreenLoginState.LoginSuccess)
@@ -59,8 +57,8 @@ class HomeScreenViewModelTest {
     @Test
     fun `given repository returns failure in post of OAuth login state is set as failed`() {
         val oAuthBody = OAuthBody("saasa")
-        Mockito.`when`(homeScreenOAuthRepository.postOAuth(oAuthBody))
-                .thenReturn(Single.fromCallable { throw IllegalArgumentException() })
+        Mockito.`when`(runBlocking { homeScreenOAuthRepository.postOAuth(oAuthBody) })
+                .thenReturn(HomeScreenLoginState.LoginFailed(IllegalArgumentException()))
         homeViewmodel.getUserInfo("saasa")
         homeViewmodel.userloginstate.observeForTesting {  }
         Assert.assertTrue(homeViewmodel.userloginstate.value is HomeScreenLoginState.LoginFailed)

@@ -9,6 +9,7 @@ import Configs.VersionsConfig.chuckerVersion
 import Configs.VersionsConfig.daggerVersion
 import Configs.VersionsConfig.junitExtensionVersion
 import Configs.VersionsConfig.junitVersion
+import Configs.VersionsConfig.kotlinCoroutinesVersion
 import Configs.VersionsConfig.materialVersion
 import Configs.VersionsConfig.nhaarmanMockitoVersion
 import Configs.VersionsConfig.picassoMaterialVersion
@@ -16,27 +17,25 @@ import Configs.VersionsConfig.picassoVersion
 import Configs.VersionsConfig.retrofitConvVersion
 import Configs.VersionsConfig.retrofitLoggerVersion
 import Configs.VersionsConfig.retrofitVersion
-import Configs.VersionsConfig.rxAndroidVersion
 import Configs.VersionsConfig.rxDownloaderVersion
-import Configs.VersionsConfig.rxJavaVersion
+import Configs.VersionsConfig.viewModelKtxVersion
 
 class Configs {
     object VersionsConfig {
         const val junitVersion = "4.12"
         const val junitExtensionVersion = "1.1.1"
         const val daggerVersion = "2.10"
-        const val retrofitVersion = "2.3.0"
+        const val retrofitVersion = "2.6.0"
         const val retrofitConvVersion = "2.2.0"
         const val retrofitLoggerVersion = "3.4.1"
         const val picassoVersion = "2.5.2"
-        const val rxJavaVersion = "2.1.6"
-        const val rxAndroidVersion = "2.0.1"
         const val chuckerVersion = "3.1.2"
         const val picassoMaterialVersion = "1.0.2"
         const val rxDownloaderVersion = "1.0.1"
         const val archLifecycleComponentVersion = "2.2.0-rc03"
-        const val archComponentRoomVersion = "2.2.3"
+        const val archComponentRoomVersion = "2.2.5"
         const val archComponentPagingVersion = "2.1.1"
+        const val viewModelKtxVersion = "2.2.0"
         const val androidXVersion = "1.1.0"
         const val androidXBrowserVersion = "1.2.0"
         const val androidXCoreTestVersion = "3.1.0"
@@ -47,6 +46,7 @@ class Configs {
         const val versionName = "0.4"
         const val archCoreTestingVersion = "2.1.0"
         const val nhaarmanMockitoVersion = "2.2.0"
+        const val kotlinCoroutinesVersion = "1.4.2"
     }
 
     object SplashUrlConfig {
@@ -88,15 +88,18 @@ class Configs {
         const val recyclerView = "androidx.recyclerview:recyclerview:${androidXVersion}"
         const val retrofit = "com.squareup.retrofit2:retrofit:${retrofitVersion}"
         const val retrofitConvertor = "com.squareup.retrofit2:converter-gson:${retrofitConvVersion}"
-        const val retrofitAdapter = "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${retrofitLoggerVersion}"
         const val dagger = "com.google.dagger:dagger:${daggerVersion}"
         const val daggerCompiler = "com.google.dagger:dagger-compiler:${daggerVersion}"
-        const val rxJava2 = "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
-        const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
         const val picasso = "com.squareup.picasso:picasso:${picassoVersion}"
         const val materialLoading = "com.github.florent37:materialimageloading:${picassoMaterialVersion}"
         const val rxDownloader = "com.github.esafirm:RxDownloader:${rxDownloaderVersion}"
+
+        /**
+         * coroutines
+         */
+        const val coroutines  = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinCoroutinesVersion}"
+        const val viewmodelKTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${viewModelKtxVersion}"
 
         /**
          * Architecture components.
@@ -105,7 +108,7 @@ class Configs {
         const val lifecycleJava8 = "androidx.lifecycle:lifecycle-common-java8:${archLifecycleComponentVersion}"
         const val roomRuntime = "androidx.room:room-runtime:${archComponentRoomVersion}"
         const val roomCompiler = "androidx.room:room-compiler:${archComponentRoomVersion}"
-        const val roomRxjava2Adapter = "androidx.room:room-rxjava2:${archComponentRoomVersion}"
+        const val roomCoroutinesAdapter = "androidx.room:room-ktx:${archComponentRoomVersion}"
         const val paging = "androidx.paging:paging-runtime:${archComponentPagingVersion}"
 
         const val chuckerDebug = "com.github.ChuckerTeam.Chucker:library:${chuckerVersion}"

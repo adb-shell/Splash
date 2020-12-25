@@ -6,16 +6,20 @@ import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.observeForTesting
 import com.karthik.splash.photodetailscreen.network.PhotoDetailScreenRepository
 import com.karthik.splash.photodetailscreen.network.PhotoDetailsNetworkState
+import com.karthik.splash.photodetailscreen.network.PhotoLikeResponse
 import com.karthik.splash.photodetailscreen.network.PhotoService
 import com.karthik.splash.storage.IMemoryCache
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
-import io.reactivex.Single
+import kotlinx.coroutines.runBlocking
+import okhttp3.MediaType
+import okhttp3.ResponseBody
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import retrofit2.Response
 
 class PhotoDetailScreenViewModelTest {
     @Rule
@@ -40,41 +44,47 @@ class PhotoDetailScreenViewModelTest {
 
     @Test
     fun `given an success in getting getPhotoInfo() state is set has PhotoDetailsNetworkLoadSuccess`(){
-        Mockito.`when`(photoService.getPhotoInfo("123"))
-                .thenReturn(Single.fromCallable { any() })
+        Mockito.`when`(runBlocking { photoService.getPhotoInfo("123") })
+                .thenReturn(Response.success(200, PhotoDetailInfo()))
         photoDetailScreenViewModel.getnetworkState().observeForTesting {  }
-        photodetailRepository.getPhotoInfo("123",{
+        runBlocking {
+            photodetailRepository.getPhotoInfo("123")
             Assert.assertTrue(photoDetailScreenViewModel.getnetworkState().value is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
-        },{})
+        }
     }
 
     @Test
     fun `given an success in getting likeThePhoto() state is set has PhotoDetailsNetworkLoadSuccess`(){
-        Mockito.`when`(photoService.likePhoto("123"))
-                .thenReturn(Single.fromCallable { any() })
+        Mockito.`when`(runBlocking { photoService.likePhoto("123") })
+                .thenReturn(Response.success(200, LikeResponse()))
         photoDetailScreenViewModel.getnetworkState().observeForTesting {  }
-        photodetailRepository.likePhoto("123",{
+        runBlocking {
+            photodetailRepository.likePhoto("123")
             Assert.assertTrue(photoDetailScreenViewModel.getnetworkState().value is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
-        },{})
+        }
     }
 
     @Test
     fun `given an error in getting likeThePhoto() state is set has PhotoDetailsNetworkLoadError`(){
-        Mockito.`when`(photoService.likePhoto("123"))
-                .thenReturn(Single.fromCallable { throw IllegalArgumentException() })
+        Mockito.`when`(runBlocking { photoService.likePhoto("123") })
+                .thenReturn(Response.error(400,ResponseBody.create(MediaType.parse("application/json"),
+                        "{}")))
         photoDetailScreenViewModel.getnetworkState().observeForTesting {  }
-        photodetailRepository.likePhoto("123",{},{
+        runBlocking {
+            photodetailRepository.likePhoto("123")
             Assert.assertTrue(photoDetailScreenViewModel.getnetworkState().value is PhotoDetailsNetworkState.PhotoLikeNetworkLoadError)
-        })
+        }
     }
 
     @Test
     fun `given an error in getting getPhotoInfo() state is set has PhotoDetailsNetworkLoadError`(){
-        Mockito.`when`(photoService.getPhotoInfo("123"))
-                .thenReturn(Single.fromCallable { throw IllegalArgumentException() })
+        Mockito.`when`(runBlocking { photoService.getPhotoInfo("123") })
+                .thenReturn(Response.error(400, ResponseBody.create(MediaType.parse("application/json"),
+                        "{}")))
         photoDetailScreenViewModel.getnetworkState().observeForTesting {  }
-        photodetailRepository.getPhotoInfo("123",{},{
+        runBlocking {
+            photodetailRepository.getPhotoInfo("123")
             Assert.assertTrue(photoDetailScreenViewModel.getnetworkState().value is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError)
-        })
+        }
     }
 }

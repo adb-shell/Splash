@@ -1,5 +1,6 @@
 package com.karthik.splash.models.oauth
 
+import com.google.gson.annotations.SerializedName
 import com.karthik.splash.BuildConfig
 
 /**
@@ -7,9 +8,13 @@ import com.karthik.splash.BuildConfig
  */
 
 class OAuthBody(var code: String?) {
+    @SerializedName("client_id")
     var clientId: String? = null
+    @SerializedName("client_secret")
     var clientSecret: String? = null
+    @SerializedName("redirect_uri")
     var redirectUri: String? = null
+    @SerializedName("grant_type")
     var grantType: String? = null
 
     init {

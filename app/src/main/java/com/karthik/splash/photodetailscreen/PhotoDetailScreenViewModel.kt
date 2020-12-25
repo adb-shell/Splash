@@ -1,12 +1,12 @@
 package com.karthik.splash.photodetailscreen
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.models.photodetail.PhotoDetailInfo
+import com.karthik.splash.photodetailscreen.network.PhotoDetailsResponse
+import com.karthik.splash.photodetailscreen.network.PhotoLikeResponse
 import com.karthik.splash.storage.IMemoryCache
+import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 class PhotoDetailScreenViewModelFactory(
@@ -29,19 +29,25 @@ class PhotoDetailScreenViewModel(
     val photodetails: LiveData<PhotoDetailInfo> = details
 
     fun getPhotoDetail(id: String) {
-        photoRepository.getPhotoInfo(id, { photoinfo ->
-            details.postValue(photoinfo)
-        }, {
-            //TODO:handle error
-        })
+        viewModelScope.launch {
+            val photoInfoResponse = photoRepository.getPhotoInfo(id)
+            if (photoInfoResponse is PhotoDetailsResponse.PhotoDetailsSuccessResponse) {
+                details.postValue(photoInfoResponse.photoDetail)
+            } else {
+                //TODO:handle error
+            }
+        }
     }
 
     fun likeThePhoto(id: String) {
-        photoRepository.likePhoto(id, { likeResponse ->
-            like.postValue(likeResponse)
-        }, {
-            //TODO:handle error
-        })
+        viewModelScope.launch {
+            val photoLikeResponse = photoRepository.likePhoto(id)
+            if (photoLikeResponse is PhotoLikeResponse.PhotoDetailsSuccessResponse) {
+                like.postValue(photoLikeResponse.likeResponse)
+            }else{
+                //TODO:handle error
+            }
+        }
     }
 
     fun isUserLoggedIn() =
@@ -49,9 +55,4 @@ class PhotoDetailScreenViewModel(
 
     fun getnetworkState() =
             photoRepository.getPhotoDetailNetworkState()
-
-    override fun onCleared() {
-        super.onCleared()
-        photoRepository.clearResources()
-    }
 }

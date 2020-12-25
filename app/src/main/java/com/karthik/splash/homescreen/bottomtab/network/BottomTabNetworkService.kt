@@ -2,12 +2,10 @@ package com.karthik.splash.homescreen.bottomtab.network
 
 
 import com.karthik.splash.models.photoslists.Photos
-
-import java.util.ArrayList
-
-import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.*
 
 /**
  * Created by karthikrk on 16/11/17.
@@ -16,8 +14,8 @@ import retrofit2.http.Query
 interface BottomTabNetworkService {
 
     @GET("photos")
-    fun getPhotos(
+    suspend fun getPhotos(
             @Query("order_by") orderby: String,
             @Query("page") pageNo: Int
-    ): Single<ArrayList<Photos>>
+    ): Response<ArrayList<Photos>>
 }

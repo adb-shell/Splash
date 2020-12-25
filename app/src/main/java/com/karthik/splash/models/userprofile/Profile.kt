@@ -13,7 +13,7 @@ data class Profile(
         @SerializedName("updated_at")
         var updatedAt: String? = null,
         @SerializedName("username")
-        var username: String? = null,
+        var username: String,
         @SerializedName("first_name")
         var firstName: String? = null,
         @SerializedName("last_name")

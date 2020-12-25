@@ -6,18 +6,19 @@ import com.karthik.splash.homescreen.bottomliketab.network.BottomLikeTabReposito
 import com.karthik.splash.homescreen.bottomliketab.network.LikeFeedNetworkState
 import com.karthik.splash.misc.IInternetHandler
 import com.karthik.splash.models.UserStatus
+import com.karthik.splash.models.photoslists.Photos
 import com.karthik.splash.observeForTesting
 import com.karthik.splash.storage.IMemoryCache
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
 import com.nhaarman.mockitokotlin2.mock
-import io.reactivex.Maybe
-import io.reactivex.Single
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import retrofit2.Response
 
 class BottomLikeViewModelTest {
     @Rule
@@ -71,22 +72,17 @@ class BottomLikeViewModelTest {
         Assert.assertTrue(bottomlikeViewModel.isuserloggedin.value is UserStatus.UserLoggedIn)
         Mockito.`when`(internetHandler.isInternetAvailable()).thenReturn(true)
         Mockito.`when`(memoryCache.isCacheAvail()).thenReturn(false)
-        Mockito.`when`(bottomTabLikeTabNetworkService.getUserLikePhotos("abcd")).thenReturn(Single.fromCallable { arrayListOf() })
-        Mockito.`when`(splashDao.getPhotos(1, "LIKE")).thenReturn(Maybe.fromCallable {
-            PhotosStorage(
-                    pagenumber = 1,
-                    photos = arrayListOf(),
-                    type = "",
-                    pgtype = "")
-        })
+        Mockito.`when`(runBlocking { bottomTabLikeTabNetworkService.getUserLikePhotos("abcd") })
+                .thenReturn(Response.success(200,arrayListOf<Photos>()))
+        Mockito.`when`(runBlocking { splashDao.getPhotos(1, "LIKE") }).thenReturn(PhotosStorage(
+                pagenumber = 1,
+                photos = arrayListOf(),
+                type = "",
+                pgtype = ""))
 
         bottomlikeViewModel.getLikedPhotos()
         bottomlikeViewModel.networkstate.observeForTesting { }
 
         Assert.assertTrue(bottomlikeViewModel.networkstate.value is LikeFeedNetworkState.FeedNetworkLoading)
-
-        bottomLikeTabRepository.getUserLikedPhotos({
-            Assert.assertTrue(bottomlikeViewModel.networkstate.value is LikeFeedNetworkState.FeedNetworkLoadSuccess)
-        },{})
     }
 }

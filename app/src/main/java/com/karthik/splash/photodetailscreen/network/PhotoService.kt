@@ -2,8 +2,7 @@ package com.karthik.splash.photodetailscreen.network
 
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.models.photodetail.PhotoDetailInfo
-
-import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -14,9 +13,9 @@ import retrofit2.http.Path
 
 interface PhotoService {
     @GET("photos/{id}")
-    fun getPhotoInfo(@Path("id") id: String): Single<PhotoDetailInfo>
+    suspend fun getPhotoInfo(@Path("id") id: String): Response<PhotoDetailInfo>
 
     @POST("photos/{id}/like")
-    fun likePhoto(@Path("id") id: String): Single<LikeResponse>
+    suspend fun likePhoto(@Path("id") id: String): Response<LikeResponse>
 
 }

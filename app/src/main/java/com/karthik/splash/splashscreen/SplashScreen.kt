@@ -1,7 +1,7 @@
 package com.karthik.splash.splashscreen
 
 
-import android.content.Context
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -14,7 +14,7 @@ import com.karthik.splash.splashscreen.di.SplashScreenModule
 import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
 
-class SplashScreen : AppCompatActivity(), SplashViewContract {
+class SplashScreen : AppCompatActivity() {
     private var splashScreenComponent: SplashScreenComponent? = null
 
     @Inject
@@ -45,9 +45,6 @@ class SplashScreen : AppCompatActivity(), SplashViewContract {
         super.onDestroy()
         splashScreenComponent = null
     }
-
-    override fun getSplashScreenContext(): Context =
-            this
 
     private fun showNoInternetScreen() {
         splashdisplaytext.text = getString(R.string.no_internet)

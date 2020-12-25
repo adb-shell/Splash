@@ -1,72 +1,55 @@
 package com.karthik.splash.photodetailscreen.network
 
 import androidx.lifecycle.MutableLiveData
-import com.karthik.splash.models.likephoto.LikeResponse
-import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.photodetailscreen.IPhotoDetailScreenRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.lang.IllegalStateException
 
 class PhotoDetailScreenRepository(private val photoService: PhotoService) :
     IPhotoDetailScreenRepository {
-    private val disposable = CompositeDisposable()
+
     private val internalState: MutableLiveData<PhotoDetailsNetworkState> = MutableLiveData()
 
     override fun getPhotoDetailNetworkState() =
             internalState
 
-    override fun getPhotoInfo(
-            id: String,
-            successhander: (detail: PhotoDetailInfo) -> Unit,
-            errorhandler: (e: Throwable) -> Unit
-    ) {
-        disposable.add(photoService.getPhotoInfo(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<PhotoDetailInfo>() {
-                    override fun onSuccess(detail: PhotoDetailInfo) {
-                        internalState
-                                .postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
-                        successhander(detail)
-                    }
 
-                    override fun onError(e: Throwable) {
-                        internalState
-                                .postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError(e))
-                        errorhandler(e)
-                    }
-                }))
-    }
-
-    override fun likePhoto(
-            id: String,
-            successhander: (likeResponse: LikeResponse) -> Unit,
-            errorhandler: (e: Throwable) -> Unit
-    ) {
-        disposable.add(photoService.likePhoto(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<LikeResponse>() {
-                    override fun onSuccess(likeResponse: LikeResponse) {
-                        internalState
-                                .postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
-                        successhander(likeResponse)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        internalState
-                                .postValue(PhotoDetailsNetworkState.PhotoLikeNetworkLoadError(e))
-                        errorhandler(e)
-                    }
-                }))
-    }
-
-
-    override fun clearResources() {
-        if (!disposable.isDisposed) {
-            disposable.dispose()
+    override suspend fun getPhotoInfo(id: String): PhotoDetailsResponse {
+        return withContext(Dispatchers.IO) {
+            val photoDetailsResponse = photoService.getPhotoInfo(id = id)
+            if (photoDetailsResponse.isSuccessful) {
+                photoDetailsResponse.body()?.let { photoDetailInfo ->
+                    internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
+                    PhotoDetailsResponse.PhotoDetailsSuccessResponse(photoDetail = photoDetailInfo)
+                } ?: reportDetailsNetworkError()
+            } else {
+                reportDetailsNetworkError()
+            }
         }
+    }
+
+    override suspend fun likePhoto(id: String): PhotoLikeResponse {
+        return withContext(Dispatchers.IO) {
+            val photoLikeResponse = photoService.likePhoto(id)
+            if (photoLikeResponse.isSuccessful) {
+                photoLikeResponse.body()?.let { likeResponse ->
+                    internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
+                    PhotoLikeResponse.PhotoDetailsSuccessResponse(likeResponse = likeResponse)
+                } ?: reportLikeNetworkError()
+            } else {
+                reportLikeNetworkError()
+            }
+        }
+    }
+
+    private fun reportLikeNetworkError(): PhotoLikeResponse.PhotoLikeFailureResponse {
+        internalState.postValue(PhotoDetailsNetworkState.PhotoLikeNetworkLoadError)
+        return PhotoLikeResponse.PhotoLikeFailureResponse(IllegalStateException())
+    }
+
+    private fun reportDetailsNetworkError(): PhotoDetailsResponse.PhotoDetailsFailureResponse {
+        internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError)
+        return PhotoDetailsResponse.PhotoDetailsFailureResponse(IllegalStateException())
     }
 }

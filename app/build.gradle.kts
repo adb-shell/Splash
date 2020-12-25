@@ -101,7 +101,6 @@ dependencies {
     implementation(Configs.DependenciesConfig.recyclerView)
     implementation(Configs.DependenciesConfig.retrofit)
     implementation(Configs.DependenciesConfig.retrofitConvertor)
-    implementation(Configs.DependenciesConfig.retrofitAdapter)
     implementation(Configs.DependenciesConfig.loggingInterceptor)
     implementation(Configs.DependenciesConfig.dagger)
     kapt(Configs.DependenciesConfig.daggerCompiler)
@@ -109,10 +108,7 @@ dependencies {
     /**
      * Rx java extensions
      */
-    implementation(Configs.DependenciesConfig.rxJava2)
-    implementation(Configs.DependenciesConfig.rxAndroid)
     implementation(Configs.DependenciesConfig.rxDownloader)
-    implementation(Configs.DependenciesConfig.roomRxjava2Adapter)
 
     /**
      * image loading libraries
@@ -127,7 +123,14 @@ dependencies {
     implementation(Configs.DependenciesConfig.lifecycleJava8)
     implementation(Configs.DependenciesConfig.roomRuntime)
     kapt(Configs.DependenciesConfig.roomCompiler)
+    implementation(Configs.DependenciesConfig.roomCoroutinesAdapter)
     implementation(Configs.DependenciesConfig.paging)
+
+    /**
+     * coroutines support.
+     */
+    implementation(Configs.DependenciesConfig.coroutines)
+    implementation(Configs.DependenciesConfig.viewmodelKTX)
 
     debugImplementation(Configs.DependenciesConfig.chuckerDebug)
     releaseImplementation(Configs.DependenciesConfig.chuckerRelease)
