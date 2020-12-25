@@ -17,9 +17,7 @@ import Configs.VersionsConfig.picassoVersion
 import Configs.VersionsConfig.retrofitConvVersion
 import Configs.VersionsConfig.retrofitLoggerVersion
 import Configs.VersionsConfig.retrofitVersion
-import Configs.VersionsConfig.rxAndroidVersion
 import Configs.VersionsConfig.rxDownloaderVersion
-import Configs.VersionsConfig.rxJavaVersion
 import Configs.VersionsConfig.viewModelKtxVersion
 
 class Configs {
@@ -31,8 +29,6 @@ class Configs {
         const val retrofitConvVersion = "2.2.0"
         const val retrofitLoggerVersion = "3.4.1"
         const val picassoVersion = "2.5.2"
-        const val rxJavaVersion = "2.1.6"
-        const val rxAndroidVersion = "2.0.1"
         const val chuckerVersion = "3.1.2"
         const val picassoMaterialVersion = "1.0.2"
         const val rxDownloaderVersion = "1.0.1"
