@@ -1,13 +1,10 @@
 ## Splash  
 Build Status: [![Build Status](https://app.bitrise.io/app/148bcaee35a29293/status.svg?token=GfxLmo6-yd14y4FlSrLM-Q&branch=develop)](https://app.bitrise.io/app/148bcaee35a29293)
 
-Splash is an android app that showcases use of `Dagger 2`, `Rxjava 2` along with `Android Architecture components` with the help of `unsplash` api.<br/>
+Splash is an android app that showcases use of `Dagger 2`, ~~Rxjava 2~~ coroutines along with `Android Architecture components` with the help of `unsplash` api.<br/>
 
 ## Setup
 You can configure your API key, API secret and auth callback in `buildSrc/config.kt`.<br/><br/>
-
-## Preview
-<img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-1.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-2.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-3.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-4.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-5.png" width="200"> <img src="https://github.com/NULLPointerGuy/Splash/blob/master/assets/screenshot-6.png" width="200">
 
 
 ## License
