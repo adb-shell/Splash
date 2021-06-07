@@ -24,7 +24,7 @@ class Configs {
     object VersionsConfig {
         const val junitVersion = "4.12"
         const val junitExtensionVersion = "1.1.1"
-        const val daggerVersion = "2.10"
+        const val daggerVersion = "2.36"
         const val retrofitVersion = "2.6.0"
         const val retrofitConvVersion = "2.2.0"
         const val retrofitLoggerVersion = "3.4.1"
@@ -33,7 +33,7 @@ class Configs {
         const val picassoMaterialVersion = "1.0.2"
         const val rxDownloaderVersion = "1.0.1"
         const val archLifecycleComponentVersion = "2.2.0-rc03"
-        const val archComponentRoomVersion = "2.2.5"
+        const val archComponentRoomVersion = "2.3.0"
         const val archComponentPagingVersion = "2.1.1"
         const val viewModelKtxVersion = "2.2.0"
         const val androidXVersion = "1.1.0"
