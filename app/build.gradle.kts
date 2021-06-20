@@ -7,10 +7,10 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Configs.AppConfig.compileSDKVersion.toInt())
+    compileSdk = Configs.AppConfig.compileSDKVersion.toInt()
     defaultConfig {
-        minSdkVersion(Configs.AppConfig.minSDKVersion)
-        targetSdkVersion(Configs.AppConfig.compileSDKVersion)
+        minSdk = Configs.AppConfig.minSDKVersion
+        targetSdkPreview = Configs.AppConfig.compileSDKVersion
         applicationId = Configs.AppConfig.applicationId
         versionCode = Configs.VersionsConfig.versionCode
         versionName = Configs.VersionsConfig.versionName
@@ -51,17 +51,17 @@ android {
         }
     }
 
-    flavorDimensions("version")
+    flavorDimensions.add("version")
 
     productFlavors {
         create("demo") {
-            dimension("version")
+            dimension = "version"
             applicationIdSuffix = Configs.AppConfig.demoApllicationSuffix
             versionNameSuffix = Configs.AppConfig.demoApllicationVersionNameSuffix
         }
 
         create("appstore") {
-            dimension("version")
+            dimension = "version"
             applicationIdSuffix = Configs.AppConfig.appstoreApplicationSuffix
             versionNameSuffix = Configs.AppConfig.appstoreApllicationVersionNameSuffix
         }
