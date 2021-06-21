@@ -2,8 +2,9 @@ package com.karthik.splash.homescreen
 
 
 import androidx.lifecycle.*
-import com.karthik.splash.homescreen.network.IHomeScreenOAuthRepository
-import com.karthik.splash.models.oauth.OAuthBody
+import com.karthik.network.home.IHomeScreenOAuthRepository
+import com.karthik.network.home.models.HomeScreenLoginState
+import com.karthik.network.home.models.OAuthBody
 import com.karthik.splash.storage.IMemoryCache
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -11,8 +12,8 @@ import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
 class HomeScreenViewModelFactory(
-        private val homeScreenOAuthRepository: IHomeScreenOAuthRepository,
-        private val memoryCache: IMemoryCache,
+    private val homeScreenOAuthRepository: IHomeScreenOAuthRepository,
+    private val memoryCache: IMemoryCache,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             HomeScreenViewModel(memoryCache, homeScreenOAuthRepository) as T

@@ -1,7 +1,8 @@
-package com.karthik.splash.homescreen.network
+package com.karthik.network.home.repository
 
-import com.karthik.splash.models.oauth.OAuthBody
-import com.karthik.splash.models.oauth.UserAuth
+
+import com.karthik.network.home.models.OAuthBody
+import com.karthik.network.home.models.UserAuth
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -10,7 +11,7 @@ import retrofit2.http.POST
  * Created by karthikrk on 29/11/17.
  */
 
-interface HomeScreenOAuthService {
+internal interface HomeScreenOAuthService {
     @POST("oauth/token")
     suspend fun oauthAuthorize(@Body oAuthBody: OAuthBody): Response<UserAuth>
 }

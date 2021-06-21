@@ -1,6 +1,4 @@
-package com.karthik.splash.homescreen
-
-import com.karthik.splash.models.oauth.UserAuth
+package com.karthik.network.home.models
 
 sealed class HomeScreenLoginState {
     data class LoginSuccess(val userAuth: UserAuth) : HomeScreenLoginState()

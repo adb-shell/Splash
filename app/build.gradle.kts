@@ -81,6 +81,7 @@ android {
     }
 }
 
+//TODO: move to a common plugin
 detekt{
     toolVersion = "1.14.2"
     buildUponDefaultConfig = true
@@ -95,6 +96,7 @@ detekt{
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(project(":network"))
     implementation(Configs.DependenciesConfig.androidXAppcompat)
     implementation(Configs.DependenciesConfig.googleMaterial)
     implementation(Configs.DependenciesConfig.androidXBrowser)
@@ -129,7 +131,7 @@ dependencies {
     /**
      * coroutines support.
      */
-    implementation(Configs.DependenciesConfig.coroutines)
+    implementation(Configs.DependenciesConfig.coroutinesAndroid)
     implementation(Configs.DependenciesConfig.viewmodelKTX)
 
     debugImplementation(Configs.DependenciesConfig.chuckerDebug)

@@ -1,4 +1,4 @@
-package com.karthik.splash.models.oauth
+package com.karthik.network.home.models
 
 import com.google.gson.annotations.SerializedName
 

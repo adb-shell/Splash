@@ -1,7 +1,9 @@
-package com.karthik.splash.models.oauth
+package com.karthik.network.home.models
 
 import com.google.gson.annotations.SerializedName
-import com.karthik.splash.BuildConfig
+import com.karthik.network.Constants.Companion.SPLASH_KEY
+import com.karthik.network.Constants.Companion.SPLASH_KEY_SECRET
+import com.karthik.network.Constants.Companion.SPLASH_LOGIN_CALLBACK
 
 /**
  * Created by karthikrk on 29/11/17.
@@ -18,9 +20,9 @@ class OAuthBody(var code: String?) {
     var grantType: String? = null
 
     init {
-        clientId = BuildConfig.SPLASH_KEY
-        clientSecret = BuildConfig.SPLASH_KEY_SECRET
-        redirectUri = BuildConfig.SPLASH_LOGIN_CALLBACK
+        clientId = SPLASH_KEY
+        clientSecret = SPLASH_KEY_SECRET
+        redirectUri = SPLASH_LOGIN_CALLBACK
         grantType = "authorization_code"
     }
 
