@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.splash.R
 import com.karthik.splash.misc.Utils
 import com.karthik.splash.misc.loadImage
-import com.karthik.splash.models.photoslists.Photos
+import com.karthik.splash.misc.toBundle
 import com.karthik.splash.photodetailscreen.PhotoDetailScreen
 
 @Deprecated("Use BottomFeedAdapter")
@@ -45,7 +46,7 @@ class BottomTabAdapter(private val photolist: ArrayList<Photos>) :
         override fun onClick(view: View?) {
             val context = view?.context
             val intent = Intent(context, PhotoDetailScreen::class.java)
-            intent.putExtra(Utils.photo, photolist[adapterPosition])
+            intent.putExtra(Utils.photo, photolist[adapterPosition].toBundle())
             context?.startActivity(intent)
         }
     }

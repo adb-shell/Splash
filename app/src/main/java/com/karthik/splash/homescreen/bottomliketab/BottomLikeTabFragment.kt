@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabComponent
 import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabModule
-import com.karthik.splash.homescreen.bottomliketab.network.LikeFeedNetworkState
 import com.karthik.splash.homescreen.bottomtab.BottomTabAdapter
 import com.karthik.splash.models.UserStatus
 import com.karthik.splash.root.SplashApp

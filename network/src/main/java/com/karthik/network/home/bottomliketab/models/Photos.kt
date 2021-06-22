@@ -1,14 +1,12 @@
-package com.karthik.splash.models.photoslists
+package com.karthik.network.home.bottomliketab.models
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 /**
  * Created by karthikrk on 20/12/15.
  */
-@Parcelize
+
 data class Photos(
         @SerializedName("id")
         var id: String,
@@ -30,4 +28,4 @@ data class Photos(
         var categories: ArrayList<Categories>? = ArrayList(),
         @SerializedName("links")
         var links: PhotoLinks? = null
-) : Parcelable
+)

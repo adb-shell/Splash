@@ -2,8 +2,7 @@ package com.karthik.splash.models.likephoto
 
 
 import com.google.gson.annotations.SerializedName
-
-import com.karthik.splash.models.photoslists.Links
+import com.karthik.network.home.bottomliketab.models.Links
 
 
 data class Photo(

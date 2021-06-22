@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen.bottomliketab.network
+package com.karthik.splash.homescreen.bottomliketab
 
 sealed class LikeFeedNetworkState {
     object FeedNetworkLoading : LikeFeedNetworkState()

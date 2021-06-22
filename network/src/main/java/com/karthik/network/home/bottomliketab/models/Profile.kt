@@ -1,7 +1,6 @@
-package com.karthik.splash.models.userprofile
+package com.karthik.network.home.bottomliketab.models
 
 import com.google.gson.annotations.SerializedName
-import com.karthik.splash.models.photoslists.Links
 
 /**
  * Created by karthikrk on 30/11/17.

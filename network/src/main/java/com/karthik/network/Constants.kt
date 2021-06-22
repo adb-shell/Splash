@@ -6,5 +6,6 @@ internal class Constants {
   internal const val SPLASH_KEY_SECRET = ""
   internal const val SPLASH_LOGIN_CALLBACK = ""
   internal val oauthBase = "https://unsplash.com/"
+  internal val like = "LIKE"
  }
 }

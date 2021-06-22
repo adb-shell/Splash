@@ -1,6 +1,6 @@
-package com.karthik.splash.homescreen.bottomliketab
+package com.karthik.network.home.bottomliketab.models
 
-import com.karthik.splash.models.photoslists.Photos
+
 import java.util.ArrayList
 
 sealed class UserLikedPhotoResponse {

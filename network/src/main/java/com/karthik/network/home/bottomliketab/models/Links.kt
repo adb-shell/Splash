@@ -1,14 +1,12 @@
-package com.karthik.splash.models.photoslists
+package com.karthik.network.home.bottomliketab.models
 
-import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by karthikrk on 20/12/15.
  */
-@Parcelize
+
 data class Links(
         @SerializedName("self")
         var self: String? = null,
@@ -21,4 +19,4 @@ data class Links(
         @SerializedName("portfolio")
         @Expose
         var portfolio: String? = null
-) : Parcelable
+)

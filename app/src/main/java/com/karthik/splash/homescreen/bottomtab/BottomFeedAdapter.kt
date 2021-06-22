@@ -9,10 +9,11 @@ import android.widget.ImageView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.splash.R
 import com.karthik.splash.misc.Utils
 import com.karthik.splash.misc.loadImage
-import com.karthik.splash.models.photoslists.Photos
+import com.karthik.splash.misc.toBundle
 import com.karthik.splash.photodetailscreen.PhotoDetailScreen
 
 class BottomFeedAdapter : PagedListAdapter<Photos, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
@@ -80,7 +81,7 @@ class BottomFeedAdapter : PagedListAdapter<Photos, RecyclerView.ViewHolder>(DIFF
         override fun onClick(view: View?) {
             val context = view?.context
             val intent = Intent(context, PhotoDetailScreen::class.java)
-            intent.putExtra(Utils.photo, getItem(adapterPosition))
+            intent.putExtra(Utils.photo, getItem(adapterPosition)?.toBundle())
             context?.startActivity(intent)
         }
     }

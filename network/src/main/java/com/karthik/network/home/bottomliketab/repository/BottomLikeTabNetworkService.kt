@@ -1,7 +1,8 @@
-package com.karthik.splash.homescreen.bottomliketab.network
+package com.karthik.network.home.bottomliketab.repository
 
-import com.karthik.splash.models.photoslists.Photos
-import com.karthik.splash.models.userprofile.Profile
+
+import com.karthik.network.home.bottomliketab.models.Photos
+import com.karthik.network.home.bottomliketab.models.Profile
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,7 +12,7 @@ import java.util.*
  * Created by karthikrk on 30/11/17.
  */
 
-interface BottomLikeTabNetworkService {
+internal interface BottomLikeTabNetworkService {
 
     @GET("me")
     suspend fun getUserProfile(): Response<Profile>

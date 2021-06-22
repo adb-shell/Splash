@@ -1,15 +1,13 @@
-package com.karthik.splash.models.photoslists
+package com.karthik.network.home.bottomliketab.models
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 /**
  * Created by karthikrk on 20/12/15.
  */
-@Parcelize
 data class Urls(
         var full: String? = null,
         var regular: String? = null,
         var small: String? = null,
         var thumb: String? = null
-) : Parcelable
+): Serializable

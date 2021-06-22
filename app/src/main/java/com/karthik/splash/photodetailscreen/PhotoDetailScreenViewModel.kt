@@ -1,17 +1,17 @@
 package com.karthik.splash.photodetailscreen
 
 import androidx.lifecycle.*
+import com.karthik.network.IMemoryCache
 import com.karthik.splash.models.likephoto.LikeResponse
 import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.photodetailscreen.network.PhotoDetailsResponse
 import com.karthik.splash.photodetailscreen.network.PhotoLikeResponse
-import com.karthik.splash.storage.IMemoryCache
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 class PhotoDetailScreenViewModelFactory(
-        private val memoryCache: IMemoryCache,
-        private val photoRepository: IPhotoDetailScreenRepository
+    private val memoryCache: IMemoryCache,
+    private val photoRepository: IPhotoDetailScreenRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             PhotoDetailScreenViewModel(memoryCache, photoRepository) as T

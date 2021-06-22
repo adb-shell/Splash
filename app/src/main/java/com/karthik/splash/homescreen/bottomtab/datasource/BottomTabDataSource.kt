@@ -3,10 +3,10 @@ package com.karthik.splash.homescreen.bottomtab.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.splash.homescreen.bottomtab.network.IBottomTabRepository
 import com.karthik.splash.homescreen.bottomtab.network.PhotoFeedNetworkState
 import com.karthik.splash.homescreen.bottomtab.network.PhotoNetworkResponse
-import com.karthik.splash.models.photoslists.Photos
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

@@ -2,10 +2,10 @@ package com.karthik.splash.homescreen
 
 
 import androidx.lifecycle.*
+import com.karthik.network.IMemoryCache
 import com.karthik.network.home.IHomeScreenOAuthRepository
 import com.karthik.network.home.models.HomeScreenLoginState
 import com.karthik.network.home.models.OAuthBody
-import com.karthik.splash.storage.IMemoryCache
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

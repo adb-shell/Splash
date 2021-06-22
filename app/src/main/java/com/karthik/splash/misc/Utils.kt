@@ -2,7 +2,7 @@ package com.karthik.splash.misc
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.karthik.splash.models.photoslists.Photos
+import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.splash.restserviceutility.UserOfflineException
 import java.text.ParseException
 import java.text.SimpleDateFormat

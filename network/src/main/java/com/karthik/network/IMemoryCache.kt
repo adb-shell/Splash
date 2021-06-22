@@ -1,4 +1,4 @@
-package com.karthik.splash.storage
+package com.karthik.network
 
 interface IMemoryCache {
     fun isUserLoggedIn(): Boolean

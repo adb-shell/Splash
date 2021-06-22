@@ -1,7 +1,8 @@
 package com.karthik.splash.homescreen.bottomtab.network
 
 
-import com.karthik.splash.models.photoslists.Photos
+
+import com.karthik.network.home.bottomliketab.models.Photos
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

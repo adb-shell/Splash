@@ -1,24 +1,24 @@
-package com.karthik.splash.homescreen.bottomliketab.network
+package com.karthik.network.home.bottomliketab.repository
 
-import com.karthik.splash.homescreen.bottomliketab.UserLikedPhotoResponse
-import com.karthik.splash.misc.IInternetHandler
-import com.karthik.splash.restserviceutility.UserOfflineException
-import com.karthik.splash.storage.IMemoryCache
-import com.karthik.splash.storage.db.SplashDao
-import com.karthik.splash.storage.db.entity.PhotosStorage
-import com.karthik.splash.storage.db.entity.UserInfo
+import com.karthik.network.IInternetHandler
+import com.karthik.network.IMemoryCache
+import com.karthik.network.UserOfflineException
+import com.karthik.network.home.bottomliketab.IBottomLikeTabRepository
+import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.IllegalStateException
+import retrofit2.Retrofit
 
+//TODO: cache the response.
 class BottomLikeTabRepository(
-        private val bottomLikeTabNetworkService: BottomLikeTabNetworkService,
-        private val memoryCache: IMemoryCache,
-        private val localdb: SplashDao,
-        private val internetHandler: IInternetHandler
+    retrofit: Retrofit ,
+    private val memoryCache: IMemoryCache,
+    private val internetHandler: IInternetHandler
 ) : IBottomLikeTabRepository {
-    private val _like = "LIKE"
 
+    private val bottomLikeTabNetworkService: BottomLikeTabNetworkService by lazy {
+        retrofit.create(BottomLikeTabNetworkService::class.java)
+    }
 
     override suspend fun getUserLikedPhotos(): UserLikedPhotoResponse {
         if (internetHandler.isInternetAvailable()) {
@@ -40,14 +40,6 @@ class BottomLikeTabRepository(
 
             userProfileResponse.body()?.let { profile ->
                 memoryCache.setUserName(profile.username)
-                //save data in local db
-                localdb.setUserInfo(UserInfo(
-                        id = profile.id,
-                        username = profile.username,
-                        bio = profile.bio,
-                        email = profile.email,
-                        authcode = memoryCache.getAuthCode(),
-                        user = "${profile.id}:${profile.email}"))
             } ?: return UserLikedPhotoResponse.UserLikedPhotoErrorState(IllegalStateException())
         }
 
@@ -58,12 +50,6 @@ class BottomLikeTabRepository(
             }
 
             likedPhotosResponse.body()?.let { photos ->
-                //save data in local db
-                localdb.setPhotos(PhotosStorage(
-                        pagenumber = 1,
-                        type = _like,
-                        photos = photos,
-                        pgtype = "1:LIKE"))
                 return UserLikedPhotoResponse.UserLikedPhoto(photos = photos)
             } ?: return UserLikedPhotoResponse.UserLikedPhotoErrorState(IllegalStateException())
 

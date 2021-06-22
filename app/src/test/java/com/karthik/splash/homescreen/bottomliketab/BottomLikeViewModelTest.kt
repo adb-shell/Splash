@@ -3,7 +3,6 @@ package com.karthik.splash.homescreen.bottomliketab
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.karthik.splash.homescreen.bottomliketab.network.BottomLikeTabNetworkService
 import com.karthik.splash.homescreen.bottomliketab.network.BottomLikeTabRepository
-import com.karthik.splash.homescreen.bottomliketab.network.LikeFeedNetworkState
 import com.karthik.splash.misc.IInternetHandler
 import com.karthik.splash.models.UserStatus
 import com.karthik.splash.models.photoslists.Photos

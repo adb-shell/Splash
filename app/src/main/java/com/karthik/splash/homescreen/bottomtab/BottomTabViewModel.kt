@@ -3,12 +3,12 @@ package com.karthik.splash.homescreen.bottomtab
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.splash.homescreen.bottomtab.datasource.BottomTabDataSourceFactory
 import com.karthik.splash.homescreen.bottomtab.datasource.BottomTabPaginationData
 import com.karthik.splash.homescreen.bottomtab.network.IBottomTabRepository
 import com.karthik.splash.homescreen.bottomtab.network.PhotoFeedNetworkState
 import com.karthik.splash.misc.Utils
-import com.karthik.splash.models.photoslists.Photos
 import javax.inject.Inject
 
 

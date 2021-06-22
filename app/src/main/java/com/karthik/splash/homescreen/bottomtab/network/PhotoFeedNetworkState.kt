@@ -1,6 +1,6 @@
 package com.karthik.splash.homescreen.bottomtab.network
 
-import com.karthik.splash.models.photoslists.Photos
+import com.karthik.network.home.bottomliketab.models.Photos
 
 
 sealed class PhotoFeedNetworkState {
