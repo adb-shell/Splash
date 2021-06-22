@@ -1,7 +1,4 @@
-package com.karthik.splash.photodetailscreen.network
-
-import com.karthik.splash.models.likephoto.LikeResponse
-import com.karthik.splash.models.photodetail.PhotoDetailInfo
+package com.karthik.network.photodetailscreen.models
 
 sealed class PhotoDetailsNetworkState {
     object PhotoDetailsNetworkLoadSuccess : PhotoDetailsNetworkState()

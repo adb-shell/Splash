@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 
-//TODO: cache respone
+//TODO: cache response
 class BottomTabRepository(
     retrofit: Retrofit,
     private val cache: IMemoryCache,

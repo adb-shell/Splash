@@ -13,17 +13,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.esafirm.rxdownloader.RxDownloader
 import com.karthik.network.home.bottomliketab.models.Photos
+import com.karthik.network.photodetailscreen.models.LikeResponse
+import com.karthik.network.photodetailscreen.models.PhotoDetailInfo
+import com.karthik.network.photodetailscreen.models.PhotoDetailsNetworkState
 import com.karthik.splash.R
 import com.karthik.splash.misc.CircularTransform
 import com.karthik.splash.misc.Utils
 import com.karthik.splash.misc.loadImage
 import com.karthik.splash.misc.toPhotos
-
-import com.karthik.splash.models.likephoto.LikeResponse
-import com.karthik.splash.models.photodetail.PhotoDetailInfo
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenComponent
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenModule
-import com.karthik.splash.photodetailscreen.network.PhotoDetailsNetworkState
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.activity_photo_detail.*
 import javax.inject.Inject
@@ -61,12 +60,11 @@ class PhotoDetailScreen : AppCompatActivity(), View.OnClickListener {
         viewmodel.photodetails.observe(this, Observer<PhotoDetailInfo> { photoinfo ->
             showPhotoDetails(photoinfo)
         })
-        viewmodel.photolike.observe(this, Observer<LikeResponse> { likeresponse ->
+        viewmodel.photolike.observe(this,  { likeresponse ->
             Toast.makeText(this,
                     getString(R.string.like_photo_success), Toast.LENGTH_SHORT).show()
         })
-        viewmodel.getnetworkState()
-                .observe(this, Observer<PhotoDetailsNetworkState> { networkstate ->
+        viewmodel.networkState.observe(this, { networkstate ->
                     when (networkstate) {
                         is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError   ->
                             showDefaultView()

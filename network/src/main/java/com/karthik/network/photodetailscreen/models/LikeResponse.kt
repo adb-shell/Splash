@@ -1,4 +1,4 @@
-package com.karthik.splash.models.likephoto
+package com.karthik.network.photodetailscreen.models
 
 
 import com.google.gson.annotations.SerializedName

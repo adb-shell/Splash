@@ -12,7 +12,7 @@ import java.util.*
  * Created by karthikrk on 16/11/17.
  */
 
-interface BottomTabNetworkService {
+internal interface BottomTabNetworkService {
 
     @GET("photos")
     suspend fun getPhotos(

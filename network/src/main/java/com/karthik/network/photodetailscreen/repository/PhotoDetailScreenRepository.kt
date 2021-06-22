@@ -1,18 +1,18 @@
-package com.karthik.splash.photodetailscreen.network
+package com.karthik.network.photodetailscreen.repository
 
-import androidx.lifecycle.MutableLiveData
-import com.karthik.splash.photodetailscreen.IPhotoDetailScreenRepository
+import com.karthik.network.photodetailscreen.IPhotoDetailScreenRepository
+import com.karthik.network.photodetailscreen.models.PhotoDetailsResponse
+import com.karthik.network.photodetailscreen.models.PhotoLikeResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.IllegalStateException
+import retrofit2.Retrofit
 
-class PhotoDetailScreenRepository(private val photoService: PhotoService) :
+class PhotoDetailScreenRepository(retrofit: Retrofit) :
     IPhotoDetailScreenRepository {
 
-    private val internalState: MutableLiveData<PhotoDetailsNetworkState> = MutableLiveData()
-
-    override fun getPhotoDetailNetworkState() =
-            internalState
+    private val photoService: PhotoDetailsNetworkService by lazy {
+        retrofit.create(PhotoDetailsNetworkService::class.java)
+    }
 
 
     override suspend fun getPhotoInfo(id: String): PhotoDetailsResponse {
@@ -20,7 +20,6 @@ class PhotoDetailScreenRepository(private val photoService: PhotoService) :
             val photoDetailsResponse = photoService.getPhotoInfo(id = id)
             if (photoDetailsResponse.isSuccessful) {
                 photoDetailsResponse.body()?.let { photoDetailInfo ->
-                    internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
                     PhotoDetailsResponse.PhotoDetailsSuccessResponse(photoDetail = photoDetailInfo)
                 } ?: reportDetailsNetworkError()
             } else {
@@ -34,7 +33,6 @@ class PhotoDetailScreenRepository(private val photoService: PhotoService) :
             val photoLikeResponse = photoService.likePhoto(id)
             if (photoLikeResponse.isSuccessful) {
                 photoLikeResponse.body()?.let { likeResponse ->
-                    internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadSuccess)
                     PhotoLikeResponse.PhotoDetailsSuccessResponse(likeResponse = likeResponse)
                 } ?: reportLikeNetworkError()
             } else {
@@ -44,12 +42,10 @@ class PhotoDetailScreenRepository(private val photoService: PhotoService) :
     }
 
     private fun reportLikeNetworkError(): PhotoLikeResponse.PhotoLikeFailureResponse {
-        internalState.postValue(PhotoDetailsNetworkState.PhotoLikeNetworkLoadError)
         return PhotoLikeResponse.PhotoLikeFailureResponse(IllegalStateException())
     }
 
     private fun reportDetailsNetworkError(): PhotoDetailsResponse.PhotoDetailsFailureResponse {
-        internalState.postValue(PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError)
         return PhotoDetailsResponse.PhotoDetailsFailureResponse(IllegalStateException())
     }
 }
