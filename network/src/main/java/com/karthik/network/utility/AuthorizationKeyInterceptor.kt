@@ -1,18 +1,16 @@
-package com.karthik.splash.restserviceutility.interceptors
+package com.karthik.network.utility
 
-import com.karthik.splash.BuildConfig
-import com.karthik.splash.storage.MemoryCache
-
-import java.io.IOException
-
+import com.karthik.network.Constants
+import com.karthik.network.IMemoryCache
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 
 /**
  * Created by karthikrk on 29/11/17.
  */
 
-class AuthorizationKeyInterceptor(private val memoryCache: MemoryCache) : Interceptor {
+class AuthorizationKeyInterceptor(private val memoryCache: IMemoryCache) : Interceptor {
     private val authorization = "Authorization"
     private val bearer = "Bearer "
     private val clientId = "client_id"
@@ -27,7 +25,7 @@ class AuthorizationKeyInterceptor(private val memoryCache: MemoryCache) : Interc
             return chain.proceed(request)
         } else {
             val newHttpurl = chain.request().url().newBuilder()
-                    .addQueryParameter(clientId, BuildConfig.SPLASH_KEY)
+                    .addQueryParameter(clientId, Constants.SPLASH_KEY)
                     .build()
 
             val newRequest = chain.request()
