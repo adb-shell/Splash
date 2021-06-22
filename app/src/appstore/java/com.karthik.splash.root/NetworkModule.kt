@@ -17,7 +17,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class SplashNetworkModule {
+class NetworkModule {
 
     private val TIME_OUT = 30L
 
@@ -27,22 +27,15 @@ class SplashNetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkhttpClient(cache: MemoryCache,internetHandler: InternetHandler):OkHttpClient{
+    fun providesOkhttpClient(cache: MemoryCache,
+                             internetHandler: InternetHandler,
+                             okhttpbuilder: OkHttpClient.Builder):OkHttpClient{
         val httpLogger = HttpLoggingInterceptor()
-        val okhttpbuilder = OkHttpClient.Builder()
-                .connectTimeout(TIME_OUT,TimeUnit.SECONDS)
-                .addInterceptor(UserOfflineInterceptor(internetHandler))
-                .addInterceptor(AuthorizationKeyInterceptor(cache))
-                .addInterceptor(httpLogger)
+        okhttpbuilder.addInterceptor(UserOfflineInterceptor(internetHandler))
+                     .addInterceptor(AuthorizationKeyInterceptor(cache))
+                     .addInterceptor(httpLogger)
 
         httpLogger.level = HttpLoggingInterceptor.Level.NONE
         return okhttpbuilder.build()
     }
-
-    @Provides
-    @Singleton
-    fun providesRetrofitClient(@Named("BASE_URL") baseurl:String,okHttpClient: OkHttpClient):Retrofit =
-            Retrofit.Builder().client(okHttpClient).baseUrl(baseurl)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
 }

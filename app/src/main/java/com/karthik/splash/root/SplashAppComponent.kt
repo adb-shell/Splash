@@ -1,6 +1,7 @@
 package com.karthik.splash.root
 
 
+import com.karthik.network.di.NetworkProvider
 import com.karthik.splash.homescreen.di.HomeScreenComponent
 import com.karthik.splash.homescreen.di.HomeScreenModule
 import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabComponent
@@ -18,7 +19,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [SplashAppModule::class, SplashNetworkModule::class])
+@Component(modules = [SplashAppModule::class, NetworkModule::class, NetworkProvider::class])
 interface SplashAppComponent {
     fun inject(app: SplashApp)
     fun plus(splashScreenModule: SplashScreenModule): SplashScreenComponent
