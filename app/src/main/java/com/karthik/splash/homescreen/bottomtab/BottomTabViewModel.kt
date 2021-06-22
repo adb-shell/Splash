@@ -4,17 +4,17 @@ import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.karthik.network.home.bottomliketab.models.Photos
+import com.karthik.network.home.bottomtab.IBottomTabRepository
+import com.karthik.network.home.bottomtab.models.PhotoFeedNetworkState
 import com.karthik.splash.homescreen.bottomtab.datasource.BottomTabDataSourceFactory
 import com.karthik.splash.homescreen.bottomtab.datasource.BottomTabPaginationData
-import com.karthik.splash.homescreen.bottomtab.network.IBottomTabRepository
-import com.karthik.splash.homescreen.bottomtab.network.PhotoFeedNetworkState
 import com.karthik.splash.misc.Utils
 import javax.inject.Inject
 
 
 class BottomTabViewModelFactory(
-        private val bottomTabRepository: IBottomTabRepository,
-        private val type: BottomTabTypes
+    private val bottomTabRepository: IBottomTabRepository,
+    private val type: BottomTabTypes
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             BottomTabViewModel(bottomTabRepository, type) as T

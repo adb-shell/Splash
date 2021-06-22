@@ -1,4 +1,6 @@
-package com.karthik.splash.homescreen.bottomtab.network
+package com.karthik.network.home.bottomtab
+
+import com.karthik.network.home.bottomtab.models.PhotoNetworkResponse
 
 interface IBottomTabRepository {
     suspend fun getFeeds(

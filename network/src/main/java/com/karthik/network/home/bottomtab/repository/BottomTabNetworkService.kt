@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen.bottomtab.network
+package com.karthik.network.home.bottomtab.repository
 
 
 

@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.karthik.network.home.bottomtab.models.PhotoFeedNetworkState
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomtab.di.BottomTabComponent
 import com.karthik.splash.homescreen.bottomtab.di.BottomTabModule
-import com.karthik.splash.homescreen.bottomtab.network.PhotoFeedNetworkState
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.fragment_new.*
 import javax.inject.Inject
