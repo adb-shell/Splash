@@ -1,7 +1,7 @@
 package com.karthik.splash.homescreen.bottomtab
 
 import android.os.Parcelable
-import com.karthik.splash.homescreen.bottomtab.network.BottomTabRepository
+import com.karthik.network.home.bottomtab.repository.BottomTabRepository
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

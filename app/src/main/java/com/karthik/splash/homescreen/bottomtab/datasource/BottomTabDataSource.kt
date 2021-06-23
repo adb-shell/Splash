@@ -3,17 +3,17 @@ package com.karthik.splash.homescreen.bottomtab.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.karthik.splash.homescreen.bottomtab.network.IBottomTabRepository
-import com.karthik.splash.homescreen.bottomtab.network.PhotoFeedNetworkState
-import com.karthik.splash.homescreen.bottomtab.network.PhotoNetworkResponse
-import com.karthik.splash.models.photoslists.Photos
+import com.karthik.network.home.bottomliketab.models.Photos
+import com.karthik.network.home.bottomtab.IBottomTabRepository
+import com.karthik.network.home.bottomtab.models.PhotoFeedNetworkState
+import com.karthik.network.home.bottomtab.models.PhotoNetworkResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class BottomTabDataSource(
-        private val bottomTabRepository: IBottomTabRepository,
-        private val intialpaginationData: BottomTabPaginationData,
-        private val coroutineScope: CoroutineScope
+    private val bottomTabRepository: IBottomTabRepository,
+    private val intialpaginationData: BottomTabPaginationData,
+    private val coroutineScope: CoroutineScope
 ) : PageKeyedDataSource<BottomTabPaginationData, Photos>() {
 
     val networkState: MutableLiveData<PhotoFeedNetworkState> = MutableLiveData()

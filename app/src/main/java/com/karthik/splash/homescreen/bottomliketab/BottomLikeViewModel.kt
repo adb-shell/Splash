@@ -1,19 +1,19 @@
 package com.karthik.splash.homescreen.bottomliketab
 
 import androidx.lifecycle.*
+import com.karthik.network.IMemoryCache
+import com.karthik.network.home.bottomliketab.IBottomLikeTabRepository
+import com.karthik.network.home.bottomliketab.models.Photos
+import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
 import com.karthik.splash.BuildConfig
-import com.karthik.splash.homescreen.bottomliketab.network.IBottomLikeTabRepository
-import com.karthik.splash.homescreen.bottomliketab.network.LikeFeedNetworkState
-import com.karthik.splash.models.photoslists.Photos
 import com.karthik.splash.models.UserStatus
-import com.karthik.splash.storage.IMemoryCache
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 class BottomLikeViewModelFactory(
-        private val memoryCache: IMemoryCache,
-        private val userServiceRepository:
-        IBottomLikeTabRepository
+    private val memoryCache: IMemoryCache,
+    private val userServiceRepository:
+    IBottomLikeTabRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             BottomLikeViewModel(memoryCache, userServiceRepository) as T

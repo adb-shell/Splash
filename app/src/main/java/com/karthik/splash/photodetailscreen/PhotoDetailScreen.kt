@@ -12,16 +12,16 @@ import androidx.core.content.PermissionChecker
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.esafirm.rxdownloader.RxDownloader
+import com.karthik.network.home.bottomliketab.models.Photos
+import com.karthik.network.photodetailscreen.models.PhotoDetailInfo
+import com.karthik.network.photodetailscreen.models.PhotoDetailsNetworkState
 import com.karthik.splash.R
 import com.karthik.splash.misc.CircularTransform
 import com.karthik.splash.misc.Utils
 import com.karthik.splash.misc.loadImage
-import com.karthik.splash.models.photoslists.Photos
-import com.karthik.splash.models.likephoto.LikeResponse
-import com.karthik.splash.models.photodetail.PhotoDetailInfo
+import com.karthik.splash.misc.toPhotos
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenComponent
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenModule
-import com.karthik.splash.photodetailscreen.network.PhotoDetailsNetworkState
 import com.karthik.splash.root.SplashApp
 import kotlinx.android.synthetic.main.activity_photo_detail.*
 import javax.inject.Inject
@@ -34,13 +34,13 @@ class PhotoDetailScreen : AppCompatActivity(), View.OnClickListener {
 
     @Inject
     lateinit var viewmodelfactory: PhotoDetailScreenViewModelFactory
-    private lateinit var photo: Photos
+    private  var photo: Photos? = null
     private lateinit var viewmodel: PhotoDetailScreenViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_detail)
-        photo = intent.getParcelableExtra(Utils.photo)
+        photo = intent.extras?.toPhotos()
         photoDetailScreenComponent = (application as SplashApp).getComponent()
                 .plus(PhotoDetailScreenModule())
         photoDetailScreenComponent?.inject(this)
@@ -48,23 +48,22 @@ class PhotoDetailScreen : AppCompatActivity(), View.OnClickListener {
                 ViewModelProvider(this,
                         viewmodelfactory).get(PhotoDetailScreenViewModel::class.java)
 
-        username.text = getString(R.string.By, photo.user?.name)
-        createdtime.text = getString(R.string.On, Utils.parseDate(photo.createdTime))
-        photo.urls?.regular?.let { url ->
+        username.text = getString(R.string.By, photo?.user?.name)
+        createdtime.text = getString(R.string.On, Utils.parseDate(photo?.createdTime))
+        photo?.urls?.regular?.let { url ->
             feeddetailimage.loadImage(url, imageLoadDuration)
         }
 
 
-        viewmodel.getPhotoDetail(photo.id)
+        viewmodel.getPhotoDetail(photo?.id ?: "")
         viewmodel.photodetails.observe(this, Observer<PhotoDetailInfo> { photoinfo ->
             showPhotoDetails(photoinfo)
         })
-        viewmodel.photolike.observe(this, Observer<LikeResponse> { likeresponse ->
+        viewmodel.photolike.observe(this,  { likeresponse ->
             Toast.makeText(this,
                     getString(R.string.like_photo_success), Toast.LENGTH_SHORT).show()
         })
-        viewmodel.getnetworkState()
-                .observe(this, Observer<PhotoDetailsNetworkState> { networkstate ->
+        viewmodel.networkState.observe(this, { networkstate ->
                     when (networkstate) {
                         is PhotoDetailsNetworkState.PhotoDetailsNetworkLoadError   ->
                             showDefaultView()
@@ -86,7 +85,7 @@ class PhotoDetailScreen : AppCompatActivity(), View.OnClickListener {
             R.id.likewrapper -> {
                 if (viewmodel.isUserLoggedIn()) {
                     showLoading()
-                    viewmodel.likeThePhoto(photo.id)
+                    viewmodel.likeThePhoto(photo?.id ?: "")
                     return
                 }
                 showLoginRequired()
@@ -102,7 +101,7 @@ class PhotoDetailScreen : AppCompatActivity(), View.OnClickListener {
             R.id.sharewrapper -> {
                 val sharingIntent = Intent(Intent.ACTION_SEND)
                 sharingIntent.type = "text/html"
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, photo.urls?.regular)
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, photo?.urls?.regular)
                 startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_photo)))
             }
         }
@@ -165,7 +164,7 @@ class PhotoDetailScreen : AppCompatActivity(), View.OnClickListener {
 
     private fun startDownloading() {
         RxDownloader.getInstance(this)
-                .download(photo.urls?.full, photo.id, Utils.photomimetype)
+                .download(photo?.urls?.full, photo?.id, Utils.photomimetype)
                 .subscribe({ path ->
                     Toast.makeText(this,
                             getString(R.string.success_downloading, path),

@@ -9,7 +9,8 @@ import Configs.VersionsConfig.chuckerVersion
 import Configs.VersionsConfig.daggerVersion
 import Configs.VersionsConfig.junitExtensionVersion
 import Configs.VersionsConfig.junitVersion
-import Configs.VersionsConfig.kotlinCoroutinesVersion
+import Configs.VersionsConfig.kotlinCoroutinesAndroidVersion
+import Configs.VersionsConfig.kotlinCoroutinesCore
 import Configs.VersionsConfig.materialVersion
 import Configs.VersionsConfig.nhaarmanMockitoVersion
 import Configs.VersionsConfig.picassoMaterialVersion
@@ -46,7 +47,8 @@ class Configs {
         const val versionName = "0.4"
         const val archCoreTestingVersion = "2.1.0"
         const val nhaarmanMockitoVersion = "2.2.0"
-        const val kotlinCoroutinesVersion = "1.4.2"
+        const val kotlinCoroutinesAndroidVersion = "1.4.2"
+        const val kotlinCoroutinesCore = "1.5.0"
     }
 
     object SplashUrlConfig {
@@ -69,8 +71,8 @@ class Configs {
 
     object AppConfig {
         const val applicationId = "com.karthik.splash"
-        const val kotlinVersion = "1.4.0"
-        const val androidToolsVersion = "4.1.0"
+        const val kotlinVersion = "1.5.10"
+        const val androidToolsVersion = "7.0.0-beta04"
 
         const val compileSDKVersion = "29"
         const val minSDKVersion = 21
@@ -98,7 +100,8 @@ class Configs {
         /**
          * coroutines
          */
-        const val coroutines  = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinCoroutinesVersion}"
+        const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesCore}"
+        const val coroutinesAndroid  = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinCoroutinesAndroidVersion}"
         const val viewmodelKTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${viewModelKtxVersion}"
 
         /**

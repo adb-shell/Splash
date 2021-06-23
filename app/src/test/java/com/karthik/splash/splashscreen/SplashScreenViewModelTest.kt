@@ -2,9 +2,9 @@ package com.karthik.splash.splashscreen
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.karthik.splash.misc.IInternetHandler
+import com.karthik.network.IInternetHandler
+import com.karthik.network.IMemoryCache
 import com.karthik.splash.observeForTesting
-import com.karthik.splash.storage.IMemoryCache
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Assert
 import org.junit.Before

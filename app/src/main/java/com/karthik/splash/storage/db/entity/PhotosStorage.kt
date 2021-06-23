@@ -3,7 +3,7 @@ package com.karthik.splash.storage.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.karthik.splash.models.photoslists.Photos
+import com.karthik.network.home.bottomliketab.models.Photos
 
 @Entity(tableName = "Photos")
 data class PhotosStorage(

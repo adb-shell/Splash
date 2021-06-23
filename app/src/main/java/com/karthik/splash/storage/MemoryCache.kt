@@ -2,6 +2,7 @@ package com.karthik.splash.storage
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.karthik.network.IMemoryCache
 import com.karthik.splash.R
 import javax.inject.Inject
 

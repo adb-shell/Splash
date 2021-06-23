@@ -1,23 +1,19 @@
 package com.karthik.splash.photodetailscreen.di
 
 
-import com.karthik.splash.photodetailscreen.IPhotoDetailScreenRepository
-import com.karthik.splash.photodetailscreen.network.PhotoDetailScreenRepository
+
+import com.karthik.network.photodetailscreen.IPhotoDetailScreenRepository
+import com.karthik.network.photodetailscreen.repository.PhotoDetailScreenRepository
 import com.karthik.splash.photodetailscreen.PhotoDetailScreenViewModelFactory
-import com.karthik.splash.photodetailscreen.network.PhotoService
 import com.karthik.splash.storage.MemoryCache
 import dagger.Module
 import dagger.Provides
-import retrofit2.Retrofit
 
 @Module
 class PhotoDetailScreenModule {
 
     @Provides
-    fun providesPhotoNetworkLayer(retrofit: Retrofit): IPhotoDetailScreenRepository {
-        val photoService: PhotoService = retrofit.create(PhotoService::class.java)
-        return PhotoDetailScreenRepository(photoService = photoService)
-    }
+    fun providesPhotoNetworkLayer(): IPhotoDetailScreenRepository = PhotoDetailScreenRepository()
 
     @Provides
     fun providesPhotoDetailPresenter(
