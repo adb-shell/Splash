@@ -8,13 +8,15 @@ import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import javax.inject.Inject
 
 //TODO: cache the response.
 class BottomLikeTabRepository(
-    retrofit: Retrofit ,
     private val memoryCache: IMemoryCache,
     private val internetHandler: IInternetHandler
 ) : IBottomLikeTabRepository {
+
+    @Inject lateinit var retrofit: Retrofit
 
     private val bottomLikeTabNetworkService: BottomLikeTabNetworkService by lazy {
         retrofit.create(BottomLikeTabNetworkService::class.java)

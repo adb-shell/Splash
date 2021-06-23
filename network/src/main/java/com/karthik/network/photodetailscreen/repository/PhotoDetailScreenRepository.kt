@@ -6,9 +6,12 @@ import com.karthik.network.photodetailscreen.models.PhotoLikeResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import javax.inject.Inject
 
-class PhotoDetailScreenRepository(retrofit: Retrofit) :
+class PhotoDetailScreenRepository() :
     IPhotoDetailScreenRepository {
+
+    @Inject lateinit var retrofit: Retrofit
 
     private val photoService: PhotoDetailsNetworkService by lazy {
         retrofit.create(PhotoDetailsNetworkService::class.java)

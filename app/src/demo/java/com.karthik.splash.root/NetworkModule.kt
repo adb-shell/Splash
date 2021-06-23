@@ -20,8 +20,6 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    private val TIME_OUT = 30L
-
     @Named("BASE_URL")
     @Provides
     fun providesBaseURL() = BuildConfig.SPLASH_BASE_URL

@@ -14,10 +14,9 @@ class BottomLikeTabModule {
 
     @Provides
     fun providesUserServiceNetwork(
-            retrofit: Retrofit, memoryCache: MemoryCache,internetHandler: InternetHandler
+            memoryCache: MemoryCache,internetHandler: InternetHandler
     ): IBottomLikeTabRepository {
         return BottomLikeTabRepository(
-            retrofit = retrofit,
             internetHandler = internetHandler,
             memoryCache = memoryCache
         )

@@ -1,11 +1,10 @@
 package com.karthik.splash.homescreen.bottomsettingstab
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.karthik.network.IMemoryCache
 import com.karthik.splash.models.UserStatus
 import com.karthik.splash.observeForTesting
-import com.karthik.splash.storage.IMemoryCache
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.times
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule

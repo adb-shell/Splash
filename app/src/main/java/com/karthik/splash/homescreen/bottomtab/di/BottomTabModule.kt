@@ -22,11 +22,10 @@ class BottomTabModule {
 
     @Provides
     fun providesNetworkLayer(
-            retrofit: Retrofit,
             cache: MemoryCache,
             internetHandler: InternetHandler
     ): BottomTabRepository {
-        return BottomTabRepository(retrofit, cache, internetHandler)
+        return BottomTabRepository(cache, internetHandler)
     }
 
     @Provides

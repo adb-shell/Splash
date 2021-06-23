@@ -2,11 +2,12 @@ package com.karthik.splash.homescreen
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.karthik.splash.homescreen.network.IHomeScreenOAuthRepository
-import com.karthik.splash.models.oauth.OAuthBody
-import com.karthik.splash.models.oauth.UserAuth
+import com.karthik.network.IMemoryCache
+import com.karthik.network.home.IHomeScreenOAuthRepository
+import com.karthik.network.home.models.HomeScreenLoginState
+import com.karthik.network.home.models.OAuthBody
+import com.karthik.network.home.models.UserAuth
 import com.karthik.splash.observeForTesting
-import com.karthik.splash.storage.IMemoryCache
 import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert

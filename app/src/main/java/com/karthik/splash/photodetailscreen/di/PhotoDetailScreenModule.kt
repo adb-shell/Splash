@@ -14,8 +14,8 @@ import retrofit2.Retrofit
 class PhotoDetailScreenModule {
 
     @Provides
-    fun providesPhotoNetworkLayer(retrofit: Retrofit): IPhotoDetailScreenRepository {
-        return PhotoDetailScreenRepository(retrofit)
+    fun providesPhotoNetworkLayer(): IPhotoDetailScreenRepository {
+        return PhotoDetailScreenRepository()
     }
 
     @Provides
