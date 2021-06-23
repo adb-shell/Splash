@@ -1,7 +1,6 @@
 package com.karthik.network.home.bottomtab.repository
 
 import com.karthik.network.IInternetHandler
-import com.karthik.network.IMemoryCache
 import com.karthik.network.UserOfflineException
 import com.karthik.network.home.bottomtab.IBottomTabRepository
 import com.karthik.network.home.bottomtab.models.PhotoNetworkResponse
@@ -12,7 +11,6 @@ import javax.inject.Inject
 
 //TODO: cache response
 class BottomTabRepository(
-    private val cache: IMemoryCache,
     private val internetHandler: IInternetHandler
 ) : IBottomTabRepository {
 

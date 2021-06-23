@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class PhotoDetailScreenRepository() :
+class PhotoDetailScreenRepository :
     IPhotoDetailScreenRepository {
 
     @Inject lateinit var retrofit: Retrofit
@@ -44,11 +44,9 @@ class PhotoDetailScreenRepository() :
         }
     }
 
-    private fun reportLikeNetworkError(): PhotoLikeResponse.PhotoLikeFailureResponse {
-        return PhotoLikeResponse.PhotoLikeFailureResponse(IllegalStateException())
-    }
+    private fun reportLikeNetworkError(): PhotoLikeResponse.PhotoLikeFailureResponse  =
+        PhotoLikeResponse.PhotoLikeFailureResponse(IllegalStateException())
 
-    private fun reportDetailsNetworkError(): PhotoDetailsResponse.PhotoDetailsFailureResponse {
-        return PhotoDetailsResponse.PhotoDetailsFailureResponse(IllegalStateException())
-    }
+    private fun reportDetailsNetworkError(): PhotoDetailsResponse.PhotoDetailsFailureResponse =
+        PhotoDetailsResponse.PhotoDetailsFailureResponse(IllegalStateException())
 }

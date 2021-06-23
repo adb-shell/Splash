@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.esafirm.rxdownloader.RxDownloader
 import com.karthik.network.home.bottomliketab.models.Photos
-import com.karthik.network.photodetailscreen.models.LikeResponse
 import com.karthik.network.photodetailscreen.models.PhotoDetailInfo
 import com.karthik.network.photodetailscreen.models.PhotoDetailsNetworkState
 import com.karthik.splash.R

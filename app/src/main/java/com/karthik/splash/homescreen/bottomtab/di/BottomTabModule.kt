@@ -4,10 +4,8 @@ import com.karthik.network.home.bottomtab.repository.BottomTabRepository
 import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
 import com.karthik.splash.homescreen.bottomtab.BottomTabViewModelFactory
 import com.karthik.splash.misc.InternetHandler
-import com.karthik.splash.storage.MemoryCache
 import dagger.Module
 import dagger.Provides
-import retrofit2.Retrofit
 
 @Module
 class BottomTabModule {
@@ -22,11 +20,8 @@ class BottomTabModule {
 
     @Provides
     fun providesNetworkLayer(
-            cache: MemoryCache,
             internetHandler: InternetHandler
-    ): BottomTabRepository {
-        return BottomTabRepository(cache, internetHandler)
-    }
+    ): BottomTabRepository = BottomTabRepository(internetHandler)
 
     @Provides
     fun providesBottomTabVFactory(bottomTabRepository: BottomTabRepository) =

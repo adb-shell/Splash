@@ -1,5 +1,6 @@
 package com.karthik.network.di
 
+import com.karthik.network.Constants
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -13,20 +14,21 @@ import javax.inject.Singleton
 @Module
 class NetworkProvider {
 
-    private val TIME_OUT = 30L
-
     @Provides
     @Singleton
     fun providesOkhttpClient(): OkHttpClient.Builder {
         return OkHttpClient.Builder()
-            .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .connectTimeout(Constants.timeOut, TimeUnit.SECONDS)
             .addInterceptor(HttpLoggingInterceptor())
     }
 
     @Provides
     @Singleton
-    fun providesRetrofitClient(@Named("BASE_URL") baseurl:String, okHttpClient: OkHttpClient): Retrofit =
-        Retrofit.Builder().client(okHttpClient).baseUrl(baseurl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    fun providesRetrofitClient(
+        @Named("BASE_URL") baseurl: String,
+        okHttpClient: OkHttpClient
+    ): Retrofit = Retrofit.Builder().client(okHttpClient).baseUrl(baseurl)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
 }

@@ -7,7 +7,6 @@ import com.karthik.splash.misc.InternetHandler
 import com.karthik.splash.storage.MemoryCache
 import dagger.Module
 import dagger.Provides
-import retrofit2.Retrofit
 
 @Module
 class BottomLikeTabModule {

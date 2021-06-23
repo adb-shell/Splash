@@ -1,15 +1,10 @@
 package com.karthik.splash.misc
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.karthik.network.home.bottomliketab.models.Photos
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Utils {
-    enum class ResponseType { NEW, TRENDING, FEATURED, LIKES }
-
+class Utils private constructor() {
     companion object {
         const val UNSPLASHDATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss"
         const val photo = "photo"
