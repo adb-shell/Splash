@@ -1,6 +1,7 @@
 package com.karthik.network.di
 
 import com.karthik.network.Constants
+import com.karthik.network.ServiceProvider
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -31,4 +32,7 @@ class NetworkProvider {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    @Provides
+    @Singleton
+    fun providesNetworkService(retrofit: Retrofit) = ServiceProvider(retrofit = retrofit)
 }

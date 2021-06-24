@@ -1,5 +1,6 @@
 package com.karthik.network.photodetailscreen.repository
 
+import com.karthik.network.ServiceProvider
 import com.karthik.network.photodetailscreen.IPhotoDetailScreenRepository
 import com.karthik.network.photodetailscreen.models.PhotoDetailsResponse
 import com.karthik.network.photodetailscreen.models.PhotoLikeResponse
@@ -8,14 +9,11 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class PhotoDetailScreenRepository :
+class PhotoDetailScreenRepository (serviceProvider: ServiceProvider) :
     IPhotoDetailScreenRepository {
 
-    @Inject lateinit var retrofit: Retrofit
-
-    private val photoService: PhotoDetailsNetworkService by lazy {
-        retrofit.create(PhotoDetailsNetworkService::class.java)
-    }
+    private val photoService: PhotoDetailsNetworkService =
+        serviceProvider.createNetworkService(PhotoDetailsNetworkService::class.java)
 
 
     override suspend fun getPhotoInfo(id: String): PhotoDetailsResponse {

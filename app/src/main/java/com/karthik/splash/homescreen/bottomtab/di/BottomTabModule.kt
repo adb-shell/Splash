@@ -1,5 +1,6 @@
 package com.karthik.splash.homescreen.bottomtab.di
 
+import com.karthik.network.ServiceProvider
 import com.karthik.network.home.bottomtab.repository.BottomTabRepository
 import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
 import com.karthik.splash.homescreen.bottomtab.BottomTabViewModelFactory
@@ -20,8 +21,9 @@ class BottomTabModule {
 
     @Provides
     fun providesNetworkLayer(
-            internetHandler: InternetHandler
-    ): BottomTabRepository = BottomTabRepository(internetHandler)
+            internetHandler: InternetHandler,
+            serviceProvider: ServiceProvider
+    ): BottomTabRepository = BottomTabRepository(internetHandler,serviceProvider)
 
     @Provides
     fun providesBottomTabVFactory(bottomTabRepository: BottomTabRepository) =

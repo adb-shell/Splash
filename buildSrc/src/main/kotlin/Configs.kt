@@ -12,7 +12,7 @@ import Configs.VersionsConfig.junitVersion
 import Configs.VersionsConfig.kotlinCoroutinesAndroidVersion
 import Configs.VersionsConfig.kotlinCoroutinesCore
 import Configs.VersionsConfig.materialVersion
-import Configs.VersionsConfig.nhaarmanMockitoVersion
+import Configs.VersionsConfig.mockitoVersion
 import Configs.VersionsConfig.picassoMaterialVersion
 import Configs.VersionsConfig.picassoVersion
 import Configs.VersionsConfig.retrofitConvVersion
@@ -46,7 +46,7 @@ class Configs {
         const val versionCode = 1
         const val versionName = "0.4"
         const val archCoreTestingVersion = "2.1.0"
-        const val nhaarmanMockitoVersion = "2.2.0"
+        const val mockitoVersion = "3.2.0"
         const val kotlinCoroutinesAndroidVersion = "1.4.2"
         const val kotlinCoroutinesCore = "1.5.0"
     }
@@ -125,6 +125,6 @@ class Configs {
         const val espressoCore = "androidx.test.espresso:espresso-core:${androidXCoreTestVersion}"
         const val roomTesting = "androidx.room:room-testing:${archComponentRoomVersion}"
         const val archCoreTesting = "androidx.arch.core:core-testing:${archCoreTestingVersion}"
-        const val nharmanMockito = "com.nhaarman.mockitokotlin2:mockito-kotlin:${nhaarmanMockitoVersion}"
+        const val mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:${mockitoVersion}"
     }
 }

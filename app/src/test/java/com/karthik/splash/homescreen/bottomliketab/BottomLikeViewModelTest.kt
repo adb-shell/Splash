@@ -3,19 +3,19 @@ package com.karthik.splash.homescreen.bottomliketab
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.karthik.network.IInternetHandler
 import com.karthik.network.IMemoryCache
+import com.karthik.network.ServiceProvider
 import com.karthik.network.home.bottomliketab.repository.BottomLikeTabRepository
 import com.karthik.splash.models.UserStatus
 import com.karthik.splash.observeForTesting
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
-import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
-import retrofit2.Retrofit
+import org.mockito.kotlin.mock
 
 class BottomLikeViewModelTest {
     @Rule
@@ -33,13 +33,15 @@ class BottomLikeViewModelTest {
         memoryCache = mock()
         internetHandler = mock()
         splashDao = mock()
+        val serviceProvider = mock<ServiceProvider>()
         //we will always assume the user is logged in
         Mockito.`when`(memoryCache.isUserLoggedIn()).thenReturn(true)
         Mockito.`when`(memoryCache.getUserName()).thenReturn("abcd")
 
         bottomLikeTabRepository = BottomLikeTabRepository(
                 memoryCache = memoryCache,
-                internetHandler = internetHandler
+                internetHandler = internetHandler,
+                serviceProvider = serviceProvider
         )
 
         bottomlikeViewModel = BottomLikeViewModel(

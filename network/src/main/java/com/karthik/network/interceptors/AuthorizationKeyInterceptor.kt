@@ -1,4 +1,4 @@
-package com.karthik.network.utility
+package com.karthik.network.interceptors
 
 import com.karthik.network.Constants
 import com.karthik.network.IMemoryCache

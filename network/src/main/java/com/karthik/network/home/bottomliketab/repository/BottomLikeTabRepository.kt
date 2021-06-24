@@ -2,6 +2,7 @@ package com.karthik.network.home.bottomliketab.repository
 
 import com.karthik.network.IInternetHandler
 import com.karthik.network.IMemoryCache
+import com.karthik.network.ServiceProvider
 import com.karthik.network.UserOfflineException
 import com.karthik.network.home.bottomliketab.IBottomLikeTabRepository
 import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
@@ -13,14 +14,13 @@ import javax.inject.Inject
 //TODO: cache the response.
 class BottomLikeTabRepository(
     private val memoryCache: IMemoryCache,
-    private val internetHandler: IInternetHandler
+    private val internetHandler: IInternetHandler,
+    private val serviceProvider: ServiceProvider
 ) : IBottomLikeTabRepository {
 
-    @Inject lateinit var retrofit: Retrofit
+    private val bottomLikeTabNetworkService =
+        serviceProvider.createNetworkService(BottomLikeTabNetworkService::class.java)
 
-    private val bottomLikeTabNetworkService: BottomLikeTabNetworkService by lazy {
-        retrofit.create(BottomLikeTabNetworkService::class.java)
-    }
 
     override suspend fun getUserLikedPhotos(): UserLikedPhotoResponse {
         if (internetHandler.isInternetAvailable()) {
