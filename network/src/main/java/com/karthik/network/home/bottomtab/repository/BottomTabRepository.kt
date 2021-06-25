@@ -7,8 +7,6 @@ import com.karthik.network.home.bottomtab.IBottomTabRepository
 import com.karthik.network.home.bottomtab.models.PhotoNetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import javax.inject.Inject
 
 //TODO: cache response
 class BottomTabRepository(

@@ -6,8 +6,6 @@ import com.karthik.network.photodetailscreen.models.PhotoDetailsResponse
 import com.karthik.network.photodetailscreen.models.PhotoLikeResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import javax.inject.Inject
 
 class PhotoDetailScreenRepository (serviceProvider: ServiceProvider) :
     IPhotoDetailScreenRepository {
