@@ -1,7 +1,7 @@
 package com.karthik.splash.root
 
-import com.karthik.network.utility.AuthorizationKeyInterceptor
-import com.karthik.network.utility.UserOfflineInterceptor
+import com.karthik.network.interceptors.AuthorizationKeyInterceptor
+import com.karthik.network.interceptors.UserOfflineInterceptor
 import com.karthik.splash.BuildConfig
 import com.karthik.splash.misc.InternetHandler
 import com.karthik.splash.storage.MemoryCache

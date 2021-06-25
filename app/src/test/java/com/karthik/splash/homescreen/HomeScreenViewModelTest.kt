@@ -8,13 +8,13 @@ import com.karthik.network.home.models.HomeScreenLoginState
 import com.karthik.network.home.models.OAuthBody
 import com.karthik.network.home.models.UserAuth
 import com.karthik.splash.observeForTesting
-import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.kotlin.mock
 
 class HomeScreenViewModelTest {
 

@@ -1,24 +1,21 @@
 package com.karthik.network.home.bottomtab.repository
 
 import com.karthik.network.IInternetHandler
+import com.karthik.network.ServiceProvider
 import com.karthik.network.UserOfflineException
 import com.karthik.network.home.bottomtab.IBottomTabRepository
 import com.karthik.network.home.bottomtab.models.PhotoNetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import javax.inject.Inject
 
 //TODO: cache response
 class BottomTabRepository(
-    private val internetHandler: IInternetHandler
+    private val internetHandler: IInternetHandler,
+    serviceProvider: ServiceProvider
 ) : IBottomTabRepository {
 
-    @Inject lateinit var retrofit: Retrofit
-
-    private val bottomTabNetworkService: BottomTabNetworkService by lazy {
-        retrofit.create(BottomTabNetworkService::class.java)
-    }
+    private val bottomTabNetworkService =
+        serviceProvider.createNetworkService(BottomTabNetworkService::class.java)
 
     companion object {
         const val SORT_BY_LATEST = "latest"

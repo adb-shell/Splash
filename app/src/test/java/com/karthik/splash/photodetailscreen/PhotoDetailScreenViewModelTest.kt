@@ -3,21 +3,9 @@ package com.karthik.splash.photodetailscreen
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.karthik.network.IMemoryCache
 import com.karthik.network.photodetailscreen.IPhotoDetailScreenRepository
-import com.karthik.network.photodetailscreen.models.LikeResponse
-import com.karthik.network.photodetailscreen.models.PhotoDetailInfo
-import com.karthik.network.photodetailscreen.models.PhotoDetailsNetworkState
-import com.karthik.network.photodetailscreen.repository.PhotoDetailScreenRepository
-import com.nhaarman.mockitokotlin2.mock
-import kotlinx.coroutines.runBlocking
-import okhttp3.MediaType
-import okhttp3.ResponseBody
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
-import org.mockito.Mockito
-import retrofit2.Response
-import retrofit2.Retrofit
+import org.mockito.kotlin.mock
 
 class PhotoDetailScreenViewModelTest {
     @Rule

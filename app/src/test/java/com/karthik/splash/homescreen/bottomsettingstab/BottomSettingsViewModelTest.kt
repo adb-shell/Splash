@@ -4,12 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.karthik.network.IMemoryCache
 import com.karthik.splash.models.UserStatus
 import com.karthik.splash.observeForTesting
-import com.nhaarman.mockitokotlin2.mock
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
+import org.mockito.kotlin.mock
 
 class BottomSettingsViewModelTest {
     @Rule

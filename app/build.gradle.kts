@@ -141,7 +141,7 @@ dependencies {
      * Testing depndencies
      */
     testImplementation(Configs.DependenciesConfig.junit)
-    testImplementation(Configs.DependenciesConfig.nharmanMockito)
+    testImplementation(Configs.DependenciesConfig.mockitoKotlin)
     testImplementation(Configs.DependenciesConfig.junitExtension)
     testImplementation(Configs.DependenciesConfig.archCoreTesting)
 

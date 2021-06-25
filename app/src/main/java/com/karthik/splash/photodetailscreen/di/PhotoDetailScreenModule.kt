@@ -2,6 +2,7 @@ package com.karthik.splash.photodetailscreen.di
 
 
 
+import com.karthik.network.ServiceProvider
 import com.karthik.network.photodetailscreen.IPhotoDetailScreenRepository
 import com.karthik.network.photodetailscreen.repository.PhotoDetailScreenRepository
 import com.karthik.splash.photodetailscreen.PhotoDetailScreenViewModelFactory
@@ -13,7 +14,9 @@ import dagger.Provides
 class PhotoDetailScreenModule {
 
     @Provides
-    fun providesPhotoNetworkLayer(): IPhotoDetailScreenRepository = PhotoDetailScreenRepository()
+    fun providesPhotoNetworkLayer(
+        serviceProvider: ServiceProvider
+    ): IPhotoDetailScreenRepository = PhotoDetailScreenRepository(serviceProvider)
 
     @Provides
     fun providesPhotoDetailPresenter(
