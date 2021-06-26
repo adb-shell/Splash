@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 class BottomLikeTabRepository(
     private val memoryCache: IMemoryCache,
     private val internetHandler: IInternetHandler,
-    private val serviceProvider: ServiceProvider
+    serviceProvider: ServiceProvider
 ) : IBottomLikeTabRepository {
 
     private val bottomLikeTabNetworkService =

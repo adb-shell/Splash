@@ -1,15 +1,10 @@
+import com.karthik.Configs
+
 plugins {
     id("java-library")
     id("kotlin")
-    id("kotlin-kapt")
-    id("io.gitlab.arturbosch.detekt").version("1.14.2")
+    id("splash-plugin")
 }
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-
 
 detekt{
     toolVersion = "1.14.2"

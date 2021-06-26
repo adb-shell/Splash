@@ -17,7 +17,5 @@ data class User(
         @SerializedName("total_collections")
         var totalCollection: String? = null,
         @SerializedName("name")
-        var name: String? = null,
-        @SerializedName("links")
-        var links: Links? = null
+        var name: String? = null
 ): Serializable
