@@ -1,9 +1,10 @@
+import com.karthik.Configs
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-android-extensions")
-    id("kotlin-kapt")
-    id("io.gitlab.arturbosch.detekt").version("1.14.2")
+    id("splash-plugin")
 }
 
 android {
@@ -65,11 +66,6 @@ android {
             applicationIdSuffix = Configs.AppConfig.appstoreApplicationSuffix
             versionNameSuffix = Configs.AppConfig.appstoreApllicationVersionNameSuffix
         }
-    }
-
-    compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_8
-        sourceCompatibility = JavaVersion.VERSION_1_8
     }
 
     androidExtensions {

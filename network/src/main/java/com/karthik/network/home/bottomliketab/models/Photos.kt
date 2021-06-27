@@ -23,9 +23,5 @@ data class Photos(
         @SerializedName("user")
         var user: User? = null,
         @SerializedName("urls")
-        var urls: Urls? = null,
-        @SerializedName("categories")
-        var categories: ArrayList<Categories>? = ArrayList(),
-        @SerializedName("links")
-        var links: PhotoLinks? = null
+        var urls: Urls? = null
 )

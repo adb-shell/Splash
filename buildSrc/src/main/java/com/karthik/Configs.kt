@@ -1,25 +1,27 @@
-import Configs.VersionsConfig.androidXBrowserVersion
-import Configs.VersionsConfig.androidXCoreTestVersion
-import Configs.VersionsConfig.androidXVersion
-import Configs.VersionsConfig.archComponentPagingVersion
-import Configs.VersionsConfig.archComponentRoomVersion
-import Configs.VersionsConfig.archCoreTestingVersion
-import Configs.VersionsConfig.archLifecycleComponentVersion
-import Configs.VersionsConfig.chuckerVersion
-import Configs.VersionsConfig.daggerVersion
-import Configs.VersionsConfig.junitExtensionVersion
-import Configs.VersionsConfig.junitVersion
-import Configs.VersionsConfig.kotlinCoroutinesAndroidVersion
-import Configs.VersionsConfig.kotlinCoroutinesCore
-import Configs.VersionsConfig.materialVersion
-import Configs.VersionsConfig.mockitoVersion
-import Configs.VersionsConfig.picassoMaterialVersion
-import Configs.VersionsConfig.picassoVersion
-import Configs.VersionsConfig.retrofitConvVersion
-import Configs.VersionsConfig.retrofitLoggerVersion
-import Configs.VersionsConfig.retrofitVersion
-import Configs.VersionsConfig.rxDownloaderVersion
-import Configs.VersionsConfig.viewModelKtxVersion
+package com.karthik
+
+import com.karthik.Configs.VersionsConfig.androidXBrowserVersion
+import com.karthik.Configs.VersionsConfig.androidXCoreTestVersion
+import com.karthik.Configs.VersionsConfig.androidXVersion
+import com.karthik.Configs.VersionsConfig.archComponentPagingVersion
+import com.karthik.Configs.VersionsConfig.archComponentRoomVersion
+import com.karthik.Configs.VersionsConfig.archCoreTestingVersion
+import com.karthik.Configs.VersionsConfig.archLifecycleComponentVersion
+import com.karthik.Configs.VersionsConfig.chuckerVersion
+import com.karthik.Configs.VersionsConfig.daggerVersion
+import com.karthik.Configs.VersionsConfig.junitExtensionVersion
+import com.karthik.Configs.VersionsConfig.junitVersion
+import com.karthik.Configs.VersionsConfig.kotlinCoroutinesAndroidVersion
+import com.karthik.Configs.VersionsConfig.kotlinCoroutinesCore
+import com.karthik.Configs.VersionsConfig.materialVersion
+import com.karthik.Configs.VersionsConfig.mockitoVersion
+import com.karthik.Configs.VersionsConfig.picassoMaterialVersion
+import com.karthik.Configs.VersionsConfig.picassoVersion
+import com.karthik.Configs.VersionsConfig.retrofitConvVersion
+import com.karthik.Configs.VersionsConfig.retrofitLoggerVersion
+import com.karthik.Configs.VersionsConfig.retrofitVersion
+import com.karthik.Configs.VersionsConfig.rxDownloaderVersion
+import com.karthik.Configs.VersionsConfig.viewModelKtxVersion
 
 class Configs {
     object VersionsConfig {
