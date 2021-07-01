@@ -1,4 +1,5 @@
 import com.karthik.Configs
+import com.karthik.addComposeDependencies
 
 plugins {
     id("com.android.application")
@@ -39,6 +40,22 @@ android {
     lintOptions {
         isAbortOnError = false
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        useIR = true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion = Configs.AppConfig.kotlinVersion
+        kotlinCompilerExtensionVersion = "1.0.0-beta09"
+    }
+
+
 
     buildTypes {
         getByName("debug") {
@@ -145,5 +162,10 @@ dependencies {
     androidTestImplementation(Configs.DependenciesConfig.espressoCore)
     androidTestImplementation(Configs.DependenciesConfig.roomTesting)
     androidTestImplementation(Configs.DependenciesConfig.archCoreTesting)
+
+    /**
+     * compose dependencies
+     */
+    addComposeDependencies()
 }
 

@@ -8,6 +8,8 @@ import com.karthik.Configs.VersionsConfig.archComponentRoomVersion
 import com.karthik.Configs.VersionsConfig.archCoreTestingVersion
 import com.karthik.Configs.VersionsConfig.archLifecycleComponentVersion
 import com.karthik.Configs.VersionsConfig.chuckerVersion
+import com.karthik.Configs.VersionsConfig.composeActivityVersion
+import com.karthik.Configs.VersionsConfig.composeVersion
 import com.karthik.Configs.VersionsConfig.daggerVersion
 import com.karthik.Configs.VersionsConfig.junitExtensionVersion
 import com.karthik.Configs.VersionsConfig.junitVersion
@@ -51,6 +53,9 @@ class Configs {
         const val mockitoVersion = "3.2.0"
         const val kotlinCoroutinesAndroidVersion = "1.4.2"
         const val kotlinCoroutinesCore = "1.5.0"
+
+        const val composeVersion = "1.0.0-beta09"
+        const val composeActivityVersion = "1.3.0-beta02"
     }
 
     object SplashUrlConfig {
@@ -128,5 +133,16 @@ class Configs {
         const val roomTesting = "androidx.room:room-testing:${archComponentRoomVersion}"
         const val archCoreTesting = "androidx.arch.core:core-testing:${archCoreTestingVersion}"
         const val mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:${mockitoVersion}"
+    }
+
+    object ComposeConfig{
+        const val composeUi = "androidx.compose.ui:ui:${composeVersion}"
+        const val composeFoundation = "androidx.compose.foundation:foundation:${composeVersion}"
+        const val composeMaterial = "androidx.compose.material:material:${composeVersion}"
+        const val composeMaterialIcons = "androidx.compose.material:material-icons-core:${composeVersion}"
+        const val composeMaterialIconsExtended = "androidx.compose.material:material-icons-extended:${composeVersion}"
+        const val composeLiveDataSupport = "androidx.compose.runtime:runtime-livedata:${composeVersion}"
+        const val composeActivity = "androidx.activity:activity-compose:${composeActivityVersion}"
+        const val composeUiTooling = "androidx.compose.ui:ui-tooling:${composeVersion}"
     }
 }
