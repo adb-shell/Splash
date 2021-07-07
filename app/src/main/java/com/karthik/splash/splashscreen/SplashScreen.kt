@@ -25,6 +25,7 @@ import com.karthik.splash.splashscreen.di.SplashScreenComponent
 import com.karthik.splash.splashscreen.di.SplashScreenModule
 import com.karthik.splash.ui.ActivityMargin
 import com.karthik.splash.ui.SplashTheme
+import com.karthik.splash.ui.splashBrandLayout
 import javax.inject.Inject
 
 class SplashScreen : AppCompatActivity() {
@@ -58,24 +59,32 @@ class SplashScreen : AppCompatActivity() {
 
         //initial splash screen state
 
-        val state = viewModel.splashscreenstate.observeAsState(initial = SplashScreenState.SplashScreen)
+        val state =
+            viewModel.splashscreenstate.observeAsState(initial = SplashScreenState.SplashScreen)
 
         renderBasedOnState(state)
     }
 
     @Composable
     private fun renderBasedOnState(state: State<SplashScreenState>) {
+
+        val modifier = Modifier
+            .padding(ActivityMargin)
+            .fillMaxSize()
+
         when (state.value) {
             SplashScreenState.NoInternetScreen -> {
-                displayContent(
+                splashBrandLayout(
                     imageResourceId = R.drawable.no_internet,
-                    content = getString(R.string.no_internet)
+                    content = getString(R.string.no_internet),
+                    modifier = modifier
                 )
             }
             SplashScreenState.SplashScreen -> {
-                displayContent(
+                splashBrandLayout(
                     imageResourceId = R.drawable.cold_image,
-                    content = getString(R.string.app_name)
+                    content = getString(R.string.app_name),
+                    modifier = modifier
                 )
             }
             SplashScreenState.FreshDashBoardScreen -> {
@@ -86,34 +95,6 @@ class SplashScreen : AppCompatActivity() {
                 showDashBoardScreen(shouldShowCache = true)
             }
         }
-    }
-
-    @Composable
-    private fun displayContent(imageResourceId: Int, content: String) {
-        Column(
-            modifier = Modifier
-                .padding(ActivityMargin)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                painter = painterResource(id = imageResourceId),
-                contentDescription = content
-            )
-            Text(
-                text = content,
-                style = MaterialTheme.typography.h6.copy(
-                    fontWeight = FontWeight.Bold
-                )
-            )
-        }
-    }
-
-    @Preview
-    @Composable
-    fun SplashScreenContentPreview(){
-        displayContent(imageResourceId = R.drawable.cold_image,"Splash")
     }
 
     override fun onDestroy() {

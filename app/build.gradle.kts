@@ -36,7 +36,6 @@ android {
                 Configs.SplashUrlConfig.splashLoginCallbackValue)
     }
 
-    //TODO: fix lint issues.
     lintOptions {
         isAbortOnError = false
     }
