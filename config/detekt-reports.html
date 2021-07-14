@@ -72,11 +72,11 @@ pre {
 
 <div>
   <ul>
-    <li>30 number of properties</li>
-    <li>38 number of functions</li>
-    <li>56 number of classes</li>
-    <li>16 number of packages</li>
-    <li>41 number of kt files</li>
+    <li>167 number of properties</li>
+    <li>179 number of functions</li>
+    <li>75 number of classes</li>
+    <li>24 number of packages</li>
+    <li>68 number of kt files</li>
   </ul>
 </div>
 
@@ -85,25 +85,271 @@ pre {
 
 <div>
   <ul>
-    <li>919 lines of code (loc)</li>
-    <li>670 source lines of code (sloc)</li>
-    <li>444 logical lines of code (lloc)</li>
-    <li>57 comment lines of code (cloc)</li>
-    <li>73 cyclomatic complexity (mcc)</li>
-    <li>23 cognitive complexity</li>
-    <li>0 number of total code smells</li>
-    <li>8% comment source ratio</li>
-    <li>164 mcc per 1,000 lloc</li>
-    <li>0 code smells per 1,000 lloc</li>
+    <li>2,809 lines of code (loc)</li>
+    <li>2,342 source lines of code (sloc)</li>
+    <li>1,502 logical lines of code (lloc)</li>
+    <li>70 comment lines of code (cloc)</li>
+    <li>263 cyclomatic complexity (mcc)</li>
+    <li>66 cognitive complexity</li>
+    <li>21 number of total code smells</li>
+    <li>2% comment source ratio</li>
+    <li>175 mcc per 1,000 lloc</li>
+    <li>13 code smells per 1,000 lloc</li>
   </ul>
 </div>
 
 
 <h2>Findings</h2>
-<div>Total: 0</div>
+<div>Total: 21
+  <h3>complexity: 2</h3>
+  <details id="LargeClass" open="open">
+    <summary class="rule-container"><span class="rule">LargeClass: 1 </span><span class="description">One class should have one responsibility. Large classes tend to handle many things at once. Split up large classes into smaller classes that are easier to understand.</span></summary>
+    <ul>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/aboutscreen/AboutScreen.kt:25:7</span><span class="message">Class AboutScreen is too large. Consider splitting it into smaller pieces.</span>
+        <pre><code><span class="lineno">  22 </span>import com.karthik.splash.ui.*
+<span class="lineno">  23 </span>import java.util.*
+<span class="lineno">  24 </span>
+<span class="lineno">  25 </span>class <span class="error">AboutScreen</span> : AppCompatActivity() {
+<span class="lineno">  26 </span>
+<span class="lineno">  27 </span>    override fun onCreate(savedInstanceState: Bundle?) {
+<span class="lineno">  28 </span>        super.onCreate(savedInstanceState)
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="LongMethod" open="open">
+    <summary class="rule-container"><span class="rule">LongMethod: 1 </span><span class="description">One method should have one responsibility. Long methods tend to handle many things at once. Prefer smaller methods to make them easier to understand.</span></summary>
+    <ul>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/aboutscreen/AboutScreen.kt:41:9</span><span class="message">The function renderTopBar is too long (53). The maximum length is 40.</span>
+        <pre><code><span class="lineno">  38 </span>    }
+<span class="lineno">  39 </span>
+<span class="lineno">  40 </span>    @Composable
+<span class="lineno">  41 </span>    fun <span class="error">renderTopBar</span>() {
+<span class="lineno">  42 </span>        Surface(
+<span class="lineno">  43 </span>            modifier = Modifier
+<span class="lineno">  44 </span>                .fillMaxWidth(),
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <h3>naming: 1</h3>
+  <details id="MemberNameEqualsClassName" open="open">
+    <summary class="rule-container"><span class="rule">MemberNameEqualsClassName: 1 </span><span class="description">A member should not be given the same name as its parent class or object.</span></summary>
+    <ul>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/splashscreen/SplashScreen.kt:57:5</span><span class="message">A member is named after the class. This might result in confusion. Either rename the member or change it to a constructor.</span>
+        <pre><code><span class="lineno">  54 </span>        }
+<span class="lineno">  55 </span>    }
+<span class="lineno">  56 </span>
+<span class="lineno">  57 </span>    <span class="error">@Composable</span>
+<span class="lineno">  58 </span><span class="error">    fun splashScreen(viewModel: SplashScreenViewModel) {</span>
+<span class="lineno">  59 </span><span class="error"></span>
+<span class="lineno">  60 </span><span class="error">        //initial splash screen state</span>
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <h3>style: 18</h3>
+  <details id="MagicNumber" open="open">
+    <summary class="rule-container"><span class="rule">MagicNumber: 8 </span><span class="description">Report magic numbers. Magic number is a numeric literal that is not defined as a constant and hence it's unclear what the purpose of this number is. It's better to declare such numbers as constants and give them a proper name. By default, -1, 0, 1, and 2 are not considered to be magic numbers.</span></summary>
+    <ul>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/ui/Color.kt:8:34</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">   5 </span>import androidx.compose.ui.graphics.Color
+<span class="lineno">   6 </span>
+<span class="lineno">   7 </span>
+<span class="lineno">   8 </span>internal val blueGrey400 = Color(<span class="error">0xff455a64</span>)
+<span class="lineno">   9 </span>internal val blueGrey600 = Color(0xff1b3039)
+<span class="lineno">  10 </span>internal val cyan200 = Color(0xffA2D4EB)
+<span class="lineno">  11 </span>internal val cyan400 = Color(0xff7FA6B8)
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/ui/Color.kt:9:34</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">   6 </span>
+<span class="lineno">   7 </span>
+<span class="lineno">   8 </span>internal val blueGrey400 = Color(0xff455a64)
+<span class="lineno">   9 </span>internal val blueGrey600 = Color(<span class="error">0xff1b3039</span>)
+<span class="lineno">  10 </span>internal val cyan200 = Color(0xffA2D4EB)
+<span class="lineno">  11 </span>internal val cyan400 = Color(0xff7FA6B8)
+<span class="lineno">  12 </span>
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/ui/Color.kt:10:30</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">   7 </span>
+<span class="lineno">   8 </span>internal val blueGrey400 = Color(0xff455a64)
+<span class="lineno">   9 </span>internal val blueGrey600 = Color(0xff1b3039)
+<span class="lineno">  10 </span>internal val cyan200 = Color(<span class="error">0xffA2D4EB</span>)
+<span class="lineno">  11 </span>internal val cyan400 = Color(0xff7FA6B8)
+<span class="lineno">  12 </span>
+<span class="lineno">  13 </span>
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/ui/Color.kt:11:30</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">   8 </span>internal val blueGrey400 = Color(0xff455a64)
+<span class="lineno">   9 </span>internal val blueGrey600 = Color(0xff1b3039)
+<span class="lineno">  10 </span>internal val cyan200 = Color(0xffA2D4EB)
+<span class="lineno">  11 </span>internal val cyan400 = Color(<span class="error">0xff7FA6B8</span>)
+<span class="lineno">  12 </span>
+<span class="lineno">  13 </span>
+<span class="lineno">  14 </span>
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/ui/Dimensions.kt:5:31</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.compose.ui.unit.dp
+<span class="lineno">   4 </span>
+<span class="lineno">   5 </span>internal val ActivityMargin = <span class="error">16</span>.dp
+<span class="lineno">   6 </span>internal val smallSpacerHeight = 5.dp
+<span class="lineno">   7 </span>internal val largeSpacerHeight = 16.dp
+<span class="lineno">   8 </span>internal val topBarHeight = 10.dp
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/ui/Dimensions.kt:6:34</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">   3 </span>import androidx.compose.ui.unit.dp
+<span class="lineno">   4 </span>
+<span class="lineno">   5 </span>internal val ActivityMargin = 16.dp
+<span class="lineno">   6 </span>internal val smallSpacerHeight = <span class="error">5</span>.dp
+<span class="lineno">   7 </span>internal val largeSpacerHeight = 16.dp
+<span class="lineno">   8 </span>internal val topBarHeight = 10.dp
+<span class="lineno">   9 </span>
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/ui/Dimensions.kt:7:34</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">   4 </span>
+<span class="lineno">   5 </span>internal val ActivityMargin = 16.dp
+<span class="lineno">   6 </span>internal val smallSpacerHeight = 5.dp
+<span class="lineno">   7 </span>internal val largeSpacerHeight = <span class="error">16</span>.dp
+<span class="lineno">   8 </span>internal val topBarHeight = 10.dp
+<span class="lineno">   9 </span>
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/ui/Dimensions.kt:8:29</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">   5 </span>internal val ActivityMargin = 16.dp
+<span class="lineno">   6 </span>internal val smallSpacerHeight = 5.dp
+<span class="lineno">   7 </span>internal val largeSpacerHeight = 16.dp
+<span class="lineno">   8 </span>internal val topBarHeight = <span class="error">10</span>.dp
+<span class="lineno">   9 </span>
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="MaxLineLength" open="open">
+    <summary class="rule-container"><span class="rule">MaxLineLength: 1 </span><span class="description">Line detected that is longer than the defined maximum line length in the code style.</span></summary>
+    <ul>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/aboutscreen/AboutScreen.kt:46:13</span><span class="message">Line detected that is longer than the defined maximum line length in the code style.</span>
+        <pre><code><span class="lineno">  43 </span>            modifier = Modifier
+<span class="lineno">  44 </span>                .fillMaxWidth(),
+<span class="lineno">  45 </span>            elevation = topBarHeight,
+<span class="lineno">  46 </span>            <span class="error">color = if (isSystemInDarkTheme()) MaterialTheme.colors.surface else MaterialTheme.colors.primaryVariant</span>,
+<span class="lineno">  47 </span>            contentColor = Color.White
+<span class="lineno">  48 </span>        ) {
+<span class="lineno">  49 </span>            Column(
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="UnusedImports" open="open">
+    <summary class="rule-container"><span class="rule">UnusedImports: 7 </span><span class="description">Unused Imports are dead code and should be removed.</span></summary>
+    <ul>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/splashscreen/SplashScreen.kt:8:1</span><span class="message">The import 'androidx.compose.foundation.Image' is unused.</span>
+        <pre><code><span class="lineno">   5 </span>import android.os.Bundle
+<span class="lineno">   6 </span>import androidx.activity.compose.setContent
+<span class="lineno">   7 </span>import androidx.appcompat.app.AppCompatActivity
+<span class="lineno">   8 </span><span class="error">import androidx.compose.foundation.Image</span>
+<span class="lineno">   9 </span>import androidx.compose.foundation.layout.*
+<span class="lineno">  10 </span>import androidx.compose.material.MaterialTheme
+<span class="lineno">  11 </span>import androidx.compose.material.Text
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/splashscreen/SplashScreen.kt:10:1</span><span class="message">The import 'androidx.compose.material.MaterialTheme' is unused.</span>
+        <pre><code><span class="lineno">   7 </span>import androidx.appcompat.app.AppCompatActivity
+<span class="lineno">   8 </span>import androidx.compose.foundation.Image
+<span class="lineno">   9 </span>import androidx.compose.foundation.layout.*
+<span class="lineno">  10 </span><span class="error">import androidx.compose.material.MaterialTheme</span>
+<span class="lineno">  11 </span>import androidx.compose.material.Text
+<span class="lineno">  12 </span>import androidx.compose.runtime.Composable
+<span class="lineno">  13 </span>import androidx.compose.runtime.State
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/splashscreen/SplashScreen.kt:11:1</span><span class="message">The import 'androidx.compose.material.Text' is unused.</span>
+        <pre><code><span class="lineno">   8 </span>import androidx.compose.foundation.Image
+<span class="lineno">   9 </span>import androidx.compose.foundation.layout.*
+<span class="lineno">  10 </span>import androidx.compose.material.MaterialTheme
+<span class="lineno">  11 </span><span class="error">import androidx.compose.material.Text</span>
+<span class="lineno">  12 </span>import androidx.compose.runtime.Composable
+<span class="lineno">  13 </span>import androidx.compose.runtime.State
+<span class="lineno">  14 </span>import androidx.compose.runtime.livedata.observeAsState
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/splashscreen/SplashScreen.kt:15:1</span><span class="message">The import 'androidx.compose.ui.Alignment' is unused.</span>
+        <pre><code><span class="lineno">  12 </span>import androidx.compose.runtime.Composable
+<span class="lineno">  13 </span>import androidx.compose.runtime.State
+<span class="lineno">  14 </span>import androidx.compose.runtime.livedata.observeAsState
+<span class="lineno">  15 </span><span class="error">import androidx.compose.ui.Alignment</span>
+<span class="lineno">  16 </span>import androidx.compose.ui.Modifier
+<span class="lineno">  17 </span>import androidx.compose.ui.res.painterResource
+<span class="lineno">  18 </span>import androidx.compose.ui.text.font.FontWeight
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/splashscreen/SplashScreen.kt:17:1</span><span class="message">The import 'androidx.compose.ui.res.painterResource' is unused.</span>
+        <pre><code><span class="lineno">  14 </span>import androidx.compose.runtime.livedata.observeAsState
+<span class="lineno">  15 </span>import androidx.compose.ui.Alignment
+<span class="lineno">  16 </span>import androidx.compose.ui.Modifier
+<span class="lineno">  17 </span><span class="error">import androidx.compose.ui.res.painterResource</span>
+<span class="lineno">  18 </span>import androidx.compose.ui.text.font.FontWeight
+<span class="lineno">  19 </span>import androidx.compose.ui.tooling.preview.Preview
+<span class="lineno">  20 </span>import androidx.lifecycle.ViewModelProvider
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/splashscreen/SplashScreen.kt:18:1</span><span class="message">The import 'androidx.compose.ui.text.font.FontWeight' is unused.</span>
+        <pre><code><span class="lineno">  15 </span>import androidx.compose.ui.Alignment
+<span class="lineno">  16 </span>import androidx.compose.ui.Modifier
+<span class="lineno">  17 </span>import androidx.compose.ui.res.painterResource
+<span class="lineno">  18 </span><span class="error">import androidx.compose.ui.text.font.FontWeight</span>
+<span class="lineno">  19 </span>import androidx.compose.ui.tooling.preview.Preview
+<span class="lineno">  20 </span>import androidx.lifecycle.ViewModelProvider
+<span class="lineno">  21 </span>import com.karthik.splash.R
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/splashscreen/SplashScreen.kt:19:1</span><span class="message">The import 'androidx.compose.ui.tooling.preview.Preview' is unused.</span>
+        <pre><code><span class="lineno">  16 </span>import androidx.compose.ui.Modifier
+<span class="lineno">  17 </span>import androidx.compose.ui.res.painterResource
+<span class="lineno">  18 </span>import androidx.compose.ui.text.font.FontWeight
+<span class="lineno">  19 </span><span class="error">import androidx.compose.ui.tooling.preview.Preview</span>
+<span class="lineno">  20 </span>import androidx.lifecycle.ViewModelProvider
+<span class="lineno">  21 </span>import com.karthik.splash.R
+<span class="lineno">  22 </span>import com.karthik.splash.homescreen.HomeScreen
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="UnusedPrivateMember" open="open">
+    <summary class="rule-container"><span class="rule">UnusedPrivateMember: 2 </span><span class="description">Private member is unused.</span></summary>
+    <ul>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/aboutscreen/AboutScreen.kt:141:5</span><span class="message">Private function previewTopbar is unused.</span>
+        <pre><code><span class="lineno"> 138 </span>        Color.White.copy(alpha = 0.08f)
+<span class="lineno"> 139 </span>    } else MaterialTheme.colors.onSurface.copy(alpha = 0.08f)
+<span class="lineno"> 140 </span>
+<span class="lineno"> 141 </span>    <span class="error">@Preview</span>
+<span class="lineno"> 142 </span><span class="error">    @Composable</span>
+<span class="lineno"> 143 </span><span class="error">    private fun previewTopbar() {</span>
+<span class="lineno"> 144 </span><span class="error">        SplashTheme {</span>
+</code></pre>
+      </li>
+      <li><span class="location">/Users/karthikrk/Desktop/splash/Splash/app/src/main/java/com/karthik/splash/aboutscreen/AboutScreen.kt:150:5</span><span class="message">Private function previewRowItem is unused.</span>
+        <pre><code><span class="lineno"> 147 </span>    }
+<span class="lineno"> 148 </span>
+<span class="lineno"> 149 </span>
+<span class="lineno"> 150 </span>    <span class="error">@Composable</span>
+<span class="lineno"> 151 </span><span class="error">    @Preview(</span>
+<span class="lineno"> 152 </span><span class="error">        showBackground = true,</span>
+<span class="lineno"> 153 </span><span class="error">        backgroundColor = 0XFFFFFF</span>
+</code></pre>
+      </li>
+    </ul>
+  </details>
+</div>
 
 
-generated with <a href="https://arturbosch.github.io/detekt">detekt version 1.14.2</a> on 2021-06-26 04:49:46 UTC.
+generated with <a href="https://arturbosch.github.io/detekt">detekt version 1.14.2</a> on 2021-07-09 11:15:49 UTC.
 
 </body>
 </html>

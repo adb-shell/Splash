@@ -42,14 +42,14 @@ class AboutScreen : AppCompatActivity() {
         Surface(
             modifier = Modifier
                 .fillMaxWidth(),
-            elevation = topBarHeight,
+            elevation = tenDp,
             color = if (isSystemInDarkTheme()) MaterialTheme.colors.surface else MaterialTheme.colors.primaryVariant,
             contentColor = Color.White
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(ActivityMargin),
+                    .padding(sixteenDp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 splashBrandLayout(
@@ -61,7 +61,7 @@ class AboutScreen : AppCompatActivity() {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(smallSpacerHeight)
+                        .height(fiveDp)
                 )
                 Text(
                     text = stringResource(id = R.string.version),
@@ -70,7 +70,7 @@ class AboutScreen : AppCompatActivity() {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(largeSpacerHeight)
+                        .height(sixteenDp)
                 )
                 Text(
                     text = stringResource(id = R.string.unsplash_powered),
@@ -81,7 +81,7 @@ class AboutScreen : AppCompatActivity() {
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(smallSpacerHeight)
+                        .height(fiveDp)
                 )
                 Text(
                     text = stringResource(id = R.string.unsplash_intro_text),
@@ -112,9 +112,9 @@ class AboutScreen : AppCompatActivity() {
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(
-                        top = ActivityMargin,
-                        start = ActivityMargin,
-                        end = ActivityMargin
+                        top = sixteenDp,
+                        start = sixteenDp,
+                        end = sixteenDp
                     ),
                 horizontalAlignment = Alignment.Start
             ) {
@@ -125,18 +125,13 @@ class AboutScreen : AppCompatActivity() {
                 )
                 Divider(
                     modifier = Modifier.padding(
-                        vertical = ActivityMargin
+                        vertical = sixteenDp
                     ),
                     color = getDividerColor()
                 )
             }
         }
     }
-
-    @Composable
-    private fun getDividerColor() = if (isSystemInDarkTheme()) {
-        Color.White.copy(alpha = 0.08f)
-    } else MaterialTheme.colors.onSurface.copy(alpha = 0.08f)
 
     @Preview
     @Composable

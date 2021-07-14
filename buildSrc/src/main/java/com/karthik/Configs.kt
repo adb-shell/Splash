@@ -1,5 +1,6 @@
 package com.karthik
 
+import com.karthik.Configs.VersionsConfig.androidXAppCompatVersion
 import com.karthik.Configs.VersionsConfig.androidXBrowserVersion
 import com.karthik.Configs.VersionsConfig.androidXCoreTestVersion
 import com.karthik.Configs.VersionsConfig.androidXVersion
@@ -42,6 +43,7 @@ class Configs {
         const val archComponentPagingVersion = "2.1.1"
         const val viewModelKtxVersion = "2.2.0"
         const val androidXVersion = "1.1.0"
+        const val androidXAppCompatVersion = "1.3.0-beta01"
         const val androidXBrowserVersion = "1.2.0"
         const val androidXCoreTestVersion = "3.1.0"
         const val materialVersion = "1.1.0"
@@ -91,7 +93,7 @@ class Configs {
     }
 
     object DependenciesConfig {
-        const val androidXAppcompat = "androidx.appcompat:appcompat:${androidXVersion}"
+        const val androidXAppcompat = "androidx.appcompat:appcompat:${androidXAppCompatVersion}"
         const val googleMaterial = "com.google.android.material:material:${materialVersion}"
         const val androidXBrowser = "androidx.browser:browser:${androidXBrowserVersion}"
         const val recyclerView = "androidx.recyclerview:recyclerview:${androidXVersion}"
