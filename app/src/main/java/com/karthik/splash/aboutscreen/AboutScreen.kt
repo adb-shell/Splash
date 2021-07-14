@@ -7,7 +7,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,7 +22,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.karthik.splash.R
 import com.karthik.splash.models.library.Library
-import com.karthik.splash.ui.*
+import com.karthik.splash.ui.Dimensions.Companion.fiveDp
+import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
+import com.karthik.splash.ui.Dimensions.Companion.tenDp
+import com.karthik.splash.ui.SplashTheme
+import com.karthik.splash.ui.getDividerColor
+import com.karthik.splash.ui.splashBrandLayout
 import java.util.*
 
 class AboutScreen : AppCompatActivity() {
@@ -43,7 +51,8 @@ class AboutScreen : AppCompatActivity() {
             modifier = Modifier
                 .fillMaxWidth(),
             elevation = tenDp,
-            color = if (isSystemInDarkTheme()) MaterialTheme.colors.surface else MaterialTheme.colors.primaryVariant,
+            color = if (isSystemInDarkTheme())
+                MaterialTheme.colors.surface else MaterialTheme.colors.primaryVariant,
             contentColor = Color.White
         ) {
             Column(
@@ -58,38 +67,43 @@ class AboutScreen : AppCompatActivity() {
                     modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically),
                     colorFilter = ColorFilter.tint(color = Color.White)
                 )
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(fiveDp)
-                )
-                Text(
-                    text = stringResource(id = R.string.version),
-                    style = MaterialTheme.typography.caption
-                )
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(sixteenDp)
-                )
-                Text(
-                    text = stringResource(id = R.string.unsplash_powered),
-                    style = MaterialTheme.typography.h6.copy(
-                        fontWeight = FontWeight.Bold
-                    )
-                )
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(fiveDp)
-                )
-                Text(
-                    text = stringResource(id = R.string.unsplash_intro_text),
-                    style = MaterialTheme.typography.caption,
-                    textAlign = TextAlign.Center
-                )
+                topBarLayout()
             }
         }
+    }
+
+    @Composable
+    private fun topBarLayout() {
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(fiveDp)
+        )
+        Text(
+            text = stringResource(id = R.string.version),
+            style = MaterialTheme.typography.caption
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(sixteenDp)
+        )
+        Text(
+            text = stringResource(id = R.string.unsplash_powered),
+            style = MaterialTheme.typography.h6.copy(
+                fontWeight = FontWeight.Bold
+            )
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(fiveDp)
+        )
+        Text(
+            text = stringResource(id = R.string.unsplash_intro_text),
+            style = MaterialTheme.typography.caption,
+            textAlign = TextAlign.Center
+        )
     }
 
     @Composable
@@ -135,7 +149,7 @@ class AboutScreen : AppCompatActivity() {
 
     @Preview
     @Composable
-    private fun previewTopbar() {
+    fun previewTopbar() {
         SplashTheme {
             renderTopBar()
         }
@@ -147,7 +161,7 @@ class AboutScreen : AppCompatActivity() {
         showBackground = true,
         backgroundColor = 0XFFFFFF
     )
-    private fun previewRowItem() {
+    fun previewRowItem() {
         Column {
             renderRow(library = getLibraries()[0])
         }

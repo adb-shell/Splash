@@ -1,13 +1,11 @@
 package com.karthik.splash.homescreen.bottomsettingstab
 
 import androidx.compose.runtime.State
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.karthik.network.IMemoryCache
-import com.karthik.splash.R
 import com.karthik.splash.models.UserStatus
 
 @Suppress("UNCHECKED_CAST")
@@ -34,12 +32,9 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
     }
 
     fun getUserName(): String? {
-        return when (userStatus.value) {
-            is UserStatus.UserLoggedIn -> {
-                (userStatus.value as UserStatus.UserLoggedIn).username
-            }
-            else -> null
-        }
+        return if (userStatus.value is UserStatus.UserLoggedIn) {
+            (userStatus.value as UserStatus.UserLoggedIn).username
+        } else null
     }
 
     fun onClick(settingsType: SettingsType) {

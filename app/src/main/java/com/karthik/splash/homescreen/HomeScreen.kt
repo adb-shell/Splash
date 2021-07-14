@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.karthik.network.home.models.HomeScreenLoginState
@@ -71,6 +72,7 @@ class HomeScreen : AppCompatActivity(), BottomNavigationView.OnNavigationItemSel
         homeScreenComponent = null
     }
 
+    @ExperimentalMaterialApi
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == navigation.selectedItemId)
             return true
@@ -96,6 +98,7 @@ class HomeScreen : AppCompatActivity(), BottomNavigationView.OnNavigationItemSel
         transaction.commit()
     }
 
+    @ExperimentalMaterialApi
     private fun inflateSettings() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, BottomSettingsTabFragment.getInstance())

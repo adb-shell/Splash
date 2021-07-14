@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.karthik.splash.R
+import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
 
 
 @Preview

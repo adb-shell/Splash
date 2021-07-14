@@ -5,7 +5,8 @@ package com.karthik.splash.splashscreen
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
@@ -16,7 +17,7 @@ import com.karthik.splash.homescreen.HomeScreen
 import com.karthik.splash.root.SplashApp
 import com.karthik.splash.splashscreen.di.SplashScreenComponent
 import com.karthik.splash.splashscreen.di.SplashScreenModule
-import com.karthik.splash.ui.sixteenDp
+import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
 import com.karthik.splash.ui.SplashTheme
 import com.karthik.splash.ui.splashBrandLayout
 import javax.inject.Inject
@@ -40,22 +41,12 @@ class SplashScreen : AppCompatActivity() {
 
         setContent {
             SplashTheme{
-                splashScreen(
-                    viewModel = splashscreenviewmodule
-                )
+                val state =
+                    splashscreenviewmodule.splashscreenstate
+                        .observeAsState(initial = SplashScreenState.SplashScreen)
+                renderBasedOnState(state)
             }
         }
-    }
-
-    @Composable
-    fun splashScreen(viewModel: SplashScreenViewModel) {
-
-        //initial splash screen state
-
-        val state =
-            viewModel.splashscreenstate.observeAsState(initial = SplashScreenState.SplashScreen)
-
-        renderBasedOnState(state)
     }
 
     @Composable

@@ -1,6 +1,7 @@
 package com.karthik.splash.root
 
 
+import androidx.compose.material.ExperimentalMaterialApi
 import com.karthik.network.di.NetworkProvider
 import com.karthik.splash.homescreen.di.HomeScreenComponent
 import com.karthik.splash.homescreen.di.HomeScreenModule
@@ -26,6 +27,7 @@ interface SplashAppComponent {
     fun plus(homeScreenModule: HomeScreenModule): HomeScreenComponent
     fun plus(homeTabFeedsModule: BottomTabModule): BottomTabComponent
     fun plus(likeTabFeedsModule: BottomLikeTabModule): BottomLikeTabComponent
+    @ExperimentalMaterialApi
     fun plus(settingsTabFeedsModule: BottomSettingsTabModule): BottomSettingsTabComponent
     fun plus(photoDetailModule: PhotoDetailScreenModule): PhotoDetailScreenComponent
 }

@@ -33,6 +33,10 @@ import com.karthik.splash.homescreen.bottomsettingstab.di.BottomSettingsTabCompo
 import com.karthik.splash.homescreen.bottomsettingstab.di.BottomSettingsTabModule
 import com.karthik.splash.root.SplashApp
 import com.karthik.splash.ui.*
+import com.karthik.splash.ui.Dimensions.Companion.eightDp
+import com.karthik.splash.ui.Dimensions.Companion.fiveDp
+import com.karthik.splash.ui.Dimensions.Companion.fourDp
+import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
 import javax.inject.Inject
 
 @ExperimentalMaterialApi
@@ -218,13 +222,13 @@ class BottomSettingsTabFragment : Fragment() {
 
     @Preview
     @Composable
-    private fun previewRow(){
+    fun previewRow(){
         renderRow(settingsType = SettingsType.About, {})
     }
 
     @Preview
     @Composable
-    private fun previewRenderUI() {
+    fun previewRenderUI() {
         val dummyRowsData = mutableListOf(
             SettingsType.NotLoggedIn,
             SettingsType.About,
