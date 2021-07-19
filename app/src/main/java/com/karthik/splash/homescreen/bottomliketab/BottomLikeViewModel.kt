@@ -5,7 +5,6 @@ import com.karthik.network.IMemoryCache
 import com.karthik.network.home.bottomliketab.IBottomLikeTabRepository
 import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
 import com.karthik.splash.BuildConfig
-import com.karthik.splash.models.ScreenStatus
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")

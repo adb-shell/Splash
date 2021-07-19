@@ -29,7 +29,6 @@ import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabComponent
 import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabModule
-import com.karthik.splash.models.ScreenStatus
 import com.karthik.splash.root.SplashApp
 import com.karthik.splash.ui.*
 import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
@@ -96,9 +95,7 @@ class BottomLikeTabFragment : Fragment() {
                     }
                 }
                 is ScreenStatus.ShowProgress -> {
-                    Box(contentAlignment = Alignment.Center){
-                        CircularProgressIndicator()
-                    }
+                    ProgressIndicator()
                 }
                 is ScreenStatus.ErrorFetchingPhotos -> {
                     renderErrorState()

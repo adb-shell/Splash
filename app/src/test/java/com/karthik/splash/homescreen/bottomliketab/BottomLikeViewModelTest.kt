@@ -5,7 +5,6 @@ import com.karthik.network.IInternetHandler
 import com.karthik.network.IMemoryCache
 import com.karthik.network.ServiceProvider
 import com.karthik.network.home.bottomliketab.repository.BottomLikeTabRepository
-import com.karthik.splash.models.ScreenStatus
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
 import kotlinx.coroutines.runBlocking

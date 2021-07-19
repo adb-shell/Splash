@@ -2,6 +2,7 @@ package com.karthik.splash.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -75,7 +76,12 @@ fun ToolBar(title: String) {
     }
 }
 
-
+@Composable
+fun ProgressIndicator(){
+    Box(contentAlignment = Alignment.Center){
+        CircularProgressIndicator()
+    }
+}
 
 @Preview
 @Composable
@@ -92,6 +98,12 @@ fun SplashBrandLayoutPreview() {
 @Composable
 fun ToolBarPreview(){
     ToolBar(title = "Preview toolbar")
+}
+
+@Preview
+@Composable
+fun ProgressIndicatorPreview() {
+    ProgressIndicator()
 }
 
 @Preview

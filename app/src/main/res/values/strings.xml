@@ -29,7 +29,7 @@
     <string name="photo_detail_download">Download</string>
     <string name="photo_detail_share">Share</string>
     <string name="By">By %s</string>
-    <string name="On">On %s</string>
+    <string name="published_on">Published on \n %s</string>
     <string name="Collections">Collections</string>
     <string name="Photos">Photos</string>
     <string name="Version">version:</string>
@@ -52,4 +52,7 @@
 
     <!--Shared photo transition-->
     <string name="shared_photo_transition">shared photo transition</string>
+
+    <string name="photo_detail_error">Sorry! unable to get the photo details</string>
+    <string name="try_again">Try again</string>
 </resources>

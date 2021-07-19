@@ -1,4 +1,4 @@
-package com.karthik.splash.models
+package com.karthik.splash.homescreen.bottomliketab
 
 import com.karthik.network.home.bottomliketab.models.Photos
 

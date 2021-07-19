@@ -6,7 +6,7 @@ import java.util.*
 
 class Utils private constructor() {
     companion object {
-        const val UNSPLASHDATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+        const val UNSPLASHDATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         const val photo = "photo"
         const val photomimetype = "image/*"
 
@@ -15,9 +15,9 @@ class Utils private constructor() {
         const val pageSize = 10
         const val intialPageSize = 10
 
-        fun parseDate(receivedDate: String?): String? {
+        fun parseDate(receivedDate: String?): String {
             if (receivedDate == null)
-                return null
+                return ""
 
             val formatter = SimpleDateFormat(UNSPLASHDATEFORMAT, Locale.getDefault())
             return try {
@@ -27,7 +27,7 @@ class Utils private constructor() {
                         .toString() + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR)
             } catch (e: ParseException) {
                 e.printStackTrace()
-                null
+                ""
             }
 
         }

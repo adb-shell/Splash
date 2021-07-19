@@ -2,7 +2,7 @@ package com.karthik.splash.homescreen.bottomsettingstab
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.karthik.network.IMemoryCache
-import com.karthik.splash.models.ScreenStatus
+import com.karthik.splash.homescreen.bottomliketab.ScreenStatus
 import com.karthik.splash.observeForTesting
 import org.junit.Assert
 import org.junit.Before

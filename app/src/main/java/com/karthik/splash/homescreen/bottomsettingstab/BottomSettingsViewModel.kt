@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.karthik.network.IMemoryCache
-import com.karthik.splash.models.ScreenStatus
+import com.karthik.splash.homescreen.bottomliketab.ScreenStatus
 
 @Suppress("UNCHECKED_CAST")
 class BottomSettingsViewModelFactory(private val memoryCache: IMemoryCache)
