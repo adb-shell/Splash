@@ -125,10 +125,14 @@ dependencies {
     implementation(Configs.DependenciesConfig.rxDownloader)
 
     /**
-     * image loading libraries
+     *
+     * TODO: remove these image loading libraries
      */
     implementation(Configs.DependenciesConfig.picasso)
     implementation(Configs.DependenciesConfig.materialLoading)
+
+
+    implementation(Configs.DependenciesConfig.coilAccompanist)
 
     /**
      * Architectre components

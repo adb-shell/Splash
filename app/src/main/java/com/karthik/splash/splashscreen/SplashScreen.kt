@@ -19,7 +19,7 @@ import com.karthik.splash.splashscreen.di.SplashScreenComponent
 import com.karthik.splash.splashscreen.di.SplashScreenModule
 import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
 import com.karthik.splash.ui.SplashTheme
-import com.karthik.splash.ui.splashBrandLayout
+import com.karthik.splash.ui.SplashBrandLayout
 import javax.inject.Inject
 
 class SplashScreen : AppCompatActivity() {
@@ -58,14 +58,14 @@ class SplashScreen : AppCompatActivity() {
 
         when (state.value) {
             SplashScreenState.NoInternetScreen -> {
-                splashBrandLayout(
+                SplashBrandLayout(
                     imageResourceId = R.drawable.no_internet,
                     content = getString(R.string.no_internet),
                     modifier = modifier
                 )
             }
             SplashScreenState.SplashScreen -> {
-                splashBrandLayout(
+                SplashBrandLayout(
                     imageResourceId = R.drawable.cold_image,
                     content = getString(R.string.app_name),
                     modifier = modifier
@@ -86,6 +86,8 @@ class SplashScreen : AppCompatActivity() {
         splashScreenComponent = null
     }
 
-    private fun showDashBoardScreen(shouldShowCache: Boolean) =
-            startActivity(HomeScreen.getIntent(this, shouldShowCache))
+    private fun showDashBoardScreen(shouldShowCache: Boolean){
+        startActivity(HomeScreen.getIntent(this, shouldShowCache))
+        finish()
+    }
 }

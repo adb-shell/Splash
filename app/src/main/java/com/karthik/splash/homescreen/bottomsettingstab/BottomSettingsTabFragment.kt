@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
@@ -69,7 +68,7 @@ class BottomSettingsTabFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                val state = viewModel.userStatus.observeAsState()
+                val state = viewModel.screenStatus.observeAsState()
                 val settingsRowsData = viewModel.getSettingsRowData(state)
                 SplashTheme {
                     renderUI(settingsRowsData)
@@ -102,16 +101,7 @@ class BottomSettingsTabFragment : Fragment() {
     private fun renderUI(list: List<SettingsType>) {
         Surface {
             Column {
-                TopAppBar(modifier = Modifier
-                    .fillMaxWidth()) {
-                    Text(
-                        text = stringResource(id = R.string.title_settings),
-                        modifier = Modifier.padding(eightDp),
-                        style = MaterialTheme.typography.h6.copy(
-                            fontWeight = FontWeight.Normal
-                        )
-                    )
-                }
+                ToolBar(title = stringResource(id = R.string.title_settings))
                 Spacer(
                     modifier = Modifier
                         .fillMaxWidth()

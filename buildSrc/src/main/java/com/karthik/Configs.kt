@@ -9,6 +9,7 @@ import com.karthik.Configs.VersionsConfig.archComponentRoomVersion
 import com.karthik.Configs.VersionsConfig.archCoreTestingVersion
 import com.karthik.Configs.VersionsConfig.archLifecycleComponentVersion
 import com.karthik.Configs.VersionsConfig.chuckerVersion
+import com.karthik.Configs.VersionsConfig.coilAccompanistVersion
 import com.karthik.Configs.VersionsConfig.composeActivityVersion
 import com.karthik.Configs.VersionsConfig.composeVersion
 import com.karthik.Configs.VersionsConfig.daggerVersion
@@ -38,6 +39,7 @@ class Configs {
         const val chuckerVersion = "3.1.2"
         const val picassoMaterialVersion = "1.0.2"
         const val rxDownloaderVersion = "1.0.1"
+        const val coilAccompanistVersion = "0.12.0"
         const val archLifecycleComponentVersion = "2.2.0-rc03"
         const val archComponentRoomVersion = "2.3.0"
         const val archComponentPagingVersion = "2.1.1"
@@ -105,6 +107,7 @@ class Configs {
         const val picasso = "com.squareup.picasso:picasso:${picassoVersion}"
         const val materialLoading = "com.github.florent37:materialimageloading:${picassoMaterialVersion}"
         const val rxDownloader = "com.github.esafirm:RxDownloader:${rxDownloaderVersion}"
+        const val coilAccompanist = "com.google.accompanist:accompanist-coil:${coilAccompanistVersion}"
 
         /**
          * coroutines

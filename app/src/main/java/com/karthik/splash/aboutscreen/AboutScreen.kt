@@ -27,7 +27,7 @@ import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
 import com.karthik.splash.ui.Dimensions.Companion.tenDp
 import com.karthik.splash.ui.SplashTheme
 import com.karthik.splash.ui.getDividerColor
-import com.karthik.splash.ui.splashBrandLayout
+import com.karthik.splash.ui.SplashBrandLayout
 import java.util.*
 
 class AboutScreen : AppCompatActivity() {
@@ -61,7 +61,7 @@ class AboutScreen : AppCompatActivity() {
                     .padding(sixteenDp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                splashBrandLayout(
+                SplashBrandLayout(
                     imageResourceId = R.drawable.cold_image,
                     content = stringResource(id = R.string.app_name),
                     modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically),

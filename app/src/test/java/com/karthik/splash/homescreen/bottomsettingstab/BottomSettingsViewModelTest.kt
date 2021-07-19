@@ -2,7 +2,7 @@ package com.karthik.splash.homescreen.bottomsettingstab
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.karthik.network.IMemoryCache
-import com.karthik.splash.models.UserStatus
+import com.karthik.splash.models.ScreenStatus
 import com.karthik.splash.observeForTesting
 import org.junit.Assert
 import org.junit.Before
@@ -28,16 +28,16 @@ class BottomSettingsViewModelTest {
     fun `given user is not logged in userStatus is UserNotLoggedIn`(){
         Mockito.`when`(memoryCache.isUserLoggedIn()).thenReturn(false)
         bottomSettingsViewModel = BottomSettingsViewModel(memoryCache = memoryCache)
-        bottomSettingsViewModel.userStatus.observeForTesting {  }
-        Assert.assertTrue(bottomSettingsViewModel.userStatus.value is UserStatus.UserNotLoggedIn)
+        bottomSettingsViewModel.screenStatus.observeForTesting {  }
+        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is ScreenStatus.ScreenNotLoggedIn)
     }
 
     @Test
     fun `given user is logged but username is null in userStatus is UserNotLoggedIn`(){
         Mockito.`when`(memoryCache.isUserLoggedIn()).thenReturn(true)
         bottomSettingsViewModel = BottomSettingsViewModel(memoryCache = memoryCache)
-        bottomSettingsViewModel.userStatus.observeForTesting {  }
-        Assert.assertTrue(bottomSettingsViewModel.userStatus.value is UserStatus.UserNotLoggedIn)
+        bottomSettingsViewModel.screenStatus.observeForTesting {  }
+        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is ScreenStatus.ScreenNotLoggedIn)
     }
 
     @Test
@@ -45,7 +45,7 @@ class BottomSettingsViewModelTest {
         Mockito.`when`(memoryCache.isUserLoggedIn()).thenReturn(true)
         Mockito.`when`(memoryCache.getUserName()).thenReturn("abcd")
         bottomSettingsViewModel = BottomSettingsViewModel(memoryCache = memoryCache)
-        bottomSettingsViewModel.userStatus.observeForTesting {  }
-        Assert.assertTrue(bottomSettingsViewModel.userStatus.value is UserStatus.UserLoggedIn)
+        bottomSettingsViewModel.screenStatus.observeForTesting {  }
+        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is ScreenStatus.ScreenLoggedIn)
     }
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.karthik.network.IMemoryCache
-import com.karthik.splash.models.UserStatus
+import com.karthik.splash.models.ScreenStatus
 
 @Suppress("UNCHECKED_CAST")
 class BottomSettingsViewModelFactory(private val memoryCache: IMemoryCache)
@@ -16,24 +16,24 @@ class BottomSettingsViewModelFactory(private val memoryCache: IMemoryCache)
 }
 
 class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel() {
-    private val _userStatus: MutableLiveData<UserStatus> = MutableLiveData()
+    private val _screenStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
     private val _settingTypeClicked: MutableLiveData<SettingsType> = MutableLiveData()
-    val userStatus: LiveData<UserStatus> = _userStatus
+    val screenStatus: LiveData<ScreenStatus> = _screenStatus
     val settingTypeClicked = _settingTypeClicked
 
     init {
         if (memoryCache.isUserLoggedIn()) {
             memoryCache.getUserName()?.let { name ->
-                _userStatus.postValue(UserStatus.UserLoggedIn(name))
-            } ?: _userStatus.postValue(UserStatus.UserNotLoggedIn)
+                _screenStatus.postValue(ScreenStatus.ScreenLoggedIn(name))
+            } ?: _screenStatus.postValue(ScreenStatus.ScreenNotLoggedIn)
         } else {
-            _userStatus.postValue(UserStatus.UserNotLoggedIn)
+            _screenStatus.postValue(ScreenStatus.ScreenNotLoggedIn)
         }
     }
 
     fun getUserName(): String? {
-        return if (userStatus.value is UserStatus.UserLoggedIn) {
-            (userStatus.value as UserStatus.UserLoggedIn).username
+        return if (screenStatus.value is ScreenStatus.ScreenLoggedIn) {
+            (screenStatus.value as ScreenStatus.ScreenLoggedIn).username
         } else null
     }
 
@@ -45,7 +45,7 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
         _settingTypeClicked.value = settingsType
     }
 
-    fun getSettingsRowData(state: State<UserStatus?>): List<SettingsType> {
+    fun getSettingsRowData(state: State<ScreenStatus?>): List<SettingsType> {
 
         val settingsRowsData = mutableListOf(
             SettingsType.About,
@@ -53,7 +53,7 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
         )
 
         when (state.value) {
-            is UserStatus.UserLoggedIn -> {
+            is ScreenStatus.ScreenLoggedIn -> {
                 settingsRowsData.add(
                     0,
                     SettingsType.LoggedIn
@@ -62,7 +62,7 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
                     SettingsType.Logout
                 )
             }
-            is UserStatus.UserNotLoggedIn -> {
+            is ScreenStatus.ScreenNotLoggedIn -> {
                 settingsRowsData.add(
                     0,
                     SettingsType.NotLoggedIn
@@ -74,6 +74,6 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
 
     private fun logoutUser() {
         memoryCache.logOutUser()
-        _userStatus.postValue(UserStatus.UserNotLoggedIn)
+        _screenStatus.postValue(ScreenStatus.ScreenNotLoggedIn)
     }
 }
