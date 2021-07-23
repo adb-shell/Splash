@@ -1,6 +1,7 @@
 package com.karthik.splash.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -9,6 +10,8 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -64,8 +67,10 @@ fun FeedRow(likedPhoto: Photos) {
 
 @Composable
 fun ToolBar(title: String) {
-    TopAppBar(modifier = Modifier
-        .fillMaxWidth()) {
+    TopAppBar(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         Text(
             text = title,
             modifier = Modifier.padding(Dimensions.eightDp),
@@ -77,8 +82,42 @@ fun ToolBar(title: String) {
 }
 
 @Composable
-fun ProgressIndicator(){
-    Box(contentAlignment = Alignment.Center){
+fun addVerticalGradient() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.Black.copy(
+                            alpha = 0f
+                        ),
+                        Color.Black.copy(
+                            alpha = 0.10f
+                        ),
+                        Color.Black.copy(
+                            alpha = 0.33f
+                        ),
+                        Color.Black.copy(
+                            alpha = 0.45f
+                        ),
+                        Color.Black.copy(
+                            alpha = 0.65f
+                        ),
+                        Color.Black.copy(
+                            alpha = 0.75f
+                        ),
+                        Color.Black
+                    )
+                )
+            )
+    )
+}
+
+@Composable
+fun ProgressIndicator() {
+    Box(contentAlignment = Alignment.Center) {
         CircularProgressIndicator()
     }
 }
@@ -96,7 +135,7 @@ fun SplashBrandLayoutPreview() {
 
 @Preview
 @Composable
-fun ToolBarPreview(){
+fun ToolBarPreview() {
     ToolBar(title = "Preview toolbar")
 }
 
@@ -126,4 +165,10 @@ fun FeedsRowPreview() {
             width = "123"
         )
     )
+}
+
+@Preview
+@Composable
+fun GradientPreview() {
+    addVerticalGradient()
 }

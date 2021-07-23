@@ -17,3 +17,9 @@ fun SplashTheme(
         content = content
     )
 }
+
+interface ShapeConstants{
+    companion object{
+        internal const val ButtonRoundPercentage = 100
+    }
+}

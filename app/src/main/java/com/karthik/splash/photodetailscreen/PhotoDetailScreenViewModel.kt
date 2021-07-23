@@ -3,7 +3,8 @@ package com.karthik.splash.photodetailscreen
 import androidx.lifecycle.*
 import com.karthik.network.IMemoryCache
 import com.karthik.network.photodetailscreen.IPhotoDetailScreenRepository
-import com.karthik.network.photodetailscreen.models.*
+import com.karthik.network.photodetailscreen.models.PhotoDetailsResponse
+import com.karthik.network.photodetailscreen.models.PhotoLikeResponse
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
@@ -22,14 +23,18 @@ class PhotoDetailScreenViewModel(
 ) : ViewModel() {
 
     private val _screenStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
+    private val _eventClicked: MutableLiveData<PhotoDetailEvent> = MutableLiveData()
     val screenStatus: LiveData<ScreenStatus> = _screenStatus
+    val buttonClicked: LiveData<PhotoDetailEvent> = _eventClicked
 
     fun getPhotoDetail(id: String) {
         _screenStatus.postValue(ScreenStatus.ShowProgress)
         viewModelScope.launch {
             val photoInfoResponse = photoRepository.getPhotoInfo(id)
             if (photoInfoResponse is PhotoDetailsResponse.PhotoDetailsSuccessResponse) {
-                _screenStatus.postValue(ScreenStatus.PhotoDetailScreen(photoInfo = photoInfoResponse.photoDetail))
+                _screenStatus.postValue(
+                    ScreenStatus.PhotoDetailScreen(photoInfo = photoInfoResponse.photoDetail)
+                )
             } else {
                 _screenStatus.postValue(ScreenStatus.ErrorFetchingPhotoDetail)
             }
@@ -37,6 +42,9 @@ class PhotoDetailScreenViewModel(
     }
 
     fun likeThePhoto(id: String) {
+        if (id.isNullOrEmpty())
+            return
+
         viewModelScope.launch {
             val photoLikeResponse = photoRepository.likePhoto(id)
             if (photoLikeResponse is PhotoLikeResponse.PhotoDetailsSuccessResponse) {
@@ -46,6 +54,10 @@ class PhotoDetailScreenViewModel(
             }
         }
     }
+
+    fun shareClicked() = _eventClicked.postValue(PhotoDetailEvent.SHARE_CLICK)
+
+    fun downloadClicked() = _eventClicked.postValue(PhotoDetailEvent.DOWNLOAD_CLICK)
 
     fun isUserLoggedIn() = memoryCache.isUserLoggedIn()
 }

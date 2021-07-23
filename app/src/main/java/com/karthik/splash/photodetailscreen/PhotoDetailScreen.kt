@@ -1,6 +1,7 @@
 package com.karthik.splash.photodetailscreen
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -22,7 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.lifecycle.ViewModelProvider
 import com.esafirm.rxdownloader.RxDownloader
@@ -37,31 +40,22 @@ import com.karthik.splash.misc.toPhotos
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenComponent
 import com.karthik.splash.photodetailscreen.di.PhotoDetailScreenModule
 import com.karthik.splash.root.SplashApp
-import com.karthik.splash.ui.Dimensions
-import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
+import com.karthik.splash.ui.*
+import com.karthik.splash.ui.Dimensions.Companion.eightDp
+import com.karthik.splash.ui.Dimensions.Companion.hundredDp
+import com.karthik.splash.ui.Dimensions.Companion.thirtyTwodp
 import com.karthik.splash.ui.Dimensions.Companion.twentyFourDp
-import com.karthik.splash.ui.Dimensions.Companion.twoHundredDp
-import com.karthik.splash.ui.ProgressIndicator
-import com.karthik.splash.ui.SplashBrandLayout
-import com.karthik.splash.ui.SplashTheme
 import javax.inject.Inject
 
 class PhotoDetailScreen : AppCompatActivity() {
 
     private var photoDetailScreenComponent: PhotoDetailScreenComponent? = null
     private val permission = Manifest.permission.WRITE_EXTERNAL_STORAGE
-    private val imageLoadDuration = 0
 
     @Inject
     lateinit var viewmodelfactory: PhotoDetailScreenViewModelFactory
     private var photo: Photos? = null
     private lateinit var viewmodel: PhotoDetailScreenViewModel
-
-    private val bottomIcons = listOf(
-        BottomIcons.Like,
-        BottomIcons.Share,
-        BottomIcons.Downloads
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,17 +74,24 @@ class PhotoDetailScreen : AppCompatActivity() {
         setContent {
             val screenStatus = viewmodel.screenStatus.observeAsState()
             SplashTheme {
-                renderUI(screenStatus)
+                renderUI(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    screenStatus = screenStatus
+                )
             }
         }
+
+        viewmodel.buttonClicked.observe(this, { clickEvent ->
+            handleButtonClick(clickEvent)
+        })
     }
 
     @Composable
-    private fun renderUI(screenStatus: State<ScreenStatus?>) {
+    private fun renderUI(screenStatus: State<ScreenStatus?>, modifier: Modifier) {
         Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
+            modifier = modifier
         ) {
             when (screenStatus.value) {
                 is ScreenStatus.ShowProgress -> {
@@ -116,14 +117,44 @@ class PhotoDetailScreen : AppCompatActivity() {
                     })
                 }
                 is ScreenStatus.PhotoDetailScreen -> {
-                    renderPhotoDetailScreen(screenStatus.value as ScreenStatus.PhotoDetailScreen)
+                    renderPhotoDetailScreen(
+                        screenStatus.value as ScreenStatus.PhotoDetailScreen,
+                        shareClick = { viewmodel.shareClicked() },
+                        downloadClick = { viewmodel.downloadClicked() }
+                    )
                 }
             }
         }
     }
 
+    private fun handleButtonClick(clickEvent: PhotoDetailEvent?) {
+        when (clickEvent) {
+            PhotoDetailEvent.SHARE_CLICK -> {
+                shareImage()
+            }
+            PhotoDetailEvent.DOWNLOAD_CLICK -> {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        permission
+                    ) == PermissionChecker.PERMISSION_GRANTED
+                ) {
+                    startDownloading()
+                    return
+                }
+                ActivityCompat.requestPermissions(this, arrayOf(permission), 0)
+            }
+            PhotoDetailEvent.LIKE_CLICK -> {
+                viewmodel.likeThePhoto(id = photo?.id ?: "")
+            }
+        }
+    }
+
     @Composable
-    private fun renderPhotoDetailScreen(photoDetailScreen: ScreenStatus.PhotoDetailScreen) {
+    private fun renderPhotoDetailScreen(
+        photoDetailScreen: ScreenStatus.PhotoDetailScreen,
+        shareClick: () -> Unit,
+        downloadClick: () -> Unit
+    ) {
 
         val photoInfo = photoDetailScreen.photoInfo
 
@@ -135,101 +166,93 @@ class PhotoDetailScreen : AppCompatActivity() {
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.75f),
+                    .fillMaxHeight(),
                 painter = rememberCoilPainter(
                     request = photoInfo.urls.regular
                 ),
                 contentDescription = photoInfo.id,
-                contentScale = ContentScale.FillHeight
+                contentScale = ContentScale.Crop
             )
-            Card(
+
+            //just for vertical gradiant for text to be visible
+            addVerticalGradient()
+
+            addMainImageAndContent(
                 modifier = Modifier
-                    .padding(start = sixteenDp, end = sixteenDp, bottom = 100.dp)
+                    .align(Alignment.BottomStart)
+                    .fillMaxWidth()
                     .wrapContentHeight()
-                    .align(Alignment.BottomCenter),
-                elevation = Dimensions.fourDp
-            ) {
-                renderBottomCardLayout(photoInfo)
-            }
+                    .padding(start = thirtyTwodp, bottom = hundredDp, end = thirtyTwodp),
+                photoInfo = photoInfo
+            )
+
+            addActionableButtons(
+                shareButtonModifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(thirtyTwodp),
+                downloadButtonModifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(thirtyTwodp),
+                shareClick = shareClick,
+                downloadClick = downloadClick
+            )
         }
     }
 
     @Composable
-    private fun renderBottomCardLayout(photoInfo: PhotoDetailInfo) {
+    private fun addMainImageAndContent(modifier: Modifier, photoInfo: PhotoDetailInfo) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(twoHundredDp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            modifier = modifier
         ) {
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(sixteenDp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = photoInfo.user?.name ?: "",
-                    modifier = Modifier.weight(0.5f),
-                    style = MaterialTheme.typography.h6.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = stringResource(
-                        id = R.string.published_on,
-                        Utils.parseDate(photo?.createdTime)
-                    ),
-                    modifier = Modifier.weight(0.5f),
-                    style = MaterialTheme.typography.caption,
-                    textAlign = TextAlign.Center
-                )
-            }
             Text(
-                text = "Tags",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = sixteenDp),
-                style = MaterialTheme.typography.h6,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = "#extra#qwerty#sllslslsl#qazxc#plmn",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(sixteenDp),
-                style = MaterialTheme.typography.subtitle2.copy(
-                    color = MaterialTheme.colors.primary
+                text = photoInfo.user?.name ?: "",
+                style = MaterialTheme.typography.h3.copy(
+                    fontWeight = FontWeight.Bold
                 ),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Start,
+                color = Color.White
             )
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(sixteenDp)
-            ) {
-                bottomIcons.forEach { icon ->
-                    val modifier = Modifier.weight(0.33f)
-                    renderBottomIcons(id = icon.id, modifier = modifier)
-                }
-            }
+            Text(
+                text = stringResource(
+                    id = R.string.published_on,
+                    Utils.parseDate(photoInfo.createdAt)
+                ),
+                modifier = Modifier.padding(start = eightDp),
+                style = MaterialTheme.typography.caption,
+                textAlign = TextAlign.Start,
+                color = Color.White
+            )
         }
     }
 
     @Composable
-    private fun renderBottomIcons(id: Int, modifier: Modifier) {
-        Icon(
-            modifier = modifier,
-            painter = painterResource(id = id),
-            contentDescription = stringResource(
-                id = R.string.photo_detail
+    private fun addActionableButtons(
+        shareButtonModifier: Modifier,
+        downloadButtonModifier: Modifier,
+        shareClick: () -> Unit,
+        downloadClick: () -> Unit
+    ) {
+        Button(
+            onClick = downloadClick,
+            modifier = downloadButtonModifier,
+            shape = RoundedCornerShape(ShapeConstants.ButtonRoundPercentage)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.downloads),
+                contentDescription = stringResource(id = R.string.downloads)
             )
-        )
+        }
+
+        IconButton(
+            onClick = shareClick,
+            modifier = shareButtonModifier
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.share),
+                contentDescription = stringResource(id = R.string.share_photo)
+            )
+        }
     }
 
     @Composable
@@ -260,6 +283,14 @@ class PhotoDetailScreen : AppCompatActivity() {
         }
     }
 
+
+    private fun shareImage() {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/html"
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, photo?.urls?.regular)
+        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_photo)))
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         photoDetailScreenComponent = null
@@ -279,6 +310,7 @@ class PhotoDetailScreen : AppCompatActivity() {
     }
 
     private fun startDownloading() {
+        Toast.makeText(this, getString(R.string.downloading), Toast.LENGTH_SHORT).show()
         RxDownloader.getInstance(this)
             .download(photo?.urls?.full, photo?.id, Utils.photomimetype)
             .subscribe({ path ->
@@ -315,7 +347,8 @@ class PhotoDetailScreen : AppCompatActivity() {
                     ),
                     createdAt = "2020-07-01T18:31:27-04:00"
                 )
-            )
+            ),
+            {}, {}
         )
     }
 }

@@ -29,7 +29,7 @@
     <string name="photo_detail_download">Download</string>
     <string name="photo_detail_share">Share</string>
     <string name="By">By %s</string>
-    <string name="published_on">Published on \n %s</string>
+    <string name="published_on">Published on %s</string>
     <string name="Collections">Collections</string>
     <string name="Photos">Photos</string>
     <string name="Version">version:</string>
@@ -42,6 +42,7 @@
     <string name="success_downloading">Awesome, your file is located here %s</string>
     <string name="error_permission">Splash requires write storage permission to save the image.</string>
     <string name="downloaded_imgs">Downloaded images</string>
+    <string name="downloading">Will start downloading the image</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>

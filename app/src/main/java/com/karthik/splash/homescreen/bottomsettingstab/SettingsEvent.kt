@@ -1,7 +1,7 @@
 package com.karthik.splash.homescreen.bottomsettingstab
 
 
-enum class SettingsType{
+enum class SettingsEvent{
     LoggedIn,
     NotLoggedIn,
     About,

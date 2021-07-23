@@ -6,7 +6,7 @@ import java.util.*
 
 class Utils private constructor() {
     companion object {
-        const val UNSPLASHDATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        const val UNSPLASHDATEFORMAT = "yyyy-MM-dd'T'HH:mm:ssZ"
         const val photo = "photo"
         const val photomimetype = "image/*"
 

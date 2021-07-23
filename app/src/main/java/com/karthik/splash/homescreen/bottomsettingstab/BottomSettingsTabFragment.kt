@@ -81,10 +81,10 @@ class BottomSettingsTabFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.settingTypeClicked.observe(viewLifecycleOwner, { settingType ->
             when (settingType) {
-                SettingsType.About -> {
+                SettingsEvent.About -> {
                     context?.startActivity(Intent(context, AboutScreen::class.java))
                 }
-                SettingsType.Downloads -> {
+                SettingsEvent.Downloads -> {
                     if (ContextCompat.checkSelfPermission(requireContext(), permission)
                         == PermissionChecker.PERMISSION_GRANTED
                     ) {
@@ -98,7 +98,7 @@ class BottomSettingsTabFragment : Fragment() {
     }
 
     @Composable
-    private fun renderUI(list: List<SettingsType>) {
+    private fun renderUI(list: List<SettingsEvent>) {
         Surface {
             Column {
                 ToolBar(title = stringResource(id = R.string.title_settings))
@@ -116,8 +116,8 @@ class BottomSettingsTabFragment : Fragment() {
                 ) {
                     Column{
                         list.forEach { settingsData ->
-                            renderRow(settingsType = settingsData, onClick = {
-                                viewModel.onClick(settingsType = settingsData)
+                            renderRow(settingsEvent = settingsData, onClick = {
+                                viewModel.onClick(settingsEvent = settingsData)
                             })
                         }
                     }
@@ -128,7 +128,7 @@ class BottomSettingsTabFragment : Fragment() {
 
 
     @Composable
-    private fun renderRow(settingsType: SettingsType, onClick: () -> Unit){
+    private fun renderRow(settingsEvent: SettingsEvent, onClick: () -> Unit){
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
@@ -141,10 +141,10 @@ class BottomSettingsTabFragment : Fragment() {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(fiveDp)
                 ) {
-                    val rowText = getRowText(settingsType = settingsType)
+                    val rowText = getRowText(settingsEvent = settingsEvent)
                     Image(
                         modifier = Modifier.padding(eightDp),
-                        painter = getRowresourceId(settingsType = settingsType),
+                        painter = getRowresourceId(settingsEvent = settingsEvent),
                         contentDescription = rowText,
                         colorFilter =
                         if (isSystemInDarkTheme()) ColorFilter.tint(color = Color.White) else null
@@ -161,40 +161,40 @@ class BottomSettingsTabFragment : Fragment() {
     }
 
     @Composable
-    private fun getRowText(settingsType: SettingsType): String {
-        return when (settingsType) {
-            SettingsType.About -> {
+    private fun getRowText(settingsEvent: SettingsEvent): String {
+        return when (settingsEvent) {
+            SettingsEvent.About -> {
                 stringResource(id = R.string.about)
             }
-            SettingsType.Logout -> {
+            SettingsEvent.Logout -> {
                 stringResource(id = R.string.logout)
             }
-            SettingsType.LoggedIn -> {
+            SettingsEvent.LoggedIn -> {
                 val username = viewModel.getUserName() ?: ""
                 stringResource(id = R.string.logged_in_as, username)
             }
-            SettingsType.NotLoggedIn -> {
+            SettingsEvent.NotLoggedIn -> {
                 stringResource(id = R.string.login)
             }
-            SettingsType.Downloads -> {
+            SettingsEvent.Downloads -> {
                 stringResource(id = R.string.downloads)
             }
         }
     }
 
     @Composable
-    private fun getRowresourceId(settingsType: SettingsType): Painter {
-        val resourceId = when (settingsType) {
-            SettingsType.About -> {
+    private fun getRowresourceId(settingsEvent: SettingsEvent): Painter {
+        val resourceId = when (settingsEvent) {
+            SettingsEvent.About -> {
                 R.drawable.about
             }
-            SettingsType.Downloads -> {
+            SettingsEvent.Downloads -> {
                 R.drawable.downloads
             }
-            SettingsType.LoggedIn,SettingsType.NotLoggedIn -> {
+            SettingsEvent.LoggedIn,SettingsEvent.NotLoggedIn -> {
                 R.drawable.heart
             }
-            SettingsType.Logout -> {
+            SettingsEvent.Logout -> {
                 R.drawable.logout
             }
         }
@@ -213,16 +213,16 @@ class BottomSettingsTabFragment : Fragment() {
     @Preview
     @Composable
     fun previewRow(){
-        renderRow(settingsType = SettingsType.About, {})
+        renderRow(settingsEvent = SettingsEvent.About, {})
     }
 
     @Preview
     @Composable
     fun previewRenderUI() {
         val dummyRowsData = mutableListOf(
-            SettingsType.NotLoggedIn,
-            SettingsType.About,
-            SettingsType.Downloads
+            SettingsEvent.NotLoggedIn,
+            SettingsEvent.About,
+            SettingsEvent.Downloads
         )
        renderUI(list = dummyRowsData)
     }

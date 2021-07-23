@@ -17,9 +17,9 @@ class BottomSettingsViewModelFactory(private val memoryCache: IMemoryCache)
 
 class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel() {
     private val _screenStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
-    private val _settingTypeClicked: MutableLiveData<SettingsType> = MutableLiveData()
+    private val _settingEventClicked: MutableLiveData<SettingsEvent> = MutableLiveData()
     val screenStatus: LiveData<ScreenStatus> = _screenStatus
-    val settingTypeClicked = _settingTypeClicked
+    val settingTypeClicked = _settingEventClicked
 
     init {
         if (memoryCache.isUserLoggedIn()) {
@@ -37,35 +37,35 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
         } else null
     }
 
-    fun onClick(settingsType: SettingsType) {
-        if(settingsType==SettingsType.Logout){
+    fun onClick(settingsEvent: SettingsEvent) {
+        if(settingsEvent==SettingsEvent.Logout){
             logoutUser()
             return
         }
-        _settingTypeClicked.value = settingsType
+        _settingEventClicked.value = settingsEvent
     }
 
-    fun getSettingsRowData(state: State<ScreenStatus?>): List<SettingsType> {
+    fun getSettingsRowData(state: State<ScreenStatus?>): List<SettingsEvent> {
 
         val settingsRowsData = mutableListOf(
-            SettingsType.About,
-            SettingsType.Downloads
+            SettingsEvent.About,
+            SettingsEvent.Downloads
         )
 
         when (state.value) {
             is ScreenStatus.ScreenLoggedIn -> {
                 settingsRowsData.add(
                     0,
-                    SettingsType.LoggedIn
+                    SettingsEvent.LoggedIn
                 )
                 settingsRowsData.add(
-                    SettingsType.Logout
+                    SettingsEvent.Logout
                 )
             }
             is ScreenStatus.ScreenNotLoggedIn -> {
                 settingsRowsData.add(
                     0,
-                    SettingsType.NotLoggedIn
+                    SettingsEvent.NotLoggedIn
                 )
             }
         }
