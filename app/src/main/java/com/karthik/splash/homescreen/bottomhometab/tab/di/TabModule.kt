@@ -1,22 +1,18 @@
-package com.karthik.splash.homescreen.bottomtab.di
+package com.karthik.splash.homescreen.bottomhometab.tab.di
 
 import com.karthik.network.ServiceProvider
 import com.karthik.network.home.bottomtab.repository.BottomTabRepository
-import com.karthik.splash.homescreen.bottomtab.BottomTabTypes
-import com.karthik.splash.homescreen.bottomtab.BottomTabViewModelFactory
+import com.karthik.splash.homescreen.bottomhometab.tab.TabViewModelFactory
 import com.karthik.splash.misc.InternetHandler
 import dagger.Module
 import dagger.Provides
 
 @Module
-class BottomTabModule {
+class TabModule {
     private val isCacheAvailable: Boolean
-    private val bottomtabtype: BottomTabTypes
 
-    constructor(isCacheAvailable: Boolean?, bottomtabtype: BottomTabTypes?) {
-        requireNotNull(bottomtabtype) { "type cannot be null" }
+    constructor(isCacheAvailable: Boolean?) {
         this.isCacheAvailable = isCacheAvailable != null
-        this.bottomtabtype = bottomtabtype
     }
 
     @Provides
@@ -27,5 +23,5 @@ class BottomTabModule {
 
     @Provides
     fun providesBottomTabVFactory(bottomTabRepository: BottomTabRepository) =
-            BottomTabViewModelFactory(bottomTabRepository, bottomtabtype)
+            TabViewModelFactory(bottomTabRepository)
 }

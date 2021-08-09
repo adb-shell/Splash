@@ -50,16 +50,17 @@ fun SplashBrandLayout(
 }
 
 @Composable
-fun FeedRow(likedPhoto: Photos) {
+fun FeedRow(photo: Photos?) {
+    if (photo == null) return
     Image(
         modifier = Modifier
             .fillMaxWidth()
             .height(Dimensions.twoHundredDp),
         painter = rememberCoilPainter(
-            request = likedPhoto.urls?.regular,
+            request = photo.urls?.regular,
             fadeIn = true
         ),
-        contentDescription = likedPhoto.id,
+        contentDescription = photo.id,
         contentScale = ContentScale.FillWidth
     )
 }
@@ -149,7 +150,7 @@ fun ProgressIndicatorPreview() {
 @Composable
 fun FeedsRowPreview() {
     FeedRow(
-        likedPhoto = Photos(
+        photo = Photos(
             id = "1234",
             color = "#cccccc",
             numberLikes = "11",

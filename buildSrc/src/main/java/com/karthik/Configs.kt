@@ -11,6 +11,7 @@ import com.karthik.Configs.VersionsConfig.archLifecycleComponentVersion
 import com.karthik.Configs.VersionsConfig.chuckerVersion
 import com.karthik.Configs.VersionsConfig.coilAccompanistVersion
 import com.karthik.Configs.VersionsConfig.composeActivityVersion
+import com.karthik.Configs.VersionsConfig.composePaginationVersion
 import com.karthik.Configs.VersionsConfig.composeVersion
 import com.karthik.Configs.VersionsConfig.daggerVersion
 import com.karthik.Configs.VersionsConfig.junitExtensionVersion
@@ -42,7 +43,7 @@ class Configs {
         const val coilAccompanistVersion = "0.12.0"
         const val archLifecycleComponentVersion = "2.2.0-rc03"
         const val archComponentRoomVersion = "2.3.0"
-        const val archComponentPagingVersion = "2.1.1"
+        const val archComponentPagingVersion = "3.0.1"
         const val viewModelKtxVersion = "2.2.0"
         const val androidXVersion = "1.1.0"
         const val androidXAppCompatVersion = "1.3.0-beta01"
@@ -60,6 +61,7 @@ class Configs {
 
         const val composeVersion = "1.0.0-beta09"
         const val composeActivityVersion = "1.3.0-beta02"
+        const val composePaginationVersion = "1.0.0-alpha12"
     }
 
     object SplashUrlConfig {
@@ -83,9 +85,8 @@ class Configs {
     object AppConfig {
         const val applicationId = "com.karthik.splash"
         const val kotlinVersion = "1.5.10"
-        const val androidToolsVersion = "7.0.0-beta04"
 
-        const val compileSDKVersion = "29"
+        const val compileSDKVersion = "30"
         const val minSDKVersion = 21
 
         const val demoApllicationSuffix = ".debug"
@@ -104,8 +105,11 @@ class Configs {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${retrofitLoggerVersion}"
         const val dagger = "com.google.dagger:dagger:${daggerVersion}"
         const val daggerCompiler = "com.google.dagger:dagger-compiler:${daggerVersion}"
+        @Deprecated("will be migrated to coil")
         const val picasso = "com.squareup.picasso:picasso:${picassoVersion}"
+        @Deprecated("will be migrated to coil")
         const val materialLoading = "com.github.florent37:materialimageloading:${picassoMaterialVersion}"
+
         const val rxDownloader = "com.github.esafirm:RxDownloader:${rxDownloaderVersion}"
         const val coilAccompanist = "com.google.accompanist:accompanist-coil:${coilAccompanistVersion}"
 
@@ -149,5 +153,6 @@ class Configs {
         const val composeLiveDataSupport = "androidx.compose.runtime:runtime-livedata:${composeVersion}"
         const val composeActivity = "androidx.activity:activity-compose:${composeActivityVersion}"
         const val composeUiTooling = "androidx.compose.ui:ui-tooling:${composeVersion}"
+        const val composePagination = "androidx.paging:paging-compose:${composePaginationVersion}"
     }
 }
