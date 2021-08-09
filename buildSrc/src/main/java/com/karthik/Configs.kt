@@ -105,10 +105,6 @@ class Configs {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${retrofitLoggerVersion}"
         const val dagger = "com.google.dagger:dagger:${daggerVersion}"
         const val daggerCompiler = "com.google.dagger:dagger-compiler:${daggerVersion}"
-        @Deprecated("will be migrated to coil")
-        const val picasso = "com.squareup.picasso:picasso:${picassoVersion}"
-        @Deprecated("will be migrated to coil")
-        const val materialLoading = "com.github.florent37:materialimageloading:${picassoMaterialVersion}"
 
         const val rxDownloader = "com.github.esafirm:RxDownloader:${rxDownloaderVersion}"
         const val coilAccompanist = "com.google.accompanist:accompanist-coil:${coilAccompanistVersion}"
