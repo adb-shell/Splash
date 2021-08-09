@@ -10,7 +10,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
@@ -24,6 +23,8 @@ import com.karthik.splash.homescreen.bottomhometab.tab.TabViewModelFactory
 import com.karthik.splash.homescreen.bottomhometab.tab.di.TabComponent
 import com.karthik.splash.homescreen.bottomhometab.tab.di.TabModule
 import com.karthik.splash.homescreen.bottomhometab.tab.tab
+import com.karthik.splash.homescreen.bottomliketab.ClickEvent
+import com.karthik.splash.misc.Utils
 import com.karthik.splash.root.SplashApp
 import com.karthik.splash.ui.Dimensions
 import com.karthik.splash.ui.SplashTheme
@@ -62,6 +63,7 @@ class BottomHomeTabFragment : Fragment() {
         bottomtabcomponent = null
     }
 
+    @ExperimentalMaterialApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -86,6 +88,7 @@ class BottomHomeTabFragment : Fragment() {
         }
     }
 
+    @ExperimentalMaterialApi
     @Composable
     private fun renderUI(selectedCategory: State<BottomHomeTab?>) {
 
@@ -93,22 +96,29 @@ class BottomHomeTabFragment : Fragment() {
 
         Column(
             modifier = Modifier
-            .fillMaxWidth().fillMaxHeight()
+                .fillMaxWidth()
+                .fillMaxHeight()
         ) {
             renderTabHeader(selectedCategory.value, getListOfCategories()) { selectedTab ->
                 viewmodel.onCategorySelected(category = selectedTab)
             }
-            Box(
-                modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-                contentAlignment = Alignment.Center
-            ) {
-                renderTabs(selectedCategory)
-            }
+            renderTabs(selectedCategory)
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tabViewModel.clickEvent.observe(viewLifecycleOwner, { clickEvent ->
+            if (clickEvent is ClickEvent.PhotoClickEvent) {
+                Utils.navigateToPhotoDetailScreen(
+                    photo = clickEvent.photos,
+                    context = requireContext()
+                )
+            }
+        })
+    }
+
+    @ExperimentalMaterialApi
     @Composable
     private fun renderTabs(selectedCategory: State<BottomHomeTab?>) {
         when (selectedCategory.value) {

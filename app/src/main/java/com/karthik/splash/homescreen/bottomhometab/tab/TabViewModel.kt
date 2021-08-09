@@ -1,5 +1,7 @@
 package com.karthik.splash.homescreen.bottomhometab.tab
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.Pager
@@ -11,6 +13,7 @@ import com.karthik.splash.homescreen.bottomhometab.BottomHomeTab
 import com.karthik.splash.homescreen.bottomhometab.getTheTabType
 import com.karthik.splash.homescreen.bottomhometab.tab.datasource.PaginationData
 import com.karthik.splash.homescreen.bottomhometab.tab.datasource.SplashPagingSource
+import com.karthik.splash.homescreen.bottomliketab.ClickEvent
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -26,6 +29,9 @@ class TabViewModelFactory(
 class TabViewModel @Inject constructor(
     private val bottomTabRepository: IBottomTabRepository
 ) : ViewModel() {
+
+    private val _clickEvent: MutableLiveData<ClickEvent> = MutableLiveData()
+    val clickEvent: LiveData<ClickEvent> = _clickEvent
 
     fun getPhotosStream(type: BottomHomeTab): Flow<PagingData<Photos>> {
         return Pager(
@@ -43,5 +49,9 @@ class TabViewModel @Inject constructor(
                 )
             }
         ).flow
+    }
+
+    fun onPhotoItemClicked(photo: Photos){
+        _clickEvent.value = ClickEvent.PhotoClickEvent(photos = photo)
     }
 }

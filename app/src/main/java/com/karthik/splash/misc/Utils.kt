@@ -1,5 +1,9 @@
 package com.karthik.splash.misc
 
+import android.content.Context
+import android.content.Intent
+import com.karthik.network.home.bottomliketab.models.Photos
+import com.karthik.splash.photodetailscreen.PhotoDetailScreen
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,6 +34,12 @@ class Utils private constructor() {
                 ""
             }
 
+        }
+
+        fun navigateToPhotoDetailScreen(photo: Photos, context: Context) {
+            val intent = Intent(context, PhotoDetailScreen::class.java)
+            intent.putExtra(Utils.photo, photo.toBundle())
+            context.startActivity(intent)
         }
     }
 }

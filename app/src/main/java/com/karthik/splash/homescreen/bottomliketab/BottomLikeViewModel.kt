@@ -3,6 +3,7 @@ package com.karthik.splash.homescreen.bottomliketab
 import androidx.lifecycle.*
 import com.karthik.network.IMemoryCache
 import com.karthik.network.home.bottomliketab.IBottomLikeTabRepository
+import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
 import com.karthik.splash.BuildConfig
 import kotlinx.coroutines.launch
@@ -57,7 +58,11 @@ class BottomLikeViewModel(
     }
 
     fun loginClicked(){
-        _clickEvent.value = ClickEvent.LOGIN_EVENT
+        _clickEvent.value = ClickEvent.LoginEvent
+    }
+
+    fun onPhotoItemClicked(photo: Photos){
+        _clickEvent.value = ClickEvent.PhotoClickEvent(photos = photo)
     }
 
     private fun isloggedIn() {

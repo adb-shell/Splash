@@ -3,6 +3,7 @@ package com.karthik.splash.homescreen.bottomhometab.tab
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +19,7 @@ import com.karthik.splash.ui.Dimensions
 import com.karthik.splash.ui.FeedRow
 import com.karthik.splash.ui.ProgressIndicator
 
+@ExperimentalMaterialApi
 @Composable
 fun tab(mode: BottomHomeTab, viewModel: TabViewModel) {
     val photosStream = viewModel.getPhotosStream(type = mode)
@@ -33,7 +35,9 @@ fun tab(mode: BottomHomeTab, viewModel: TabViewModel) {
 
 
         items(photos) { photo ->
-            FeedRow(photo = photo)
+            FeedRow(photo = photo) { photoClicked ->
+                viewModel.onPhotoItemClicked(photoClicked)
+            }
         }
 
         /**

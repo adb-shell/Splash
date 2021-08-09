@@ -3,10 +3,7 @@ package com.karthik.splash.ui
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,20 +46,23 @@ fun SplashBrandLayout(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
-fun FeedRow(photo: Photos?) {
+fun FeedRow(photo: Photos?, onClick: (Photos) -> Unit) {
     if (photo == null) return
-    Image(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(Dimensions.twoHundredDp),
-        painter = rememberCoilPainter(
-            request = photo.urls?.regular,
-            fadeIn = true
-        ),
-        contentDescription = photo.id,
-        contentScale = ContentScale.FillWidth
-    )
+    Surface(onClick = { onClick(photo) }) {
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(Dimensions.twoHundredDp),
+            painter = rememberCoilPainter(
+                request = photo.urls?.regular,
+                fadeIn = true
+            ),
+            contentDescription = photo.id,
+            contentScale = ContentScale.FillWidth
+        )
+    }
 }
 
 
@@ -146,6 +146,7 @@ fun ProgressIndicatorPreview() {
     ProgressIndicator()
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun FeedsRowPreview() {
@@ -164,7 +165,8 @@ fun FeedsRowPreview() {
             ),
             user = null,
             width = "123"
-        )
+        ),
+        onClick = {photos ->  }
     )
 }
 

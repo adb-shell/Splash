@@ -29,6 +29,7 @@ import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabComponent
 import com.karthik.splash.homescreen.bottomliketab.di.BottomLikeTabModule
+import com.karthik.splash.misc.Utils
 import com.karthik.splash.root.SplashApp
 import com.karthik.splash.ui.*
 import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
@@ -58,6 +59,7 @@ class BottomLikeTabFragment : Fragment() {
             .get(BottomLikeViewModel::class.java)
     }
 
+    @ExperimentalMaterialApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -76,12 +78,21 @@ class BottomLikeTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.clickEvent.observe(viewLifecycleOwner, { clickEvent ->
-            if (clickEvent == ClickEvent.LOGIN_EVENT) {
-                openLoginOauthUrl(oauthurl = viewModel.loginurl)
+            when(clickEvent){
+                ClickEvent.LoginEvent->{
+                    openLoginOauthUrl(oauthurl = viewModel.loginurl)
+                }
+                is ClickEvent.PhotoClickEvent->{
+                    Utils.navigateToPhotoDetailScreen(
+                        photo = clickEvent.photos,
+                        context = requireContext()
+                    )
+                }
             }
         })
     }
 
+    @ExperimentalMaterialApi
     @Composable
     private fun renderUI(screenState: State<ScreenStatus?>) {
         Surface {
@@ -122,6 +133,7 @@ class BottomLikeTabFragment : Fragment() {
         )
     }
 
+    @ExperimentalMaterialApi
     @Composable
     private fun renderListOfLikedPhotos(likedPhotos: List<Photos>) {
         Column{
@@ -131,7 +143,9 @@ class BottomLikeTabFragment : Fragment() {
                     .fillMaxWidth()
             ){
                 items(likedPhotos) { likedPhoto ->
-                    FeedRow(likedPhoto)
+                    FeedRow(likedPhoto) { photoClicked ->
+                        viewModel.onPhotoItemClicked(photoClicked)
+                    }
                 }
             }
         }
