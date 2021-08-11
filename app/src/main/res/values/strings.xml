@@ -14,6 +14,7 @@
     <string name="username_error">username cannot be empty</string>
     <string name="password_error">password cannot be empty</string>
     <string name="welcome_back">Welcome back.</string>
+    <string name="welcome_back_subtitle">To view your liked photos here please login.</string>
     <string name="zero_likes">You haven\'t liked any post yet</string>
     <string name="unable_to_login">oops!! unable to log you in</string>
     <string name="logout">Logout</string>
@@ -28,7 +29,7 @@
     <string name="photo_detail_download">Download</string>
     <string name="photo_detail_share">Share</string>
     <string name="By">By %s</string>
-    <string name="On">On %s</string>
+    <string name="published_on">Published on %s</string>
     <string name="Collections">Collections</string>
     <string name="Photos">Photos</string>
     <string name="Version">version:</string>
@@ -41,6 +42,7 @@
     <string name="success_downloading">Awesome, your file is located here %s</string>
     <string name="error_permission">Splash requires write storage permission to save the image.</string>
     <string name="downloaded_imgs">Downloaded images</string>
+    <string name="downloading">Will start downloading the image</string>
 
     <!--Used for cache name-->
     <string name="local_cache">Local Cache</string>
@@ -51,4 +53,7 @@
 
     <!--Shared photo transition-->
     <string name="shared_photo_transition">shared photo transition</string>
+
+    <string name="photo_detail_error">Sorry! unable to get the photo details</string>
+    <string name="try_again">Try again</string>
 </resources>

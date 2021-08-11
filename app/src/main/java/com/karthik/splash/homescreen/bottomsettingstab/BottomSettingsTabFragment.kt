@@ -7,21 +7,39 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.karthik.splash.R
-import com.karthik.splash.R.layout.fragment_bottom_tab_settings
 import com.karthik.splash.aboutscreen.AboutScreen
 import com.karthik.splash.homescreen.bottomsettingstab.di.BottomSettingsTabComponent
 import com.karthik.splash.homescreen.bottomsettingstab.di.BottomSettingsTabModule
-import com.karthik.splash.models.UserStatus
 import com.karthik.splash.root.SplashApp
-import kotlinx.android.synthetic.main.fragment_bottom_tab_settings.*
+import com.karthik.splash.ui.*
+import com.karthik.splash.ui.Dimensions.Companion.eightDp
+import com.karthik.splash.ui.Dimensions.Companion.fiveDp
+import com.karthik.splash.ui.Dimensions.Companion.fourDp
+import com.karthik.splash.ui.Dimensions.Companion.sixteenDp
 import javax.inject.Inject
 
-class BottomSettingsTabFragment : Fragment(), View.OnClickListener {
+@ExperimentalMaterialApi
+class BottomSettingsTabFragment : Fragment() {
 
     private var bottomSettingsTabComponent: BottomSettingsTabComponent? = null
     private val permission = Manifest.permission.READ_EXTERNAL_STORAGE
@@ -32,39 +50,155 @@ class BottomSettingsTabFragment : Fragment(), View.OnClickListener {
 
     companion object {
         fun getInstance() =
-                BottomSettingsTabFragment()
+            BottomSettingsTabFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bottomSettingsTabComponent = (activity!!.application as SplashApp).getComponent()
-                .plus(BottomSettingsTabModule())
+        bottomSettingsTabComponent = (activity?.application as SplashApp).getComponent()
+            .plus(BottomSettingsTabModule())
         bottomSettingsTabComponent?.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(BottomSettingsViewModel::class.java)
+            .get(BottomSettingsViewModel::class.java)
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? =
-            inflater.inflate(fragment_bottom_tab_settings, container, false)
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        logout.setOnClickListener(this)
-        about.setOnClickListener(this)
-        downloads.setOnClickListener(this)
-        viewModel.userStatus.observe(viewLifecycleOwner, { userStatus ->
-            when (userStatus) {
-                is UserStatus.UserLoggedIn    -> {
-                    showLoggedInView(userStatus.username)
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                val state = viewModel.screenStatus.observeAsState()
+                val settingsRowsData = viewModel.getSettingsRowData(state)
+                SplashTheme {
+                    renderUI(settingsRowsData)
                 }
-                is UserStatus.UserNotLoggedIn -> {
-                    showNonLoggedInView()
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.settingTypeClicked.observe(viewLifecycleOwner, { settingType ->
+            when (settingType) {
+                SettingsEvent.About -> {
+                    context?.startActivity(Intent(context, AboutScreen::class.java))
+                }
+                SettingsEvent.Downloads -> {
+                    if (ContextCompat.checkSelfPermission(requireContext(), permission)
+                        == PermissionChecker.PERMISSION_GRANTED
+                    ) {
+                        openFolder()
+                    } else {
+                        requestPermissions(arrayOf(permission), 2)
+                    }
                 }
             }
         })
+    }
+
+    @Composable
+    private fun renderUI(list: List<SettingsEvent>) {
+        Surface {
+            Column {
+                ToolBar(title = stringResource(id = R.string.title_settings))
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(fiveDp)
+                )
+                Card(
+                    elevation = fourDp,
+                    modifier = Modifier
+                        .wrapContentWidth()
+                        .wrapContentHeight()
+                        .padding(sixteenDp)
+                ) {
+                    Column{
+                        list.forEach { settingsData ->
+                            renderRow(settingsEvent = settingsData, onClick = {
+                                viewModel.onClick(settingsEvent = settingsData)
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    @Composable
+    private fun renderRow(settingsEvent: SettingsEvent, onClick: () -> Unit){
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            onClick = onClick
+        ) {
+            Column {
+                Row(
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(fiveDp)
+                ) {
+                    val rowText = getRowText(settingsEvent = settingsEvent)
+                    Image(
+                        modifier = Modifier.padding(eightDp),
+                        painter = getRowresourceId(settingsEvent = settingsEvent),
+                        contentDescription = rowText,
+                        colorFilter =
+                        if (isSystemInDarkTheme()) ColorFilter.tint(color = Color.White) else null
+                    )
+                    Text(
+                        text = rowText
+                    )
+                }
+                Divider(
+                    color = getDividerColor()
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun getRowText(settingsEvent: SettingsEvent): String {
+        return when (settingsEvent) {
+            SettingsEvent.About -> {
+                stringResource(id = R.string.about)
+            }
+            SettingsEvent.Logout -> {
+                stringResource(id = R.string.logout)
+            }
+            SettingsEvent.LoggedIn -> {
+                val username = viewModel.getUserName() ?: ""
+                stringResource(id = R.string.logged_in_as, username)
+            }
+            SettingsEvent.NotLoggedIn -> {
+                stringResource(id = R.string.login)
+            }
+            SettingsEvent.Downloads -> {
+                stringResource(id = R.string.downloads)
+            }
+        }
+    }
+
+    @Composable
+    private fun getRowresourceId(settingsEvent: SettingsEvent): Painter {
+        val resourceId = when (settingsEvent) {
+            SettingsEvent.About -> {
+                R.drawable.about
+            }
+            SettingsEvent.Downloads -> {
+                R.drawable.downloads
+            }
+            SettingsEvent.LoggedIn,SettingsEvent.NotLoggedIn -> {
+                R.drawable.heart
+            }
+            SettingsEvent.Logout -> {
+                R.drawable.logout
+            }
+        }
+        return painterResource(id = resourceId)
     }
 
     override fun onDestroyView() {
@@ -72,44 +206,24 @@ class BottomSettingsTabFragment : Fragment(), View.OnClickListener {
         bottomSettingsTabComponent = null
     }
 
-    override fun onRequestPermissionsResult(
-            requestCode: Int, permissions: Array<out String>,
-            grantResults: IntArray
-    ) {
-        if (grantResults.isNotEmpty() && grantResults[0] == PermissionChecker.PERMISSION_GRANTED)
-            openFolder()
+    private fun openFolder() = startActivity(Intent(DownloadManager.ACTION_VIEW_DOWNLOADS))
+
+
+
+    @Preview
+    @Composable
+    fun previewRow(){
+        renderRow(settingsEvent = SettingsEvent.About, {})
     }
 
-    override fun onClick(view: View?) {
-        when (view?.id) {
-            R.id.logout -> viewModel.logoutUser()
-            R.id.about -> context?.startActivity(Intent(context, AboutScreen::class.java))
-            R.id.downloads -> {
-                if (context == null)
-                    return
-
-                if (ContextCompat.checkSelfPermission(context!!, permission)
-                        == PermissionChecker.PERMISSION_GRANTED) {
-                    openFolder()
-                } else {
-                    requestPermissions(arrayOf(permission), 2)
-                }
-            }
-        }
+    @Preview
+    @Composable
+    fun previewRenderUI() {
+        val dummyRowsData = mutableListOf(
+            SettingsEvent.NotLoggedIn,
+            SettingsEvent.About,
+            SettingsEvent.Downloads
+        )
+       renderUI(list = dummyRowsData)
     }
-
-    private fun showLoggedInView(name: String) {
-        logout.visibility = View.VISIBLE
-        username.text = getString(R.string.logged_in_as, name)
-    }
-
-
-    private fun showNonLoggedInView() {
-        profileimage.setImageResource(R.drawable.logout)
-        username.text = getString(R.string.login)
-        logout.visibility = View.GONE
-    }
-
-    private fun openFolder() =
-            startActivity(Intent(DownloadManager.ACTION_VIEW_DOWNLOADS))
 }

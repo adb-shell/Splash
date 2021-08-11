@@ -6,7 +6,6 @@ import com.karthik.network.home.bottomliketab.IBottomLikeTabRepository
 import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
 import com.karthik.splash.BuildConfig
-import com.karthik.splash.models.UserStatus
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
@@ -27,13 +26,11 @@ class BottomLikeViewModel(
 
     private val userscope = "public+read_user+read_photos+write_likes"
 
-    private val _likefeeds: MutableLiveData<List<Photos>> = MutableLiveData()
-    private val _networkstate: MutableLiveData<LikeFeedNetworkState> = MutableLiveData()
-    private val _isuserloggedin: MutableLiveData<UserStatus> = MutableLiveData()
+    private val _screenStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
+    private val _clickEvent: MutableLiveData<ClickEvent> = MutableLiveData()
 
-    val likefeeds: LiveData<List<Photos>> = _likefeeds
-    val networkstate: LiveData<LikeFeedNetworkState> = _networkstate
-    val isuserloggedin: LiveData<UserStatus> = _isuserloggedin
+    val screenStatus: LiveData<ScreenStatus> = _screenStatus
+    val clickEvent: LiveData<ClickEvent> = _clickEvent
 
     val loginurl = "${BuildConfig.SPLASH_LOGIN_URL}?client_id=${BuildConfig.SPLASH_KEY}" +
             "&redirect_uri=${BuildConfig.SPLASH_LOGIN_CALLBACK}&response_type=code&scope=$userscope"
@@ -45,27 +42,36 @@ class BottomLikeViewModel(
 
 
     fun getLikedPhotos() {
-        _networkstate.postValue(LikeFeedNetworkState.FeedNetworkLoading)
+        _screenStatus.postValue(ScreenStatus.ShowProgress)
         viewModelScope.launch {
             when (val response = respository.getUserLikedPhotos()) {
                 is UserLikedPhotoResponse.UserLikedPhoto -> {
-                    _networkstate.postValue(LikeFeedNetworkState.FeedNetworkLoadSuccess)
-                    _likefeeds.postValue(response.photos)
+                    _screenStatus.postValue(
+                        ScreenStatus.UserLikedPhotos(likedPhotos = response.photos)
+                    )
                 }
                 is UserLikedPhotoResponse.UserLikedPhotoErrorState -> {
-                    _networkstate.postValue(LikeFeedNetworkState.FeedNetworkError(response.e))
+                    _screenStatus.postValue(ScreenStatus.ErrorFetchingPhotos(error = response.e))
                 }
             }
         }
     }
 
+    fun loginClicked(){
+        _clickEvent.value = ClickEvent.LoginEvent
+    }
+
+    fun onPhotoItemClicked(photo: Photos){
+        _clickEvent.value = ClickEvent.PhotoClickEvent(photos = photo)
+    }
+
     private fun isloggedIn() {
         if (memoryCache.isUserLoggedIn()) {
             memoryCache.getUserName()?.let { name ->
-                _isuserloggedin.postValue(UserStatus.UserLoggedIn(name))
-            } ?: _isuserloggedin.postValue(UserStatus.UserLoggedIn(""))
+                _screenStatus.postValue(ScreenStatus.ScreenLoggedIn(name))
+            } ?: _screenStatus.postValue(ScreenStatus.ScreenLoggedIn(""))
         } else {
-            _isuserloggedin.postValue(UserStatus.UserNotLoggedIn)
+            _screenStatus.postValue(ScreenStatus.ScreenNotLoggedIn)
         }
     }
 }

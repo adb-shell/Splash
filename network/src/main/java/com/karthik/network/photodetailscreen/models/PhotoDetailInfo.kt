@@ -1,6 +1,7 @@
 package com.karthik.network.photodetailscreen.models
 
 import com.google.gson.annotations.SerializedName
+import com.karthik.network.home.bottomliketab.models.Urls
 
 
 data class PhotoDetailInfo(
@@ -27,5 +28,7 @@ data class PhotoDetailInfo(
         @SerializedName("height")
         var height: Int = 0,
         @SerializedName("likes")
-        var likes: Int = 0
+        var likes: Int = 0,
+        @SerializedName("urls")
+        var urls: Urls
 )

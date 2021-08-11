@@ -1,4 +1,5 @@
 import com.karthik.Configs
+import com.karthik.addComposeDependencies
 
 plugins {
     id("com.android.application")
@@ -35,10 +36,25 @@ android {
                 Configs.SplashUrlConfig.splashLoginCallbackValue)
     }
 
-    //TODO: fix lint issues.
     lintOptions {
         isAbortOnError = false
     }
+
+    buildFeatures {
+        compose = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        useIR = true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion = Configs.AppConfig.kotlinVersion
+        kotlinCompilerExtensionVersion = "1.0.0-beta09"
+    }
+
+
 
     buildTypes {
         getByName("debug") {
@@ -108,11 +124,8 @@ dependencies {
      */
     implementation(Configs.DependenciesConfig.rxDownloader)
 
-    /**
-     * image loading libraries
-     */
-    implementation(Configs.DependenciesConfig.picasso)
-    implementation(Configs.DependenciesConfig.materialLoading)
+
+    implementation(Configs.DependenciesConfig.coilAccompanist)
 
     /**
      * Architectre components
@@ -145,5 +158,10 @@ dependencies {
     androidTestImplementation(Configs.DependenciesConfig.espressoCore)
     androidTestImplementation(Configs.DependenciesConfig.roomTesting)
     androidTestImplementation(Configs.DependenciesConfig.archCoreTesting)
+
+    /**
+     * compose dependencies
+     */
+    addComposeDependencies()
 }
 
