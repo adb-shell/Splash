@@ -8,7 +8,7 @@ Splash is an android app that showcases use of
  - Dagger 2//TODO: migrate to hilt.
  - Build scripts that uses the kotlin dsl.
  - Integrated detekt static code analysis tool.
- - Migrated 99% of fragments and activities to new jetpack compose UI.
+ - Migrated 99% of fragments and activities to new **jetpack compose UI**.
  
  
  ## Screenshots
