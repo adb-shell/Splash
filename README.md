@@ -1,7 +1,28 @@
 ## Splash  
 Build Status: [![Build Status](https://app.bitrise.io/app/148bcaee35a29293/status.svg?token=GfxLmo6-yd14y4FlSrLM-Q&branch=develop)](https://app.bitrise.io/app/148bcaee35a29293)
 
-Splash is an android app that showcases use of `Dagger 2`, ~~Rxjava 2~~ coroutines along with `Android Architecture components` with the help of `unsplash` api.<br/>
+Splash is an android app that showcases use of 
+ - MVVM architecture
+ - Android architecture components like lifecycle extensions, paging, room
+ - Coroutines 
+ - Dagger 2//TODO: migrate to hilt.
+ - Build scripts that uses the kotlin dsl.
+ - Integrated detekt static code analysis tool.
+ - Migrated 99% of fragments and activities to new jetpack compose UI.
+ 
+ 
+ ## Screenshots
+ Dark theme: <br/>
+ <img src="https://github.com/adb-shell/Splash/blob/develop/assets/dark-1.png" width="200">
+ <img src="https://github.com/adb-shell/Splash/blob/develop/assets/dark-2.png" width="200">
+ <img src="https://github.com/adb-shell/Splash/blob/develop/assets/dark-3.png" width="200">
+ <img src="https://github.com/adb-shell/Splash/blob/develop/assets/dark-4.png" width="200"><br/><br/>
+ 
+ Light theme: <br/>
+ <img src="https://github.com/adb-shell/Splash/blob/develop/assets/light-1.png" width="200">
+ <img src="https://github.com/adb-shell/Splash/blob/develop/assets/light-2.png" width="200">
+ <img src="https://github.com/adb-shell/Splash/blob/develop/assets/light-3.png" width="200">
+ <img src="https://github.com/adb-shell/Splash/blob/develop/assets/light-4.png" width="200"><br/><br/> 
 
 ## Setup
 You can configure your API key, API secret and auth callback in `buildSrc/config.kt`.<br/><br/>
