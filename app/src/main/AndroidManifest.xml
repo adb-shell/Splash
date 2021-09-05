@@ -18,7 +18,9 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".splashscreen.SplashScreen"
-                android:theme="@style/AppTheme.Splash">
+                android:theme="@style/AppTheme.Splash"
+                android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -26,6 +28,7 @@
         </activity>
         <activity
                 android:name=".homescreen.HomeScreen"
+                android:exported="true"
                 android:label="@string/title_activity_feeds"
                 android:theme="@style/AppTheme.NoActionBar"
                 android:launchMode="singleInstance">
@@ -41,9 +44,11 @@
         <activity android:name=".aboutscreen.AboutScreen"
                   android:launchMode="singleInstance"
                   android:label="@string/about"
+                  android:exported="false"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".photodetailscreen.PhotoDetailScreen"
                   android:launchMode="singleInstance"
+                  android:exported="false"
                   android:label="@string/photo_detail"
                   android:theme="@style/AppTheme.NoActionBar"/>
     </application>

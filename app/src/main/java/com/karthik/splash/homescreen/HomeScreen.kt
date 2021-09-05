@@ -3,32 +3,55 @@ package com.karthik.splash.homescreen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.activity.compose.setContent
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.karthik.network.home.models.HomeScreenLoginState
 import com.karthik.splash.R
-import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabFragment
-import com.karthik.splash.homescreen.bottomliketab.BottomLikeTabFragment
-import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsTabFragment
+import com.karthik.splash.homescreen.bottomhometab.HomeViewModel
+import com.karthik.splash.homescreen.bottomhometab.tab.TabViewModel
+import com.karthik.splash.homescreen.bottomhometab.tab.TabViewModelFactory
+import com.karthik.splash.homescreen.bottomliketab.BottomLikeViewModel
+import com.karthik.splash.homescreen.bottomliketab.BottomLikeViewModelFactory
+import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModel
+import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModelFactory
 import com.karthik.splash.homescreen.di.HomeScreenComponent
 import com.karthik.splash.homescreen.di.HomeScreenModule
 import com.karthik.splash.root.SplashApp
-import kotlinx.android.synthetic.main.activity_home.*
+import com.karthik.splash.ui.SplashTheme
 import javax.inject.Inject
 
-class HomeScreen : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class HomeScreen : AppCompatActivity() {
 
     private var homeScreenComponent: HomeScreenComponent? = null
     private val code = "code"
 
     @Inject
     lateinit var homescreenfactory: HomeScreenViewModelFactory
+    @Inject
+    lateinit var bottomtabviewmodelfactory: TabViewModelFactory
+    @Inject
+    lateinit var bottomlikeviewmodelfactory: BottomLikeViewModelFactory
+    @Inject
+    lateinit var bottomsettingsviewmodelfactory: BottomSettingsViewModelFactory
+
+
     private lateinit var homescreenviewmodel: HomeScreenViewModel
+    private lateinit var tabviewmodel: TabViewModel
+    private lateinit var homeviewmodel: HomeViewModel
+    private lateinit var bottomlikeviewmodel: BottomLikeViewModel
+    private lateinit var bottomsettingsviewmodel: BottomSettingsViewModel
 
 
     companion object {
@@ -41,23 +64,114 @@ class HomeScreen : AppCompatActivity(), BottomNavigationView.OnNavigationItemSel
     }
 
 
+    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
         homeScreenComponent = (application as SplashApp).getComponent()
-                .plus(HomeScreenModule())
+            .plus(HomeScreenModule())
         homeScreenComponent?.inject(this)
-        navigation.setOnNavigationItemSelectedListener(this)
-        inflateHome()
+
         homescreenviewmodel = ViewModelProvider(this, homescreenfactory)
-                .get(HomeScreenViewModel::class.java)
+            .get(HomeScreenViewModel::class.java)
+        tabviewmodel = ViewModelProvider(this, bottomtabviewmodelfactory)
+            .get(TabViewModel::class.java)
+        homeviewmodel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        bottomlikeviewmodel = ViewModelProvider(this, bottomlikeviewmodelfactory)
+            .get(BottomLikeViewModel::class.java)
+        bottomsettingsviewmodel = ViewModelProvider(this, bottomsettingsviewmodelfactory)
+            .get(BottomSettingsViewModel::class.java)
+
         homescreenviewmodel.userloginstate.observe(this, Observer { state ->
             if (state is HomeScreenLoginState.LoginFailed) {
                 displayUnableToLogin()
                 return@Observer
             }
-            inflateLikes()
+            //renderLikeScreen()
         })
+
+        renderUI()
+    }
+
+    @ExperimentalMaterialApi
+    private fun renderUI() {
+        setContent {
+            SplashTheme {
+                val navController = rememberNavController()
+
+                Scaffold(
+                    bottomBar = {
+                        renderBottomBar(navController)
+                    }
+                ) {
+                    renderMainScreen(navController)
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun renderBottomBar(navController: NavHostController) {
+        BottomNavigation {
+            val currentRoute = currentRoute(navController)
+            homescreenviewmodel.getBottomNavigationItems().forEach { navigationScreen ->
+                BottomNavigationItem(
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = navigationScreen.icon),
+                            contentDescription = navigationScreen.route
+                        )
+                    },
+                    label = { Text(text = navigationScreen.route) },
+                    selected = currentRoute == navigationScreen.route,
+                    alwaysShowLabel = false,
+                    onClick = {
+                        if (currentRoute != navigationScreen.route) {
+                            navController.navigate(navigationScreen.route)
+                        }
+                    }
+                )
+            }
+        }
+    }
+
+    @Composable
+    private fun currentRoute(navController: NavHostController): String? {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        return navBackStackEntry?.destination?.route
+    }
+
+    @ExperimentalMaterialApi
+    @Composable
+    private fun renderMainScreen(navController: NavHostController) {
+        NavHost(navController, startDestination = BottomNavigationScreens.Home.route) {
+            composable(BottomNavigationScreens.Home.route) {
+                renderHomeScreen()
+            }
+            composable(BottomNavigationScreens.Like.route) {
+                renderLikeScreen()
+            }
+            composable(BottomNavigationScreens.Settings.route) {
+                renderSettingsScreen()
+            }
+        }
+    }
+
+    @ExperimentalMaterialApi
+    @Composable
+    private fun renderHomeScreen() {
+        BottomHomeTab(homeviewmodel = homeviewmodel, tabviewmodel = tabviewmodel)
+    }
+
+    @ExperimentalMaterialApi
+    @Composable
+    private fun renderLikeScreen() {
+        BottomLikeTab(bottomlikeviewmodel = bottomlikeviewmodel)
+    }
+
+    @ExperimentalMaterialApi
+    @Composable
+    private fun renderSettingsScreen() {
+        BottomSettingTab(bottomsettingsviewmodel = bottomsettingsviewmodel)
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -72,39 +186,6 @@ class HomeScreen : AppCompatActivity(), BottomNavigationView.OnNavigationItemSel
         homeScreenComponent = null
     }
 
-    @ExperimentalMaterialApi
-    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == navigation.selectedItemId)
-            return true
-
-        when (menuItem.itemId) {
-            R.id.navigation_home -> inflateHome()
-            R.id.navigation_likes -> inflateLikes()
-            R.id.navigation_settings -> inflateSettings()
-        }
-        return true
-    }
-
-    private fun inflateHome() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, BottomHomeTabFragment.getInstance(
-                intent.getBooleanExtra(IS_FROM_CACHE, false)))
-        transaction.commit()
-    }
-
-    private fun inflateLikes() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, BottomLikeTabFragment.getInstance())
-        transaction.commit()
-    }
-
-    @ExperimentalMaterialApi
-    private fun inflateSettings() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, BottomSettingsTabFragment.getInstance())
-        transaction.commit()
-    }
-
     private fun displayUnableToLogin() =
-            Toast.makeText(this, getString(R.string.unable_to_login), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.unable_to_login), Toast.LENGTH_LONG).show()
 }

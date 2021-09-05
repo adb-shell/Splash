@@ -43,4 +43,10 @@ class HomeScreenViewModel @Inject constructor(
             }
         }
     }
+
+    fun getBottomNavigationItems() = listOf(
+        BottomNavigationScreens.Home,
+        BottomNavigationScreens.Like,
+        BottomNavigationScreens.Settings
+    )
 }

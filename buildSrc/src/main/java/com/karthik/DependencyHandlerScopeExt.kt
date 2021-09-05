@@ -13,4 +13,5 @@ fun DependencyHandlerScope.addComposeDependencies() {
     add(config,Configs.ComposeConfig.composeLiveDataSupport)
     add(config,Configs.ComposeConfig.composeActivity)
     add(config,Configs.ComposeConfig.composePagination)
+    add(config,Configs.ComposeConfig.composeNavigation)
 }

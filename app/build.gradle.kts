@@ -45,8 +45,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
-        useIR = true
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     composeOptions {
@@ -112,7 +111,6 @@ dependencies {
     implementation(Configs.DependenciesConfig.androidXAppcompat)
     implementation(Configs.DependenciesConfig.googleMaterial)
     implementation(Configs.DependenciesConfig.androidXBrowser)
-    implementation(Configs.DependenciesConfig.recyclerView)
     implementation(Configs.DependenciesConfig.retrofit)
     implementation(Configs.DependenciesConfig.retrofitConvertor)
     implementation(Configs.DependenciesConfig.loggingInterceptor)
@@ -147,6 +145,11 @@ dependencies {
     releaseImplementation(Configs.DependenciesConfig.chuckerRelease)
 
     /**
+     * compose dependencies
+     */
+    addComposeDependencies()
+
+    /**
      * Testing depndencies
      */
     testImplementation(Configs.DependenciesConfig.junit)
@@ -158,10 +161,5 @@ dependencies {
     androidTestImplementation(Configs.DependenciesConfig.espressoCore)
     androidTestImplementation(Configs.DependenciesConfig.roomTesting)
     androidTestImplementation(Configs.DependenciesConfig.archCoreTesting)
-
-    /**
-     * compose dependencies
-     */
-    addComposeDependencies()
 }
 

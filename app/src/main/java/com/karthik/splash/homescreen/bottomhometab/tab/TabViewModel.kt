@@ -9,7 +9,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.network.home.bottomtab.IBottomTabRepository
-import com.karthik.splash.homescreen.bottomhometab.BottomHomeTab
+import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabType
 import com.karthik.splash.homescreen.bottomhometab.getTheTabType
 import com.karthik.splash.homescreen.bottomhometab.tab.datasource.PaginationData
 import com.karthik.splash.homescreen.bottomhometab.tab.datasource.SplashPagingSource
@@ -33,7 +33,7 @@ class TabViewModel @Inject constructor(
     private val _clickEvent: MutableLiveData<ClickEvent> = MutableLiveData()
     val clickEvent: LiveData<ClickEvent> = _clickEvent
 
-    fun getPhotosStream(type: BottomHomeTab): Flow<PagingData<Photos>> {
+    fun getPhotosStream(type: BottomHomeTabType): Flow<PagingData<Photos>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
