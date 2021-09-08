@@ -52,7 +52,7 @@ fun BottomLikeTab(
 fun renderLikePhotos(viewModel: BottomLikeViewModel) {
 
     viewModel.getLikedPhotos()
-    val screenState = viewModel.networkStatus.observeAsState()
+    val screenState = viewModel.networkNetworkStatusLike.observeAsState()
 
     Surface(
         modifier = Modifier
@@ -60,14 +60,14 @@ fun renderLikePhotos(viewModel: BottomLikeViewModel) {
             .fillMaxWidth()
     ) {
         when (screenState.value) {
-            is ScreenStatus.ShowProgress -> {
+            is LikeScreenNetworkStatus.ShowProgress -> {
                 ProgressIndicator()
             }
-            is ScreenStatus.ErrorFetchingPhotos -> {
+            is LikeScreenNetworkStatus.ErrorFetchingPhotos -> {
                 renderErrorState()
             }
-            is ScreenStatus.UserLikedPhotos -> {
-                val photos = (screenState.value as ScreenStatus.UserLikedPhotos).likedPhotos
+            is LikeScreenNetworkStatus.UserLikedPhotos -> {
+                val photos = (screenState.value as LikeScreenNetworkStatus.UserLikedPhotos).likedPhotos
                 if (!photos.isNullOrEmpty()) {
                     renderListOfLikedPhotos(viewModel = viewModel, likedPhotos = photos)
                 } else renderErrorState()

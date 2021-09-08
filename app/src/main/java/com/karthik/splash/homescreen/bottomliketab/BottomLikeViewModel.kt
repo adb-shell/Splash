@@ -23,24 +23,24 @@ class BottomLikeViewModel(
         private val memoryCache: IMemoryCache,
         private val respository: IBottomLikeTabRepository
 ) : ViewModel() {
-    private val _networkStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
+    private val _networkNetworkStatusLike: MutableLiveData<LikeScreenNetworkStatus> = MutableLiveData()
     private val _clickEvent: MutableLiveData<HomeClickEvents> = MutableLiveData()
 
-    val networkStatus: LiveData<ScreenStatus> = _networkStatus
+    val networkNetworkStatusLike: LiveData<LikeScreenNetworkStatus> = _networkNetworkStatusLike
     val clickEvent: LiveData<HomeClickEvents> = _clickEvent
 
 
     fun getLikedPhotos() {
-        _networkStatus.postValue(ScreenStatus.ShowProgress)
+        _networkNetworkStatusLike.postValue(LikeScreenNetworkStatus.ShowProgress)
         viewModelScope.launch {
             when (val response = respository.getUserLikedPhotos()) {
                 is UserLikedPhotoResponse.UserLikedPhoto -> {
-                    _networkStatus.postValue(
-                        ScreenStatus.UserLikedPhotos(likedPhotos = response.photos)
+                    _networkNetworkStatusLike.postValue(
+                        LikeScreenNetworkStatus.UserLikedPhotos(likedPhotos = response.photos)
                     )
                 }
                 is UserLikedPhotoResponse.UserLikedPhotoErrorState -> {
-                    _networkStatus.postValue(ScreenStatus.ErrorFetchingPhotos(error = response.e))
+                    _networkNetworkStatusLike.postValue(LikeScreenNetworkStatus.ErrorFetchingPhotos(error = response.e))
                 }
             }
         }

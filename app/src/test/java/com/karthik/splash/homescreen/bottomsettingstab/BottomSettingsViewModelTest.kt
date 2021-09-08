@@ -2,8 +2,7 @@ package com.karthik.splash.homescreen.bottomsettingstab
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.karthik.network.IMemoryCache
-import com.karthik.splash.homescreen.bottomliketab.ScreenStatus
-import com.karthik.splash.observeForTesting
+import com.karthik.splash.homescreen.bottomliketab.LikeScreenNetworkStatus
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -29,7 +28,7 @@ class BottomSettingsViewModelTest {
         Mockito.`when`(memoryCache.isUserLoggedIn()).thenReturn(false)
         bottomSettingsViewModel = BottomSettingsViewModel(memoryCache = memoryCache)
         bottomSettingsViewModel.screenStatus.observeForTesting {  }
-        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is ScreenStatus.ScreenNotLoggedIn)
+        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is LikeScreenNetworkStatus.ScreenNotLoggedIn)
     }
 
     @Test
@@ -37,7 +36,7 @@ class BottomSettingsViewModelTest {
         Mockito.`when`(memoryCache.isUserLoggedIn()).thenReturn(true)
         bottomSettingsViewModel = BottomSettingsViewModel(memoryCache = memoryCache)
         bottomSettingsViewModel.screenStatus.observeForTesting {  }
-        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is ScreenStatus.ScreenNotLoggedIn)
+        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is LikeScreenNetworkStatus.ScreenNotLoggedIn)
     }
 
     @Test
@@ -46,6 +45,6 @@ class BottomSettingsViewModelTest {
         Mockito.`when`(memoryCache.getUserName()).thenReturn("abcd")
         bottomSettingsViewModel = BottomSettingsViewModel(memoryCache = memoryCache)
         bottomSettingsViewModel.screenStatus.observeForTesting {  }
-        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is ScreenStatus.ScreenLoggedIn)
+        Assert.assertTrue(bottomSettingsViewModel.screenStatus.value is LikeScreenNetworkStatus.ScreenLoggedIn)
     }
 }
