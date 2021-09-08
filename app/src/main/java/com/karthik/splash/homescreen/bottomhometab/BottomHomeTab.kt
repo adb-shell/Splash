@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen
+package com.karthik.splash.homescreen.bottomhometab
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -7,8 +7,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.karthik.splash.R
-import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabType
-import com.karthik.splash.homescreen.bottomhometab.HomeViewModel
 import com.karthik.splash.ui.SplashTheme
 import androidx.compose.runtime.State
 import androidx.compose.ui.tooling.preview.Preview

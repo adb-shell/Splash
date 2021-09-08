@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen
+package com.karthik.splash.homescreen.bottomsettingstab
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -13,14 +13,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.karthik.splash.R
-import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModel
+import com.karthik.splash.homescreen.HomeClickEvents
 import com.karthik.splash.ui.Dimensions
 import com.karthik.splash.ui.SplashTheme
 import com.karthik.splash.ui.ToolBar
 import com.karthik.splash.ui.getDividerColor
-import java.lang.IllegalStateException
 
 @Composable
 @ExperimentalMaterialApi
@@ -119,7 +117,7 @@ private fun getRowText(viewModel: BottomSettingsViewModel, settingsEvent: HomeCl
         HomeClickEvents.DownloadsClick -> {
             stringResource(id = R.string.downloads)
         }
-        else -> throw IllegalStateException("Cannot have other type of clicks")
+        else -> throw IllegalStateException("Unable to process the click event")
     }
 }
 
@@ -138,19 +136,19 @@ private fun getRowresourceId(settingsEvent: HomeClickEvents): Painter {
         HomeClickEvents.LogoutClick -> {
             R.drawable.logout
         }
-        else -> throw IllegalStateException("Cannot have other type of clicks")
+        else -> throw IllegalStateException("Unable to process raw resource id")
     }
     return painterResource(id = resourceId)
 }
 
-@ExperimentalMaterialApi
+/*@ExperimentalMaterialApi
 @Preview
 @Composable
 fun previewRow(){
    // renderRow(settingsEvent = SettingsEvent.About, {},)
-}
+}*/
 
-@Preview
+/*@Preview
 @Composable
 fun previewRenderUI() {
     val dummyRowsData = mutableListOf(
@@ -158,5 +156,5 @@ fun previewRenderUI() {
         HomeClickEvents.AboutClick,
         HomeClickEvents.DownloadsClick
     )
-    //renderSettings(list = dummyRowsData)
-}
+    renderSettings(list = dummyRowsData)
+}*/

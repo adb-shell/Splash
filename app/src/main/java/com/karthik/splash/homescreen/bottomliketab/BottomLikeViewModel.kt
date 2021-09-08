@@ -5,7 +5,6 @@ import com.karthik.network.IMemoryCache
 import com.karthik.network.home.bottomliketab.IBottomLikeTabRepository
 import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
-import com.karthik.splash.BuildConfig
 import com.karthik.splash.homescreen.HomeClickEvents
 import kotlinx.coroutines.launch
 
@@ -24,17 +23,11 @@ class BottomLikeViewModel(
         private val memoryCache: IMemoryCache,
         private val respository: IBottomLikeTabRepository
 ) : ViewModel() {
-
-    private val userscope = "public+read_user+read_photos+write_likes"
-
     private val _screenStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
     private val _clickEvent: MutableLiveData<HomeClickEvents> = MutableLiveData()
 
     val screenStatus: LiveData<ScreenStatus> = _screenStatus
     val clickEvent: LiveData<HomeClickEvents> = _clickEvent
-
-    val loginurl = "${BuildConfig.SPLASH_LOGIN_URL}?client_id=${BuildConfig.SPLASH_KEY}" +
-            "&redirect_uri=${BuildConfig.SPLASH_LOGIN_CALLBACK}&response_type=code&scope=$userscope"
 
 
     init {

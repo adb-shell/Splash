@@ -1,22 +1,15 @@
 package com.karthik.splash.homescreen
 
-import android.Manifest
-import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
@@ -26,18 +19,19 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.karthik.network.home.models.HomeScreenLoginState
 import com.karthik.splash.R
-import com.karthik.splash.aboutscreen.AboutScreen
+import com.karthik.splash.homescreen.bottomhometab.BottomHomeTab
 import com.karthik.splash.homescreen.bottomhometab.HomeViewModel
+import com.karthik.splash.homescreen.bottomhometab.handleHomeClicks
 import com.karthik.splash.homescreen.bottomhometab.tab.TabViewModel
 import com.karthik.splash.homescreen.bottomhometab.tab.TabViewModelFactory
 import com.karthik.splash.homescreen.bottomliketab.BottomLikeTab
 import com.karthik.splash.homescreen.bottomliketab.BottomLikeViewModel
 import com.karthik.splash.homescreen.bottomliketab.BottomLikeViewModelFactory
+import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingTab
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModel
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModelFactory
 import com.karthik.splash.homescreen.di.HomeScreenComponent
 import com.karthik.splash.homescreen.di.HomeScreenModule
-import com.karthik.splash.misc.Utils
 import com.karthik.splash.root.SplashApp
 import com.karthik.splash.ui.SplashTheme
 import javax.inject.Inject
@@ -62,8 +56,6 @@ class HomeScreen : AppCompatActivity() {
     private lateinit var homeviewmodel: HomeViewModel
     private lateinit var bottomlikeviewmodel: BottomLikeViewModel
     private lateinit var bottomsettingsviewmodel: BottomSettingsViewModel
-
-    private val permission = Manifest.permission.READ_EXTERNAL_STORAGE
 
 
     companion object {
@@ -100,11 +92,11 @@ class HomeScreen : AppCompatActivity() {
 
     private fun handleViewModelEvents() {
         bottomlikeviewmodel.clickEvent.observe(this, { clickevent ->
-            handleHomeClicks(clickevent)
+            handleHomeClicks(context = this, clickEvent = clickevent)
         })
 
         bottomsettingsviewmodel.clickEvent.observe(this, { clickevent ->
-            handleHomeClicks(clickevent)
+            handleHomeClicks(context = this, clickEvent = clickevent)
         })
     }
 
@@ -209,58 +201,6 @@ class HomeScreen : AppCompatActivity() {
         super.onNewIntent(intent)
         intent?.data?.authority?.let {
             homescreenviewmodel.getUserInfo(intent.data?.getQueryParameter(code))
-        }
-    }
-
-    private fun openLoginOauthUrl(oauthurl: String) {
-        val uri = Uri.parse(oauthurl)
-        val intentBuilder = CustomTabsIntent.Builder()
-        intentBuilder.setToolbarColor(
-            ContextCompat.getColor(
-                this,
-                R.color.icons
-            )
-        )
-        intentBuilder.setSecondaryToolbarColor(
-            ContextCompat.getColor(
-                this,
-                R.color.icons
-            )
-        )
-        val customTabsIntent = intentBuilder.build()
-        customTabsIntent.launchUrl(this, uri)
-    }
-
-    private fun handleHomeClicks(clickEvent: HomeClickEvents) {
-        when (clickEvent) {
-            HomeClickEvents.NotLoggedIn -> {
-                openLoginOauthUrl(oauthurl = bottomlikeviewmodel.loginurl)
-            }
-            is HomeClickEvents.PhotoClick -> {
-                Utils.navigateToPhotoDetailScreen(
-                    photo = clickEvent.photos,
-                    context = this
-                )
-            }
-            HomeClickEvents.AboutClick -> {
-                startActivity(Intent(this, AboutScreen::class.java))
-            }
-            HomeClickEvents.DownloadsClick -> {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        permission
-                    )
-                    == PermissionChecker.PERMISSION_GRANTED
-                ) {
-                    startActivity(Intent(DownloadManager.ACTION_VIEW_DOWNLOADS))
-                } else {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(permission),
-                        2
-                    )
-                }
-            }
         }
     }
 
