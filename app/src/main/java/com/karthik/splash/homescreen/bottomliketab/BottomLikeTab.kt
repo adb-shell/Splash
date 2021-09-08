@@ -16,31 +16,50 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.karthik.network.home.bottomliketab.models.Photos
+import com.karthik.network.home.models.HomeScreenLoginState
 import com.karthik.splash.R
 import com.karthik.splash.ui.*
 
 @ExperimentalMaterialApi
 @Composable
-fun BottomLikeTab(bottomlikeviewmodel: BottomLikeViewModel) {
+fun BottomLikeTab(
+    loginState: State<HomeScreenLoginState?>,
+    bottomlikeviewmodel: BottomLikeViewModel
+) {
     SplashTheme {
-        val screenState = bottomlikeviewmodel.screenStatus.observeAsState()
-        renderLikeTab(viewModel = bottomlikeviewmodel, screenState = screenState)
+
+        Surface(
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth()
+        ) {
+            when (loginState.value) {
+                is HomeScreenLoginState.LoginSuccess -> {
+                    renderLikePhotos(viewModel = bottomlikeviewmodel)
+                }
+                else ->{
+                    renderLoginScreen {
+                        bottomlikeviewmodel.loginClicked()
+                    }
+                }
+            }
+        }
     }
 }
 
 @ExperimentalMaterialApi
 @Composable
-fun renderLikeTab(viewModel: BottomLikeViewModel, screenState: State<ScreenStatus?>) {
-    Surface(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
+fun renderLikePhotos(viewModel: BottomLikeViewModel) {
+
+    viewModel.getLikedPhotos()
+    val screenState = viewModel.networkStatus.observeAsState()
+
+    Surface(
+        modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth()
+    ) {
         when (screenState.value) {
-            is ScreenStatus.ScreenLoggedIn -> {
-                viewModel.getLikedPhotos()
-            }
-            is ScreenStatus.ScreenNotLoggedIn -> {
-                renderLoginScreen {
-                    viewModel.loginClicked()
-                }
-            }
             is ScreenStatus.ShowProgress -> {
                 ProgressIndicator()
             }

@@ -1,13 +1,12 @@
 package com.karthik.splash.homescreen.bottomsettingstab
 
 import androidx.compose.runtime.State
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.karthik.network.IMemoryCache
+import com.karthik.network.home.models.HomeScreenLoginState
 import com.karthik.splash.homescreen.HomeClickEvents
-import com.karthik.splash.homescreen.bottomliketab.ScreenStatus
 
 @Suppress("UNCHECKED_CAST")
 class BottomSettingsViewModelFactory(private val memoryCache: IMemoryCache) :
@@ -17,26 +16,10 @@ class BottomSettingsViewModelFactory(private val memoryCache: IMemoryCache) :
 }
 
 class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel() {
-    private val _screenStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
     private val _settingEventClicked: MutableLiveData<HomeClickEvents> = MutableLiveData()
-    val screenStatus: LiveData<ScreenStatus> = _screenStatus
     val clickEvent = _settingEventClicked
 
-    init {
-        if (memoryCache.isUserLoggedIn()) {
-            memoryCache.getUserName()?.let { name ->
-                _screenStatus.postValue(ScreenStatus.ScreenLoggedIn(name))
-            } ?: _screenStatus.postValue(ScreenStatus.ScreenNotLoggedIn)
-        } else {
-            _screenStatus.postValue(ScreenStatus.ScreenNotLoggedIn)
-        }
-    }
-
-    fun getUserName(): String? {
-        return if (screenStatus.value is ScreenStatus.ScreenLoggedIn) {
-            (screenStatus.value as ScreenStatus.ScreenLoggedIn).username
-        } else null
-    }
+    fun getUserName(): String? = memoryCache.getUserName()
 
     fun onClick(settingsEvent: HomeClickEvents) {
         if (settingsEvent == HomeClickEvents.LogoutClick) {
@@ -46,15 +29,14 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
         _settingEventClicked.value = settingsEvent
     }
 
-    fun getSettingsRowData(state: State<ScreenStatus?>): List<HomeClickEvents> {
-
+    fun getSettingsRowData(loginState: State<HomeScreenLoginState?>): List<HomeClickEvents> {
         val settingsRowsData = mutableListOf(
             HomeClickEvents.AboutClick,
             HomeClickEvents.DownloadsClick
         )
 
-        when (state.value) {
-            is ScreenStatus.ScreenLoggedIn -> {
+        when (loginState.value) {
+            is HomeScreenLoginState.LoginSuccess -> {
                 settingsRowsData.add(
                     0,
                     HomeClickEvents.LoginClick
@@ -63,7 +45,7 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
                     HomeClickEvents.LogoutClick
                 )
             }
-            is ScreenStatus.ScreenNotLoggedIn -> {
+            else -> {
                 settingsRowsData.add(
                     0,
                     HomeClickEvents.NotLoggedIn
@@ -75,6 +57,6 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
 
     private fun logoutUser() {
         memoryCache.logOutUser()
-        _screenStatus.postValue(ScreenStatus.ScreenNotLoggedIn)
+        _settingEventClicked.value = HomeClickEvents.LogoutClick
     }
 }

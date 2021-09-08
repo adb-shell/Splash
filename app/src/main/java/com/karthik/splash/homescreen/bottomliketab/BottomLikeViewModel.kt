@@ -23,29 +23,24 @@ class BottomLikeViewModel(
         private val memoryCache: IMemoryCache,
         private val respository: IBottomLikeTabRepository
 ) : ViewModel() {
-    private val _screenStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
+    private val _networkStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
     private val _clickEvent: MutableLiveData<HomeClickEvents> = MutableLiveData()
 
-    val screenStatus: LiveData<ScreenStatus> = _screenStatus
+    val networkStatus: LiveData<ScreenStatus> = _networkStatus
     val clickEvent: LiveData<HomeClickEvents> = _clickEvent
 
 
-    init {
-        isloggedIn()
-    }
-
-
     fun getLikedPhotos() {
-        _screenStatus.postValue(ScreenStatus.ShowProgress)
+        _networkStatus.postValue(ScreenStatus.ShowProgress)
         viewModelScope.launch {
             when (val response = respository.getUserLikedPhotos()) {
                 is UserLikedPhotoResponse.UserLikedPhoto -> {
-                    _screenStatus.postValue(
+                    _networkStatus.postValue(
                         ScreenStatus.UserLikedPhotos(likedPhotos = response.photos)
                     )
                 }
                 is UserLikedPhotoResponse.UserLikedPhotoErrorState -> {
-                    _screenStatus.postValue(ScreenStatus.ErrorFetchingPhotos(error = response.e))
+                    _networkStatus.postValue(ScreenStatus.ErrorFetchingPhotos(error = response.e))
                 }
             }
         }
@@ -57,15 +52,5 @@ class BottomLikeViewModel(
 
     fun onPhotoItemClicked(photo: Photos){
         _clickEvent.value = HomeClickEvents.PhotoClick(photos = photo)
-    }
-
-    private fun isloggedIn() {
-        if (memoryCache.isUserLoggedIn()) {
-            memoryCache.getUserName()?.let { name ->
-                _screenStatus.postValue(ScreenStatus.ScreenLoggedIn(name))
-            } ?: _screenStatus.postValue(ScreenStatus.ScreenLoggedIn(""))
-        } else {
-            _screenStatus.postValue(ScreenStatus.ScreenNotLoggedIn)
-        }
     }
 }

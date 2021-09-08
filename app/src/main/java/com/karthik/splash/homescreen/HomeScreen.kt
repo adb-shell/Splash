@@ -8,9 +8,10 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.res.painterResource
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -77,14 +78,6 @@ class HomeScreen : AppCompatActivity() {
 
         intialiseViewModels()
 
-        homescreenviewmodel.userloginstate.observe(this, Observer { state ->
-            if (state is HomeScreenLoginState.LoginFailed) {
-                displayUnableToLogin()
-                return@Observer
-            }
-            //renderLikeScreen()
-        })
-
         handleViewModelEvents()
 
         renderUI()
@@ -92,11 +85,27 @@ class HomeScreen : AppCompatActivity() {
 
     private fun handleViewModelEvents() {
         bottomlikeviewmodel.clickEvent.observe(this, { clickevent ->
-            handleHomeClicks(context = this, clickEvent = clickevent)
+            handleHomeClicks(
+                homeScreenViewModel = homescreenviewmodel,
+                context = this,
+                clickEvent = clickevent
+            )
         })
 
         bottomsettingsviewmodel.clickEvent.observe(this, { clickevent ->
-            handleHomeClicks(context = this, clickEvent = clickevent)
+            handleHomeClicks(
+                homeScreenViewModel = homescreenviewmodel,
+                context = this,
+                clickEvent = clickevent
+            )
+        })
+
+        tabviewmodel.clickEvent.observe(this, { clickevent ->
+            handleHomeClicks(
+                homeScreenViewModel = homescreenviewmodel,
+                context = this,
+                clickEvent = clickevent
+            )
         })
     }
 
@@ -166,15 +175,16 @@ class HomeScreen : AppCompatActivity() {
     @ExperimentalMaterialApi
     @Composable
     private fun renderMainScreen(navController: NavHostController) {
+        val loginState = homescreenviewmodel.userloginstate.observeAsState()
         NavHost(navController, startDestination = BottomNavigationScreens.Home.route) {
             composable(BottomNavigationScreens.Home.route) {
                 renderHomeScreen()
             }
             composable(BottomNavigationScreens.Like.route) {
-                renderLikeScreen()
+                renderLikeScreen(loginState)
             }
             composable(BottomNavigationScreens.Settings.route) {
-                renderSettingsScreen()
+                renderSettingsScreen(loginState)
             }
         }
     }
@@ -187,14 +197,14 @@ class HomeScreen : AppCompatActivity() {
 
     @ExperimentalMaterialApi
     @Composable
-    private fun renderLikeScreen() {
-        BottomLikeTab(bottomlikeviewmodel = bottomlikeviewmodel)
+    private fun renderLikeScreen(loginState: State<HomeScreenLoginState?>) {
+        BottomLikeTab(loginState = loginState, bottomlikeviewmodel = bottomlikeviewmodel)
     }
 
     @ExperimentalMaterialApi
     @Composable
-    private fun renderSettingsScreen() {
-        BottomSettingTab(bottomsettingsviewmodel = bottomsettingsviewmodel)
+    private fun renderSettingsScreen(loginState: State<HomeScreenLoginState?>) {
+        BottomSettingTab(loginState = loginState, bottomsettingsviewmodel = bottomsettingsviewmodel)
     }
 
     override fun onNewIntent(intent: Intent?) {

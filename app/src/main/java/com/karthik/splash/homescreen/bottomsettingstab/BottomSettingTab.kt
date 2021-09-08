@@ -5,6 +5,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.karthik.network.home.models.HomeScreenLoginState
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.HomeClickEvents
 import com.karthik.splash.ui.Dimensions
@@ -22,9 +24,11 @@ import com.karthik.splash.ui.getDividerColor
 
 @Composable
 @ExperimentalMaterialApi
-fun BottomSettingTab(bottomsettingsviewmodel: BottomSettingsViewModel) {
-    val state = bottomsettingsviewmodel.screenStatus.observeAsState()
-    val settingsRowsData = bottomsettingsviewmodel.getSettingsRowData(state)
+fun BottomSettingTab(
+    loginState: State<HomeScreenLoginState?>,
+    bottomsettingsviewmodel: BottomSettingsViewModel
+) {
+    val settingsRowsData = bottomsettingsviewmodel.getSettingsRowData(loginState = loginState)
     SplashTheme {
         renderSettings(bottomsettingsviewmodel, settingsRowsData)
     }
@@ -130,7 +134,7 @@ private fun getRowresourceId(settingsEvent: HomeClickEvents): Painter {
         HomeClickEvents.DownloadsClick -> {
             R.drawable.downloads
         }
-        HomeClickEvents.NotLoggedIn -> {
+        HomeClickEvents.NotLoggedIn, HomeClickEvents.LoginClick -> {
             R.drawable.heart
         }
         HomeClickEvents.LogoutClick -> {

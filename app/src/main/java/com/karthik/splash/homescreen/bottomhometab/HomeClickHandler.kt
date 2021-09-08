@@ -14,6 +14,7 @@ import com.karthik.splash.BuildConfig
 import com.karthik.splash.R
 import com.karthik.splash.aboutscreen.AboutScreen
 import com.karthik.splash.homescreen.HomeClickEvents
+import com.karthik.splash.homescreen.HomeScreenViewModel
 import com.karthik.splash.misc.Utils
 
 
@@ -22,7 +23,11 @@ private const val USERSCOPE = "public+read_user+read_photos+write_likes"
 private const val LOGINURL = "${BuildConfig.SPLASH_LOGIN_URL}?client_id=${BuildConfig.SPLASH_KEY}" +
         "&redirect_uri=${BuildConfig.SPLASH_LOGIN_CALLBACK}&response_type=code&scope=$USERSCOPE"
 
-internal fun handleHomeClicks(context: Context, clickEvent: HomeClickEvents) {
+internal fun handleHomeClicks(
+    homeScreenViewModel: HomeScreenViewModel,
+    context: Context,
+    clickEvent: HomeClickEvents
+) {
     when (clickEvent) {
         HomeClickEvents.NotLoggedIn -> {
             openLoginOauthUrl(context = context, oauthurl = LOGINURL)
@@ -51,6 +56,9 @@ internal fun handleHomeClicks(context: Context, clickEvent: HomeClickEvents) {
                     2
                 )
             }
+        }
+        HomeClickEvents.LogoutClick -> {
+            homeScreenViewModel.logout()
         }
         else -> throw IllegalStateException("Unable to process the click event")
     }
