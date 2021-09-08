@@ -1,4 +1,4 @@
-package com.karthik.splash.homescreen
+package com.karthik.splash.homescreen.bottomliketab
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -17,8 +17,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.splash.R
-import com.karthik.splash.homescreen.bottomliketab.BottomLikeViewModel
-import com.karthik.splash.homescreen.bottomliketab.ScreenStatus
 import com.karthik.splash.ui.*
 
 @ExperimentalMaterialApi
@@ -33,7 +31,7 @@ fun BottomLikeTab(bottomlikeviewmodel: BottomLikeViewModel) {
 @ExperimentalMaterialApi
 @Composable
 fun renderLikeTab(viewModel: BottomLikeViewModel, screenState: State<ScreenStatus?>) {
-    Surface {
+    Surface(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
         when (screenState.value) {
             is ScreenStatus.ScreenLoggedIn -> {
                 viewModel.getLikedPhotos()

@@ -16,11 +16,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModel
-import com.karthik.splash.homescreen.bottomsettingstab.SettingsEvent
 import com.karthik.splash.ui.Dimensions
 import com.karthik.splash.ui.SplashTheme
 import com.karthik.splash.ui.ToolBar
 import com.karthik.splash.ui.getDividerColor
+import java.lang.IllegalStateException
 
 @Composable
 @ExperimentalMaterialApi
@@ -34,7 +34,7 @@ fun BottomSettingTab(bottomsettingsviewmodel: BottomSettingsViewModel) {
 
 @Composable
 @ExperimentalMaterialApi
-fun renderSettings(viewModel: BottomSettingsViewModel, list: List<SettingsEvent>) {
+fun renderSettings(viewModel: BottomSettingsViewModel, list: List<HomeClickEvents>) {
     Surface {
         Column {
             ToolBar(title = stringResource(id = R.string.title_settings))
@@ -66,7 +66,7 @@ fun renderSettings(viewModel: BottomSettingsViewModel, list: List<SettingsEvent>
 @Composable
 private fun renderRow(
     viewModel: BottomSettingsViewModel,
-    settingsEvent: SettingsEvent,
+    settingsEvent: HomeClickEvents,
     onClick: () -> Unit
 ) {
     Surface(
@@ -101,42 +101,44 @@ private fun renderRow(
 }
 
 @Composable
-private fun getRowText(viewModel: BottomSettingsViewModel, settingsEvent: SettingsEvent): String {
+private fun getRowText(viewModel: BottomSettingsViewModel, settingsEvent: HomeClickEvents): String {
     return when (settingsEvent) {
-        SettingsEvent.About -> {
+        HomeClickEvents.AboutClick -> {
             stringResource(id = R.string.about)
         }
-        SettingsEvent.Logout -> {
+        HomeClickEvents.LogoutClick -> {
             stringResource(id = R.string.logout)
         }
-        SettingsEvent.LoggedIn -> {
+        HomeClickEvents.LoginClick -> {
             val username = viewModel.getUserName() ?: ""
             stringResource(id = R.string.logged_in_as, username)
         }
-        SettingsEvent.NotLoggedIn -> {
+        HomeClickEvents.NotLoggedIn -> {
             stringResource(id = R.string.login)
         }
-        SettingsEvent.Downloads -> {
+        HomeClickEvents.DownloadsClick -> {
             stringResource(id = R.string.downloads)
         }
+        else -> throw IllegalStateException("Cannot have other type of clicks")
     }
 }
 
 @Composable
-private fun getRowresourceId(settingsEvent: SettingsEvent): Painter {
+private fun getRowresourceId(settingsEvent: HomeClickEvents): Painter {
     val resourceId = when (settingsEvent) {
-        SettingsEvent.About -> {
+        HomeClickEvents.AboutClick -> {
             R.drawable.about
         }
-        SettingsEvent.Downloads -> {
+        HomeClickEvents.DownloadsClick -> {
             R.drawable.downloads
         }
-        SettingsEvent.LoggedIn,SettingsEvent.NotLoggedIn -> {
+        HomeClickEvents.NotLoggedIn -> {
             R.drawable.heart
         }
-        SettingsEvent.Logout -> {
+        HomeClickEvents.LogoutClick -> {
             R.drawable.logout
         }
+        else -> throw IllegalStateException("Cannot have other type of clicks")
     }
     return painterResource(id = resourceId)
 }
@@ -152,9 +154,9 @@ fun previewRow(){
 @Composable
 fun previewRenderUI() {
     val dummyRowsData = mutableListOf(
-        SettingsEvent.NotLoggedIn,
-        SettingsEvent.About,
-        SettingsEvent.Downloads
+        HomeClickEvents.NotLoggedIn,
+        HomeClickEvents.AboutClick,
+        HomeClickEvents.DownloadsClick
     )
     //renderSettings(list = dummyRowsData)
 }

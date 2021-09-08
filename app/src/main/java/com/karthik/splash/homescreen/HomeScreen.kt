@@ -1,15 +1,22 @@
 package com.karthik.splash.homescreen
 
+import android.Manifest
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
@@ -19,15 +26,18 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.karthik.network.home.models.HomeScreenLoginState
 import com.karthik.splash.R
+import com.karthik.splash.aboutscreen.AboutScreen
 import com.karthik.splash.homescreen.bottomhometab.HomeViewModel
 import com.karthik.splash.homescreen.bottomhometab.tab.TabViewModel
 import com.karthik.splash.homescreen.bottomhometab.tab.TabViewModelFactory
+import com.karthik.splash.homescreen.bottomliketab.BottomLikeTab
 import com.karthik.splash.homescreen.bottomliketab.BottomLikeViewModel
 import com.karthik.splash.homescreen.bottomliketab.BottomLikeViewModelFactory
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModel
 import com.karthik.splash.homescreen.bottomsettingstab.BottomSettingsViewModelFactory
 import com.karthik.splash.homescreen.di.HomeScreenComponent
 import com.karthik.splash.homescreen.di.HomeScreenModule
+import com.karthik.splash.misc.Utils
 import com.karthik.splash.root.SplashApp
 import com.karthik.splash.ui.SplashTheme
 import javax.inject.Inject
@@ -53,6 +63,8 @@ class HomeScreen : AppCompatActivity() {
     private lateinit var bottomlikeviewmodel: BottomLikeViewModel
     private lateinit var bottomsettingsviewmodel: BottomSettingsViewModel
 
+    private val permission = Manifest.permission.READ_EXTERNAL_STORAGE
+
 
     companion object {
         const val IS_FROM_CACHE = "IS_FROM_CACHE"
@@ -71,15 +83,7 @@ class HomeScreen : AppCompatActivity() {
             .plus(HomeScreenModule())
         homeScreenComponent?.inject(this)
 
-        homescreenviewmodel = ViewModelProvider(this, homescreenfactory)
-            .get(HomeScreenViewModel::class.java)
-        tabviewmodel = ViewModelProvider(this, bottomtabviewmodelfactory)
-            .get(TabViewModel::class.java)
-        homeviewmodel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        bottomlikeviewmodel = ViewModelProvider(this, bottomlikeviewmodelfactory)
-            .get(BottomLikeViewModel::class.java)
-        bottomsettingsviewmodel = ViewModelProvider(this, bottomsettingsviewmodelfactory)
-            .get(BottomSettingsViewModel::class.java)
+        intialiseViewModels()
 
         homescreenviewmodel.userloginstate.observe(this, Observer { state ->
             if (state is HomeScreenLoginState.LoginFailed) {
@@ -89,7 +93,34 @@ class HomeScreen : AppCompatActivity() {
             //renderLikeScreen()
         })
 
+        handleViewModelEvents()
+
         renderUI()
+    }
+
+    private fun handleViewModelEvents() {
+        bottomlikeviewmodel.clickEvent.observe(this, { clickevent ->
+            handleHomeClicks(clickevent)
+        })
+
+        bottomsettingsviewmodel.clickEvent.observe(this, { clickevent ->
+            handleHomeClicks(clickevent)
+        })
+    }
+
+    /**
+     * If possible merge to use one view model across?
+     */
+    private fun intialiseViewModels() {
+        homescreenviewmodel = ViewModelProvider(this, homescreenfactory)
+            .get(HomeScreenViewModel::class.java)
+        tabviewmodel = ViewModelProvider(this, bottomtabviewmodelfactory)
+            .get(TabViewModel::class.java)
+        homeviewmodel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        bottomlikeviewmodel = ViewModelProvider(this, bottomlikeviewmodelfactory)
+            .get(BottomLikeViewModel::class.java)
+        bottomsettingsviewmodel = ViewModelProvider(this, bottomsettingsviewmodelfactory)
+            .get(BottomSettingsViewModel::class.java)
     }
 
     @ExperimentalMaterialApi
@@ -178,6 +209,58 @@ class HomeScreen : AppCompatActivity() {
         super.onNewIntent(intent)
         intent?.data?.authority?.let {
             homescreenviewmodel.getUserInfo(intent.data?.getQueryParameter(code))
+        }
+    }
+
+    private fun openLoginOauthUrl(oauthurl: String) {
+        val uri = Uri.parse(oauthurl)
+        val intentBuilder = CustomTabsIntent.Builder()
+        intentBuilder.setToolbarColor(
+            ContextCompat.getColor(
+                this,
+                R.color.icons
+            )
+        )
+        intentBuilder.setSecondaryToolbarColor(
+            ContextCompat.getColor(
+                this,
+                R.color.icons
+            )
+        )
+        val customTabsIntent = intentBuilder.build()
+        customTabsIntent.launchUrl(this, uri)
+    }
+
+    private fun handleHomeClicks(clickEvent: HomeClickEvents) {
+        when (clickEvent) {
+            HomeClickEvents.NotLoggedIn -> {
+                openLoginOauthUrl(oauthurl = bottomlikeviewmodel.loginurl)
+            }
+            is HomeClickEvents.PhotoClick -> {
+                Utils.navigateToPhotoDetailScreen(
+                    photo = clickEvent.photos,
+                    context = this
+                )
+            }
+            HomeClickEvents.AboutClick -> {
+                startActivity(Intent(this, AboutScreen::class.java))
+            }
+            HomeClickEvents.DownloadsClick -> {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        permission
+                    )
+                    == PermissionChecker.PERMISSION_GRANTED
+                ) {
+                    startActivity(Intent(DownloadManager.ACTION_VIEW_DOWNLOADS))
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(permission),
+                        2
+                    )
+                }
+            }
         }
     }
 

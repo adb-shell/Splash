@@ -6,6 +6,7 @@ import com.karthik.network.home.bottomliketab.IBottomLikeTabRepository
 import com.karthik.network.home.bottomliketab.models.Photos
 import com.karthik.network.home.bottomliketab.models.UserLikedPhotoResponse
 import com.karthik.splash.BuildConfig
+import com.karthik.splash.homescreen.HomeClickEvents
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
@@ -27,10 +28,10 @@ class BottomLikeViewModel(
     private val userscope = "public+read_user+read_photos+write_likes"
 
     private val _screenStatus: MutableLiveData<ScreenStatus> = MutableLiveData()
-    private val _clickEvent: MutableLiveData<ClickEvent> = MutableLiveData()
+    private val _clickEvent: MutableLiveData<HomeClickEvents> = MutableLiveData()
 
     val screenStatus: LiveData<ScreenStatus> = _screenStatus
-    val clickEvent: LiveData<ClickEvent> = _clickEvent
+    val clickEvent: LiveData<HomeClickEvents> = _clickEvent
 
     val loginurl = "${BuildConfig.SPLASH_LOGIN_URL}?client_id=${BuildConfig.SPLASH_KEY}" +
             "&redirect_uri=${BuildConfig.SPLASH_LOGIN_CALLBACK}&response_type=code&scope=$userscope"
@@ -58,11 +59,11 @@ class BottomLikeViewModel(
     }
 
     fun loginClicked(){
-        _clickEvent.value = ClickEvent.LoginEvent
+        _clickEvent.value = HomeClickEvents.NotLoggedIn
     }
 
     fun onPhotoItemClicked(photo: Photos){
-        _clickEvent.value = ClickEvent.PhotoClickEvent(photos = photo)
+        _clickEvent.value = HomeClickEvents.PhotoClick(photos = photo)
     }
 
     private fun isloggedIn() {
