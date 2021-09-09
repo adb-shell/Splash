@@ -3,7 +3,6 @@ package com.karthik
 import com.karthik.Configs.VersionsConfig.androidXAppCompatVersion
 import com.karthik.Configs.VersionsConfig.androidXBrowserVersion
 import com.karthik.Configs.VersionsConfig.androidXCoreTestVersion
-import com.karthik.Configs.VersionsConfig.androidXVersion
 import com.karthik.Configs.VersionsConfig.archComponentPagingVersion
 import com.karthik.Configs.VersionsConfig.archComponentRoomVersion
 import com.karthik.Configs.VersionsConfig.archCoreTestingVersion
@@ -11,6 +10,7 @@ import com.karthik.Configs.VersionsConfig.archLifecycleComponentVersion
 import com.karthik.Configs.VersionsConfig.chuckerVersion
 import com.karthik.Configs.VersionsConfig.coilAccompanistVersion
 import com.karthik.Configs.VersionsConfig.composeActivityVersion
+import com.karthik.Configs.VersionsConfig.composeNavigationVersion
 import com.karthik.Configs.VersionsConfig.composePaginationVersion
 import com.karthik.Configs.VersionsConfig.composeVersion
 import com.karthik.Configs.VersionsConfig.daggerVersion
@@ -20,8 +20,6 @@ import com.karthik.Configs.VersionsConfig.kotlinCoroutinesAndroidVersion
 import com.karthik.Configs.VersionsConfig.kotlinCoroutinesCore
 import com.karthik.Configs.VersionsConfig.materialVersion
 import com.karthik.Configs.VersionsConfig.mockitoVersion
-import com.karthik.Configs.VersionsConfig.picassoMaterialVersion
-import com.karthik.Configs.VersionsConfig.picassoVersion
 import com.karthik.Configs.VersionsConfig.retrofitConvVersion
 import com.karthik.Configs.VersionsConfig.retrofitLoggerVersion
 import com.karthik.Configs.VersionsConfig.retrofitVersion
@@ -36,24 +34,21 @@ class Configs {
         const val retrofitVersion = "2.6.0"
         const val retrofitConvVersion = "2.2.0"
         const val retrofitLoggerVersion = "3.4.1"
-        const val picassoVersion = "2.5.2"
-        const val chuckerVersion = "3.1.2"
-        const val picassoMaterialVersion = "1.0.2"
+        const val chuckerVersion = "3.5.2"
         const val rxDownloaderVersion = "1.0.1"
         const val coilAccompanistVersion = "0.12.0"
         const val archLifecycleComponentVersion = "2.2.0-rc03"
         const val archComponentRoomVersion = "2.3.0"
         const val archComponentPagingVersion = "3.0.1"
         const val viewModelKtxVersion = "2.2.0"
-        const val androidXVersion = "1.1.0"
         const val androidXAppCompatVersion = "1.3.0-beta01"
         const val androidXBrowserVersion = "1.2.0"
         const val androidXCoreTestVersion = "3.1.0"
         const val materialVersion = "1.1.0"
 
 
-        const val versionCode = 1
-        const val versionName = "0.4"
+        const val versionCode = 2
+        const val versionName = "0.6"
         const val archCoreTestingVersion = "2.1.0"
         const val mockitoVersion = "3.2.0"
         const val kotlinCoroutinesAndroidVersion = "1.4.2"
@@ -62,6 +57,7 @@ class Configs {
         const val composeVersion = "1.0.0-beta09"
         const val composeActivityVersion = "1.3.0-beta02"
         const val composePaginationVersion = "1.0.0-alpha12"
+        const val composeNavigationVersion = "2.4.0-alpha08"
     }
 
     object SplashUrlConfig {
@@ -86,7 +82,7 @@ class Configs {
         const val applicationId = "com.karthik.splash"
         const val kotlinVersion = "1.5.10"
 
-        const val compileSDKVersion = "30"
+        const val compileSDKVersion = "31"
         const val minSDKVersion = 21
 
         const val demoApllicationSuffix = ".debug"
@@ -99,7 +95,6 @@ class Configs {
         const val androidXAppcompat = "androidx.appcompat:appcompat:${androidXAppCompatVersion}"
         const val googleMaterial = "com.google.android.material:material:${materialVersion}"
         const val androidXBrowser = "androidx.browser:browser:${androidXBrowserVersion}"
-        const val recyclerView = "androidx.recyclerview:recyclerview:${androidXVersion}"
         const val retrofit = "com.squareup.retrofit2:retrofit:${retrofitVersion}"
         const val retrofitConvertor = "com.squareup.retrofit2:converter-gson:${retrofitConvVersion}"
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${retrofitLoggerVersion}"
@@ -150,5 +145,6 @@ class Configs {
         const val composeActivity = "androidx.activity:activity-compose:${composeActivityVersion}"
         const val composeUiTooling = "androidx.compose.ui:ui-tooling:${composeVersion}"
         const val composePagination = "androidx.paging:paging-compose:${composePaginationVersion}"
+        const val composeNavigation = "androidx.navigation:navigation-compose:${composeNavigationVersion}"
     }
 }

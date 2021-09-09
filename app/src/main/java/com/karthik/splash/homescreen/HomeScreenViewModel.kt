@@ -43,4 +43,15 @@ class HomeScreenViewModel @Inject constructor(
             }
         }
     }
+
+    //clear state value
+    fun logout() {
+        state.value = null
+    }
+
+    fun getBottomNavigationItems() = listOf(
+        BottomNavigationScreens.Home,
+        BottomNavigationScreens.Like,
+        BottomNavigationScreens.Settings
+    )
 }

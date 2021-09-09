@@ -14,14 +14,14 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.karthik.splash.R
-import com.karthik.splash.homescreen.bottomhometab.BottomHomeTab
+import com.karthik.splash.homescreen.bottomhometab.BottomHomeTabType
 import com.karthik.splash.ui.Dimensions
 import com.karthik.splash.ui.FeedRow
 import com.karthik.splash.ui.ProgressIndicator
 
 @ExperimentalMaterialApi
 @Composable
-fun tab(mode: BottomHomeTab, viewModel: TabViewModel) {
+fun tab(mode: BottomHomeTabType, viewModel: TabViewModel) {
     val photosStream = viewModel.getPhotosStream(type = mode)
     val photos = photosStream.collectAsLazyPagingItems()
 

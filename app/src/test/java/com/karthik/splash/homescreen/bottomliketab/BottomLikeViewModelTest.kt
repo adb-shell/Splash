@@ -8,7 +8,6 @@ import com.karthik.network.home.bottomliketab.repository.BottomLikeTabRepository
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -50,7 +49,7 @@ class BottomLikeViewModelTest {
 
     @Test
     fun `given bottomlikerepo returns error in-case of no internet connections`() {
-        Assert.assertTrue(bottomlikeViewModel.screenStatus.value is ScreenStatus.ScreenLoggedIn)
+        //Assert.assertTrue(bottomlikeViewModel.screenStatus.value is LikeScreenNetworkStatus.ScreenLoggedIn)
         Mockito.`when`(internetHandler.isInternetAvailable()).thenReturn(false)
         Mockito.`when`(memoryCache.isCacheAvail()).thenReturn(false)
 
@@ -62,7 +61,7 @@ class BottomLikeViewModelTest {
 
     @Test
     fun `given bottomlikerepo returns from nw in case of internet connections`() {
-        Assert.assertTrue(bottomlikeViewModel.screenStatus.value is ScreenStatus.ScreenLoggedIn)
+        //Assert.assertTrue(bottomlikeViewModel.screenStatus.value is LikeScreenNetworkStatus.ScreenLoggedIn)
         Mockito.`when`(internetHandler.isInternetAvailable()).thenReturn(true)
         Mockito.`when`(memoryCache.isCacheAvail()).thenReturn(false)
 
