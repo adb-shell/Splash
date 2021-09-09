@@ -33,14 +33,11 @@ fun BottomLikeTab(
                 .fillMaxHeight()
                 .fillMaxWidth()
         ) {
-            when (loginState.value) {
-                is HomeScreenLoginState.LoginSuccess -> {
-                    renderLikePhotos(viewModel = bottomlikeviewmodel)
-                }
-                else ->{
-                    renderLoginScreen {
-                        bottomlikeviewmodel.loginClicked()
-                    }
+            if (loginState.value is HomeScreenLoginState.LoginSuccess) {
+                renderLikePhotos(viewModel = bottomlikeviewmodel)
+            } else {
+                renderLoginScreen {
+                    bottomlikeviewmodel.loginClicked()
                 }
             }
         }
@@ -67,7 +64,8 @@ fun renderLikePhotos(viewModel: BottomLikeViewModel) {
                 renderErrorState()
             }
             is LikeScreenNetworkStatus.UserLikedPhotos -> {
-                val photos = (screenState.value as LikeScreenNetworkStatus.UserLikedPhotos).likedPhotos
+                val photos =
+                    (screenState.value as LikeScreenNetworkStatus.UserLikedPhotos).likedPhotos
                 if (!photos.isNullOrEmpty()) {
                     renderListOfLikedPhotos(viewModel = viewModel, likedPhotos = photos)
                 } else renderErrorState()

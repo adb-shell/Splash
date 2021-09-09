@@ -3,7 +3,6 @@ package com.karthik.splash.homescreen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.*
@@ -19,7 +18,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.karthik.network.home.models.HomeScreenLoginState
-import com.karthik.splash.R
 import com.karthik.splash.homescreen.bottomhometab.BottomHomeTab
 import com.karthik.splash.homescreen.bottomhometab.HomeViewModel
 import com.karthik.splash.homescreen.bottomhometab.handleHomeClicks
@@ -218,7 +216,4 @@ class HomeScreen : AppCompatActivity() {
         super.onDestroy()
         homeScreenComponent = null
     }
-
-    private fun displayUnableToLogin() =
-        Toast.makeText(this, getString(R.string.unable_to_login), Toast.LENGTH_LONG).show()
 }

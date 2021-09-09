@@ -35,22 +35,19 @@ class BottomSettingsViewModel(private val memoryCache: IMemoryCache) : ViewModel
             HomeClickEvents.DownloadsClick
         )
 
-        when (loginState.value) {
-            is HomeScreenLoginState.LoginSuccess -> {
-                settingsRowsData.add(
-                    0,
-                    HomeClickEvents.LoginClick
-                )
-                settingsRowsData.add(
-                    HomeClickEvents.LogoutClick
-                )
-            }
-            else -> {
-                settingsRowsData.add(
-                    0,
-                    HomeClickEvents.NotLoggedIn
-                )
-            }
+        if (loginState.value is HomeScreenLoginState.LoginSuccess) {
+            settingsRowsData.add(
+                0,
+                HomeClickEvents.LoginClick
+            )
+            settingsRowsData.add(
+                HomeClickEvents.LogoutClick
+            )
+        } else {
+            settingsRowsData.add(
+                0,
+                HomeClickEvents.NotLoggedIn
+            )
         }
         return settingsRowsData
     }
