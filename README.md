@@ -1,14 +1,23 @@
 ## Splash  
 Build Status: [![Build Status](https://app.bitrise.io/app/148bcaee35a29293/status.svg?token=GfxLmo6-yd14y4FlSrLM-Q&branch=develop)](https://app.bitrise.io/app/148bcaee35a29293)
 
-Splash is an android app that showcases use of 
- - MVVM architecture
- - Android architecture components like lifecycle extensions, paging, room
- - Coroutines 
- - Dagger 2//TODO: migrate to hilt.
- - Build scripts that uses the kotlin dsl.
- - Integrated detekt static code analysis tool.
- - Migrated 99% of fragments and activities to new **jetpack compose UI**.
+
+## Motivation
+Splash was an attempt to use the latest cutting edge libraries and tools using the [Unsplash](https://unsplash.com/) API's.
+
+## Technologies
+- UI is 100% written in Jetpack compose
+- Coroutines
+- Android architecture components like paging,room, lifecycle extension etc.
+- Dagger 2
+- Coil
+- Retrofit for n/w
+- Different product flavours appstore and debug to turn on / off few devtools and loggers
+- Chucker to log n/w requests in notification bar
+- Detekt
+- Bitrise CI integrated
+
+One interesting thing about Splash app is that, Splash has a separate module for the n/w operations so that in future it can re-used for the KMP.<br/><br/>
  
  
  ## Screenshots
@@ -23,9 +32,10 @@ Splash is an android app that showcases use of
  <img src="https://github.com/adb-shell/Splash/blob/develop/assets/light-2.png" width="200">
  <img src="https://github.com/adb-shell/Splash/blob/develop/assets/light-3.png" width="200">
  <img src="https://github.com/adb-shell/Splash/blob/develop/assets/light-4.png" width="200"><br/><br/> 
-
-## Setup
-You can configure your API key, API secret and auth callback in `buildSrc/config.kt`.<br/><br/>
+ 
+ 
+ ## Setup
+You can configure your API key, API secret and auth callback in `buildSrc/config.kt` and `constants.kt`.<br/>
 
 
 ## License
