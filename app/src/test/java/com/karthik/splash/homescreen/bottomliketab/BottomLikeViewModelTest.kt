@@ -8,7 +8,6 @@ import com.karthik.network.home.bottomliketab.repository.BottomLikeTabRepository
 import com.karthik.splash.storage.db.SplashDao
 import com.karthik.splash.storage.db.entity.PhotosStorage
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

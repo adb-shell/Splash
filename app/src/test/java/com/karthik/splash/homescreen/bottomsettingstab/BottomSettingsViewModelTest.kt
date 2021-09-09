@@ -2,8 +2,6 @@ package com.karthik.splash.homescreen.bottomsettingstab
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.karthik.network.IMemoryCache
-import com.karthik.splash.homescreen.bottomliketab.LikeScreenNetworkStatus
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
